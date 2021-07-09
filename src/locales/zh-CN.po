@@ -22,6 +22,8 @@ msgstr "DAO 累计回售量（COFI）"
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Add Liquidity"
 msgstr "添加流动性"
@@ -34,24 +36,28 @@ msgstr "您将资产（ETH，USDT等）添加到资金池，您收到XToken，�
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
-#: src/pages/Pool/pages/RemoveLiquidity/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/RemoveLiquidity/index.tsx
 msgid "Amount"
 msgstr "数量"
 
 #: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
 msgid "Amount | Percentage"
 msgstr "数量 ｜ 比例"
 
-#: src/pages/Pool/pages/AddLiquidity/index.tsx
-#: src/pages/Pool/pages/RemoveLiquidity/index.tsx
-#: src/pages/Pool/pages/StakeXToken/index.tsx
-#: src/pages/Repurchase/index.tsx
-#: src/pages/Swap/index.tsx
+#: src/pages/shared/PoolSelector/index.tsx
+msgid "Anchor Pool"
+msgstr "单币种池"
+
+#: src/pages/shared/TransactionButtonGroup/index.tsx
+#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Approve"
 msgstr "授权"
 
 #: src/pages/ClaimCOFI/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
 msgid "Available COFI Amount to Claim"
 msgstr "可领取 COFI 数量"
 
@@ -60,21 +66,27 @@ msgid "Balance:"
 msgstr "余额："
 
 #: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
 msgid "Block"
 msgstr "区块"
 
 #: src/pages/ClaimCOFI/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
 msgid "COFI Market Price (Coingecko)"
 msgstr "COFI 市场价格（Coingecko）"
 
 #: src/pages/ClaimCOFI/index.tsx
-#: src/pages/shared/Header/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Claim COFI"
 msgstr "领取 COFI"
 
 #: src/pages/ClaimCOFI/index.tsx
-#: src/pages/Pool/pages/WithdrawXToken/index.tsx
+#: src/pages/Mining/pages/WithdrawXToken/index.tsx
 msgid "Claim XToken"
 msgstr "取出 XToken"
 
@@ -88,6 +100,7 @@ msgid "Close"
 msgstr "关闭"
 
 #: src/pages/ClaimCOFI/index.tsx
+#: src/pages/Mining/index.tsx
 #: src/pages/Repurchase/index.tsx
 msgid "CoFiX DAO contract address:"
 msgstr "CoFiX DAO 合约地址："
@@ -103,6 +116,10 @@ msgstr "CoFiX 回售指用户可以将钱包中的 COFI Token 与 DAO 合约交�
 #: src/pages/shared/Menu/index.tsx
 msgid "Community"
 msgstr "社区"
+
+#: src/pages/Swap/index.tsx
+msgid "Confirm Swap"
+msgstr "交易确认"
 
 #: src/pages/shared/TransactionModal/index.tsx
 msgid "Confirm the transaction in your Wallet"
@@ -120,6 +137,7 @@ msgstr "连接 CoFiX"
 msgid "Connected"
 msgstr "已连接"
 
+#: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
 msgid "Current APY"
 msgstr "当前 APY"
@@ -164,8 +182,17 @@ msgstr "文档"
 msgid "ETH Balance in your wallet"
 msgstr "您钱包内的 ETH 余额"
 
+#: src/libs/web3/constants/anchor-pool.ts
+msgid "ETH Pool"
+msgstr "ETH 锚定池"
+
 #: src/pages/Pool/pages/Index/index.tsx
-#: src/pages/Pool/pages/StakeXToken/index.tsx
+msgid "Empty Liquidity"
+msgstr "当前没有添加流动性"
+
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/StakeXToken/index.tsx
 msgid "Estimated Daily Mined"
 msgstr "预计每日出矿量"
 
@@ -175,9 +202,11 @@ msgstr "预计获得："
 
 #: src/pages/Swap/index.tsx
 #: src/pages/Swap/index.tsx
+#: src/pages/Swap/index.tsx
 msgid "Exchange"
 msgstr "兑换"
 
+#: src/pages/Swap/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "FROM"
 msgstr "支付"
@@ -187,6 +216,7 @@ msgid "Github"
 msgstr "Github"
 
 #: src/pages/ClaimCOFI/index.tsx
+#: src/pages/Mining/index.tsx
 msgid "Helpful Tips"
 msgstr "有用的提示"
 
@@ -199,6 +229,14 @@ msgid "How it works?"
 msgstr "如何使用？"
 
 #: src/pages/Swap/index.tsx
+msgid "If you receive less than this amount, the transaction will be rejected"
+msgstr "如果您收到的数量少于该数额，交易将被拒绝"
+
+#: src/pages/Swap/index.tsx
+msgid "If your actual exchange rate is {0} % higher than the current page, the transaction will be rejected"
+msgstr "如果您实际兑换的汇率于高出当前页面 {0} %，交易将被拒绝"
+
+#: src/pages/Swap/index.tsx
 msgid "Includes Risk Compensation,Trading Fee and Price Impact"
 msgstr "兑换价格基于去中心化预言机 NEST Oracle提供价格，结合精确量化的风险补偿系数和额外的交易手续费计算得出。"
 
@@ -207,7 +245,7 @@ msgstr "兑换价格基于去中心化预言机 NEST Oracle提供价格，结合
 msgid "Input"
 msgstr "输入"
 
-#: src/pages/Pool/pages/WithdrawXToken/index.tsx
+#: src/pages/Mining/pages/WithdrawXToken/index.tsx
 msgid "Input Claim Amount (XToken)"
 msgstr "输入取出数量（XToken）"
 
@@ -219,23 +257,32 @@ msgstr "输入移除数量（XToken）"
 msgid "Input Repurchase Amount"
 msgstr "输入参与回售数量"
 
-#: src/pages/Pool/pages/StakeXToken/index.tsx
+#: src/pages/Mining/pages/StakeXToken/index.tsx
 msgid "Input Stake Amount (XToken)"
 msgstr "输入质押数量（XToken）"
 
-#: src/components/providers/Web3/connectors/injected.tsx
+#: src/libs/web3/connectors/injected.tsx
 msgid "MetaMask"
 msgstr "MetaMask"
 
+#: src/pages/Swap/index.tsx
+msgid "Minimum Received"
+msgstr "收到的最低数额"
+
 #: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/shared/Header/index.tsx
 msgid "Mining"
 msgstr "挖矿"
 
 #: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
 msgid "Mining Speed"
 msgstr "出矿速度"
 
+#: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
 msgid "My Pool"
 msgstr "我的资金池"
@@ -255,10 +302,20 @@ msgstr "预言机调用费"
 msgid "Oracle Fee is what you pay to the NEST protocol for providing accurate market price data to the smart contract."
 msgstr "您需要向NEST协议支付预言机价格使用费，以便为智能合约提供准确的市场价格数据。"
 
-#: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/shared/PoolSelector/index.tsx
+msgid "Pair Pool"
+msgstr "双币种池"
+
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
 msgid "Percentage"
 msgstr "比例"
 
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
@@ -271,6 +328,7 @@ msgid "Price Spread"
 msgstr "点差"
 
 #: src/pages/ClaimCOFI/index.tsx
+#: src/pages/Mining/index.tsx
 #: src/pages/Pool/index.tsx
 #: src/pages/Repurchase/index.tsx
 msgid "Read More"
@@ -280,7 +338,6 @@ msgstr "了解更多"
 msgid "Read More about CoFiX Mining"
 msgstr "了解有关 CoFiX 交易机制更多信息"
 
-#: src/pages/Pool/pages/RemoveLiquidity/index.tsx
 #: src/pages/Pool/pages/RemoveLiquidity/index.tsx
 msgid "Receive"
 msgstr "收到"
@@ -294,8 +351,10 @@ msgid "Recent Transactions"
 msgstr "最近交易"
 
 #: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/RemoveLiquidity/index.tsx
 #: src/pages/Pool/pages/RemoveLiquidity/index.tsx
+#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Remove Liquidity"
 msgstr "移除流动性"
@@ -311,9 +370,18 @@ msgstr "回售"
 msgid "Reversing trade in CoFiX can mining COFI Tokens by hedging."
 msgstr "在 CoFiX 中进行反向交易可以对冲挖矿获得 COFI Token。"
 
+#: src/pages/Swap/index.tsx
+msgid "Route"
+msgstr "路由"
+
 #: src/components/TokenInput/Modal/index.tsx
 msgid "Search name or address"
 msgstr "查询名称或地址"
+
+#: src/pages/shared/PoolSelector/index.tsx
+#: src/pages/shared/PoolSelector/index.tsx
+msgid "Select Pool"
+msgstr "选择资金池"
 
 #: src/components/TokenInput/Modal/index.tsx
 msgid "Select Token"
@@ -323,14 +391,18 @@ msgstr "选择 Token"
 msgid "Select token to repurchase"
 msgstr "选择回售资产"
 
-#: src/pages/Pool/pages/Index/index.tsx
-#: src/pages/Pool/pages/Index/index.tsx
-#: src/pages/Pool/pages/StakeXToken/index.tsx
-#: src/pages/Pool/pages/StakeXToken/index.tsx
+#: src/pages/Swap/index.tsx
+msgid "Slippage Tolerance"
+msgstr "滑点"
+
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/StakeXToken/index.tsx
+#: src/pages/Mining/pages/StakeXToken/index.tsx
 msgid "Stake XToken"
 msgstr "质押 XToken"
 
-#: src/pages/Pool/pages/WithdrawXToken/index.tsx
+#: src/pages/Mining/pages/WithdrawXToken/index.tsx
 msgid "Staked Amount:"
 msgstr "已质押数量："
 
@@ -339,6 +411,7 @@ msgstr "已质押数量："
 msgid "Swap"
 msgstr "交易"
 
+#: src/pages/Swap/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "TO(ESTIMATED)"
 msgstr "获得（预估）"
@@ -352,6 +425,7 @@ msgid "The Trade Price is calculated based on the Decentralized NEST Oracle Pric
 msgstr "兑换价格基于去中心化预言机 NEST Oracle提供价格，结合精确量化的风险补偿系数和额外的交易手续费计算得出。"
 
 #: src/pages/ClaimCOFI/index.tsx
+#: src/pages/Mining/index.tsx
 msgid "The amount of XToken you deposited to the mining Pool impacts the number of COFI mined."
 msgstr "存入矿池的 XToken 数额会影响您的挖矿速度。"
 
@@ -360,8 +434,13 @@ msgid "The pledged XToken needs to be withdrawn to the wallet before it can be u
 msgstr "质押的 XToken 需要先取出到钱包才能用于移除流动性"
 
 #: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
 msgid "Total Funds ($)"
 msgstr "资金总额（$）"
+
+#: src/pages/Pool/pages/Index/index.tsx
+msgid "Total Supply"
+msgstr "总份额"
 
 #: src/pages/Swap/index.tsx
 #: src/pages/Swap/index.tsx
@@ -373,6 +452,7 @@ msgid "Traders always get market prices at the smallest spread."
 msgstr "交易者总是能以最小的点差，依照市场价格进行交易。"
 
 #: src/pages/Swap/index.tsx
+#: src/pages/Swap/index.tsx
 msgid "Trading Price"
 msgstr "兑换价格"
 
@@ -383,6 +463,10 @@ msgstr "交易已拒绝"
 #: src/pages/shared/TransactionModal/index.tsx
 msgid "Transaction Submitted"
 msgstr "交易已提交"
+
+#: src/libs/web3/constants/anchor-pool.ts
+msgid "USD Pool"
+msgstr "稳定币池"
 
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Unsupported Content"
@@ -408,7 +492,7 @@ msgstr "待确认"
 msgid "Wallet"
 msgstr "钱包"
 
-#: src/components/providers/Web3/connectors/wallet-connect.tsx
+#: src/libs/web3/connectors/wallet-connect.tsx
 msgid "Wallet Connect"
 msgstr "Wallet Connect"
 
@@ -424,21 +508,25 @@ msgstr "用户在使用 CoFiX 协议时，会产生一定的手续费，并锁�
 msgid "WhitePaper"
 msgstr "白皮书"
 
-#: src/pages/Pool/pages/Index/index.tsx
-#: src/pages/Pool/pages/WithdrawXToken/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/WithdrawXToken/index.tsx
 msgid "Withdraw XToken"
 msgstr "取回 XToken"
 
-#: src/pages/Pool/pages/Index/index.tsx
-#: src/pages/Pool/pages/StakeXToken/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/StakeXToken/index.tsx
 msgid "XToken In Mining Pool"
 msgstr "矿池内的 XToken"
 
-#: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/Mining/pages/Index/index.tsx
 msgid "XToken Staked"
 msgstr "已质押的 XToken"
 
 #: src/pages/ClaimCOFI/index.tsx
+#: src/pages/Mining/index.tsx
 msgid "You can claim new mined COFI Tokens any time."
 msgstr "您可以在任意时间领取您挖到的 COFI。"
 

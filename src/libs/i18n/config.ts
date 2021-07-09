@@ -17,11 +17,13 @@ i18n.loadLocaleData({
   'zh-CN': { plurals: zh },
 })
 
-export async function dynamicActivate(locale: string) {
+export async function dynamicActivate(locale: string = defaultLocale) {
   if (!(locale in locales)) {
     locale = 'en-US'
   }
   const { messages } = await import(`@lingui/loader!src/locales/${locale}.po`)
+
+  console.log('load')
   i18n.load(locale, messages)
   i18n.activate(locale)
 

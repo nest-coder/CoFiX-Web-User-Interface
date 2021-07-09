@@ -12,7 +12,7 @@ export const ETH: CoFiXAnchorPoolProps = {
 }
 
 export const USD: CoFiXAnchorPoolProps = {
-  title: t`稳定币 Pool`,
+  title: t`USD Pool`,
   addresses: {
     4: '0x08B79267ff01393925081396b328B6d6f82a4250',
   },

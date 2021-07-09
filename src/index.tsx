@@ -7,16 +7,22 @@ import 'src/components/Icon'
 import I18nProvider from 'src/libs/i18n/provider'
 import Web3Provider from 'src/libs/web3/provider'
 
-ReactDOM.render(
+const rootElement = document.getElementById('root')
+const app = (
   <React.StrictMode>
     <I18nProvider>
       <Web3Provider>
         <App />
       </Web3Provider>
     </I18nProvider>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 )
+
+if (rootElement?.hasChildNodes()) {
+  ReactDOM.hydrate(app, rootElement)
+} else {
+  ReactDOM.render(app, rootElement)
+}
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
