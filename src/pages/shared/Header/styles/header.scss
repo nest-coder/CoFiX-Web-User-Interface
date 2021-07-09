@@ -1,0 +1,45 @@
+@import 'src/styles/shared.scss';
+
+.cofi-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-md;
+  position: relative;
+
+  @include tablet {
+    padding: $space $space * 2;
+  }
+
+  &-logo {
+    display: none;
+
+    @include tablet {
+      position: absolute;
+      left: $space * 2;
+      top: 50%;
+      transform: translateY(-50%);
+
+      display: block;
+    }
+  }
+
+  &-extra {
+    display: none;
+
+    @include tablet {
+      position: absolute;
+      right: $space * 2;
+      top: $space;
+      transform: translateY(-50%);
+
+      display: flex;
+      align-items: center;
+      top: 50%;
+    }
+
+    & > * + * {
+      margin-left: $space;
+    }
+  }
+}

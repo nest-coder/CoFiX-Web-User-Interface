@@ -1,0 +1,77 @@
+@import 'src/styles/shared.scss';
+
+.cofi-pool-selector {
+  &-card {
+    background: #ffffff;
+    box-shadow: $shadow-sm;
+    border-radius: $border-radius;
+    max-width: calc(100% - #{$space-md * 2});
+    margin: auto;
+    cursor: pointer;
+
+    padding: $space-sm 2 * $space-sm;
+    @include tablet {
+      padding: $space-md 2 * $space-md;
+      max-width: $content-width;
+    }
+
+    &:hover {
+      box-shadow: $shadow-lg;
+    }
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > div:first-child {
+      display: flex;
+      align-items: center;
+
+      & > * + * {
+        margin-left: $space-md;
+      }
+
+      & > div:first-child {
+        & > * + * {
+          margin-left: -$space-sm;
+          float: right;
+        }
+      }
+    }
+  }
+
+  &-modal {
+    & > div + div {
+      margin-top: $space;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: $font-size-sm;
+      color: $dim-color;
+      margin-bottom: $space;
+    }
+
+    ul {
+      width: 100%;
+      li {
+        width: 100%;
+
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          & > div > * + * {
+            margin-left: -$space-sm;
+            float: right;
+          }
+        }
+      }
+
+      li + li {
+        margin-top: $space;
+      }
+    }
+  }
+}

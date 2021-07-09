@@ -1,0 +1,89 @@
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "INestPriceFacade",
+  "sourceName": "contracts/interfaces/INestPriceFacade.sol",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "payback",
+          "type": "address"
+        }
+      ],
+      "name": "latestPrice",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "blockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "price",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "tokenAddress",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "payback",
+          "type": "address"
+        }
+      ],
+      "name": "latestPriceAndTriggeredPriceInfo",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "latestPriceBlockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "latestPriceValue",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "triggeredPriceBlockNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "triggeredPriceValue",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "triggeredAvgPrice",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "triggeredSigmaSQ",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x",
+  "deployedBytecode": "0x",
+  "linkReferences": {},
+  "deployedLinkReferences": {}
+}
