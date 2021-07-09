@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { createContainer } from 'unstated-next'
 import { ContractTransaction } from '@ethersproject/contracts'
 import useWeb3 from './useWeb3'
-import localforage from 'localforage'
 
 export enum TransactionType {
   Swap,
@@ -76,6 +75,12 @@ export type TransactionApproveContent = {
   token: [string, string]
 }
 
+export enum TransactionReceiptStatus {
+  Unknown,
+  Reverted,
+  Successful,
+}
+
 export type Transaction = {
   id?: string
   timestamp?: number
@@ -83,6 +88,8 @@ export type Transaction = {
   hash?: string
   msg?: string
   tx?: string
+
+  receiptStatus?: TransactionReceiptStatus
 } & (
   | {
       type: TransactionType.Swap
@@ -124,14 +131,41 @@ const _useTransaction = () => {
   const [current, setCurrent] = useState<Transaction>()
   const [showModal, setShowModal] = useState(false)
 
+  const upsertTranasction = (transaction: Transaction) => {
+    const index = transactions.findIndex((t) => t.id === transaction.id)
+    if (index > -1) {
+      transactions[index] = transaction
+      setTransactions({ ...transactions })
+    } else {
+      setTransactions(transactions.concat(transaction))
+    }
+  }
+
+  const updateCurrent = (transaction: Transaction) => {
+    if (!current) {
+      setCurrent({ ...transaction })
+      return
+    }
+
+    if (current.timestamp && transaction.timestamp) {
+      if (current.timestamp > transaction.timestamp) {
+        return
+      }
+    }
+
+    setCurrent({ ...transaction })
+    upsertTranasction(transaction)
+  }
+
   const push = async (transaction: Transaction, t: () => Promise<ContractTransaction | undefined>) => {
     try {
       transaction.id = `${Date.now()}`
       transaction.timestamp = Date.now()
       transaction.status = TransactionStatus.Pending
+      transaction.receiptStatus = TransactionReceiptStatus.Unknown
 
-      setCurrent({ ...transaction })
-      setTransactions(transactions.concat(transaction))
+      upsertTranasction(transaction)
+      updateCurrent(transaction)
       setShowModal(true)
 
       const result = await t()
@@ -142,13 +176,34 @@ const _useTransaction = () => {
       transaction.hash = result.hash
       transaction.status = TransactionStatus.Success
       // transaction.tx = utils.serializeTransaction(result)
-      setCurrent({ ...transaction })
+      updateCurrent(transaction)
+
+      const check = async () => {
+        if (transaction.status !== TransactionStatus.Success) {
+          return
+        }
+
+        const recipet = await api?.provider?.getTransactionReceipt(result.hash)
+        if (typeof recipet?.status !== 'undefined') {
+          const status = recipet.status
+            ? (transaction.receiptStatus = TransactionReceiptStatus.Successful)
+            : (transaction.receiptStatus = TransactionReceiptStatus.Reverted)
+          transaction.receiptStatus = status
+          updateCurrent(transaction)
+        } else {
+          setTimeout(check, 1000)
+        }
+      }
+
+      check()
     } catch (e) {
       console.error(e)
       transaction.msg = e
       transaction.status = TransactionStatus.Fail
-      setCurrent({ ...transaction })
+      updateCurrent(transaction)
     }
+
+    return transaction
   }
 
   useEffect(() => {
@@ -157,7 +212,7 @@ const _useTransaction = () => {
     }
 
     ;(async () => {
-      const cache = await localforage.getItem(`transactions:${api.chainId}`)
+      const cache = localStorage.getItem(`transactions:${api.chainId}`)
       if (cache) {
         setTransactions(JSON.parse(cache as string) as any)
       }
@@ -170,7 +225,7 @@ const _useTransaction = () => {
     }
 
     ;(async () => {
-      await localforage.setItem(`transactions:${api.chainId}`, JSON.stringify(transactions))
+      localStorage.setItem(`transactions:${api.chainId}`, JSON.stringify(transactions))
     })()
   }, [api, transactions])
 
@@ -190,7 +245,11 @@ const _useTransaction = () => {
     setShowModal(false)
   }
 
-  return { transactions, push, current, showModal, closeModal }
+  const getTransactionById = (id: string) => {
+    return transactions.find((t) => t.id === id)
+  }
+
+  return { transactions, push, current, showModal, closeModal, getTransactionById }
 }
 
 const transaction = createContainer(_useTransaction)

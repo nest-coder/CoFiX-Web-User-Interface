@@ -7,21 +7,18 @@ import CollapseCard from 'src/components/CollapaseCard'
 import TokenInput from 'src/components/TokenInput'
 import { SwitchOutline } from 'src/components/Icon'
 import Field from 'src/components/Field'
-import Button from 'src/components/Button'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
-import WalletConnectButton from 'src/pages/shared/WalletConnect/Button'
 import Popup from 'reactjs-popup'
-import ButtonGroup from 'src/components/Button/Group'
 import { useEffect } from 'react'
 import { TransactionType } from 'src/libs/web3/hooks/useTransaction'
 import useSwap from 'src/libs/web3/hooks/useSwap'
-import useApprove from 'src/libs/web3/hooks/useApprove'
 import { toBigNumber } from 'src/libs/web3/util'
 import { useMemo } from 'react'
 import useSlippageTolerance from 'src/hooks/useSlippageTolerance'
+import TransactionButtonGroup from '../shared/TransactionButtonGroup'
 
 const Swap: FC = () => {
-  const { account, api } = useWeb3()
+  const { api } = useWeb3()
   const { ratio: slippageTolerance } = useSlippageTolerance()
   const [src, setSrc] = useState({ symbol: 'ETH', amount: '' })
   const [dest, setDest] = useState({ symbol: 'USDT', amount: '' })
@@ -84,11 +81,6 @@ const Swap: FC = () => {
       })
     }
   }, [swap?.ratio?.final])
-
-  const handleApprove = useApprove({
-    transactionType: TransactionType.Swap,
-    token: [src.symbol, dest.symbol],
-  })
 
   const classPrefix = 'cofi-page-swap'
 
@@ -197,33 +189,18 @@ const Swap: FC = () => {
           }
         />
 
-        {account ? (
-          <ButtonGroup block responsive>
-            {!handleApprove?.allowance && (
-              <Button block gradient primary onClick={handleApprove?.handler}>
-                <Trans>Approve</Trans>
-              </Button>
-            )}
-
-            <Button
-              block
-              gradient
-              primary={!!src.amount && handleApprove?.allowance}
-              disabled={!src.amount || !swap?.ratio}
-              onClick={() => setConfirm(true)}
-            >
-              <Trans>Exchange</Trans>
-            </Button>
-          </ButtonGroup>
-        ) : (
-          <WalletConnectButton
-            buttonProps={{
-              block: true,
-              gradient: true,
-              primary: true,
-            }}
-          />
-        )}
+        <TransactionButtonGroup
+          approve={{
+            transactionType: TransactionType.Swap,
+            token: [src.symbol, dest.symbol],
+          }}
+          disabled={!src.amount || !swap.ratio}
+          onClick={() => {
+            setConfirm(true)
+          }}
+        >
+          <Trans>Exchange</Trans>
+        </TransactionButtonGroup>
       </Card>
     </section>
   )
@@ -276,33 +253,16 @@ const Swap: FC = () => {
           value={`${slippageTolerance * 100} %`}
         />
 
-        {account ? (
-          <ButtonGroup block responsive>
-            {!handleApprove?.allowance && (
-              <Button block gradient primary onClick={handleApprove?.handler}>
-                <Trans>Approve</Trans>
-              </Button>
-            )}
-
-            <Button
-              block
-              gradient
-              primary={!!src.amount && handleApprove?.allowance}
-              disabled={!src.amount || !swap?.ratio}
-              onClick={swap?.handler}
-            >
-              <Trans>Exchange</Trans>
-            </Button>
-          </ButtonGroup>
-        ) : (
-          <WalletConnectButton
-            buttonProps={{
-              block: true,
-              gradient: true,
-              primary: true,
-            }}
-          />
-        )}
+        <TransactionButtonGroup
+          approve={{
+            transactionType: TransactionType.Swap,
+            token: [src.symbol, dest.symbol],
+          }}
+          disabled={!src.amount || !swap.ratio}
+          onClick={swap.handler}
+        >
+          <Trans>Exchange</Trans>
+        </TransactionButtonGroup>
       </Card>
     </section>
   )

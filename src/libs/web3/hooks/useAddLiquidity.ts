@@ -103,7 +103,7 @@ const useAddLiquidity = (content: TransactionAddLiquidityContent) => {
   ])
 
   const handler = useCallback(async () => {
-    push(
+    const transaction = await push(
       {
         type: TransactionType.AddLiquidity,
         content: {
@@ -145,6 +145,8 @@ const useAddLiquidity = (content: TransactionAddLiquidityContent) => {
         }
       }
     )
+
+    return transaction
   }, [args, content.autoStake])
 
   return { liquidity, handler, oracleCallFee: args?.oracleCallFee }

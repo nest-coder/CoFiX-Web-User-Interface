@@ -7,15 +7,13 @@ import { GrayTokenETH, GrayTokenUSDT, GrayTokenCOFI } from 'src/components/Icon'
 import Card from 'src/components/Card'
 import TokenInput from 'src/components/TokenInput'
 import Field from 'src/components/Field'
-import ButtonGroup from 'src/components/Button/Group'
-import Button from 'src/components/Button'
 import useDAOInfo from 'src/hooks/useDAOInfo'
 import TokenRadioGroup from './TokenRadioGroup'
-import useApprove from 'src/libs/web3/hooks/useApprove'
 import { TransactionType } from 'src/libs/web3/hooks/useTransaction'
 import useRepurchase from 'src/libs/web3/hooks/useRepurchase'
 import useTokenBalance from 'src/hooks/useTokenBalance'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
+import TransactionButtonGroup from '../shared/TransactionButtonGroup'
 
 const Repurchase: FC = () => {
   const { account } = useWeb3()
@@ -24,11 +22,6 @@ const Repurchase: FC = () => {
   const [amount, setAmount] = useState('')
   const [symbol, setSymbol] = useState('ETH')
   const ethBalance = useTokenBalance('ETH', account || '')
-
-  const handleApprove = useApprove({
-    transactionType: TransactionType.Repurchase,
-    token: ['COFI', 'COFI'],
-  })
 
   const handleRepurchase = useRepurchase({
     amount,
@@ -104,23 +97,17 @@ const Repurchase: FC = () => {
           />
           <Field name={t`ETH Balance in your wallet`} value={`${ethBalance ? ethBalance.formatAmount : '--'} ETH`} />
 
-          <ButtonGroup block responsive>
-            {!handleApprove.allowance && (
-              <Button block gradient primary onClick={handleApprove.handler}>
-                <Trans>Approve</Trans>
-              </Button>
-            )}
+          <TransactionButtonGroup
+            approve={{
+              transactionType: TransactionType.Repurchase,
 
-            <Button
-              block
-              gradient
-              primary={!!amount && handleApprove.allowance}
-              disabled={!amount || !handleApprove.allowance}
-              onClick={handleRepurchase.handler}
-            >
-              <Trans>Repurchase</Trans>
-            </Button>
-          </ButtonGroup>
+              token: ['COFI', 'COFI'],
+            }}
+            disabled={!amount}
+            onClick={handleRepurchase.handler}
+          >
+            <Trans>Repurchase</Trans>
+          </TransactionButtonGroup>
         </Card>
       </section>
 

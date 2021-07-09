@@ -8,7 +8,7 @@ const useWithdrawXToken = (content: TransactionWithdrawXTokenContent) => {
   const { push } = useTransaction()
 
   const handler = useCallback(async () => {
-    push(
+    return push(
       {
         type: TransactionType.WithdrawXToken,
         content,

@@ -6,16 +6,14 @@ import { t } from '@lingui/macro'
 import TokenInput from 'src/components/TokenInput'
 import { useState } from 'react'
 import Field from 'src/components/Field'
-import ButtonGroup from 'src/components/Button/Group'
-import Button from 'src/components/Button'
 import { Trans } from '@lingui/macro'
 import usePoolInfo from 'src/hooks/usePoolInfo'
-import useApprove from 'src/libs/web3/hooks/useApprove'
 import useRemoveLiquidity from 'src/libs/web3/hooks/useRemoveLiquidity'
 import { TransactionType } from 'src/libs/web3/hooks/useTransaction'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import useXToken from 'src/libs/web3/hooks/useXToken'
 import { PoolInfo } from 'src/libs/web3/api/CoFiXPair'
+import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 
 const RemoveLiquidity: FC = () => {
   const history = useHistory()
@@ -49,10 +47,6 @@ const RemoveLiquidity: FC = () => {
     }
   }, [api, params])
 
-  const handleApprove = useApprove({
-    transactionType: TransactionType.RemoveLiquidity,
-    token: [symbol[0], symbol[1]],
-  })
   const handleRemoveLiquidity = useRemoveLiquidity({
     token0: symbol[0],
     token1: symbol[1],
@@ -89,23 +83,16 @@ const RemoveLiquidity: FC = () => {
           )
         })}
 
-      <ButtonGroup block responsive>
-        {!handleApprove.allowance && (
-          <Button block gradient primary onClick={handleApprove.handler}>
-            <Trans>Approve</Trans>
-          </Button>
-        )}
-
-        <Button
-          block
-          gradient
-          primary={!!amount && handleApprove.allowance}
-          disabled={!amount}
-          onClick={handleRemoveLiquidity.handler}
-        >
-          <Trans>Remove Liquidity</Trans>
-        </Button>
-      </ButtonGroup>
+      <TransactionButtonGroup
+        approve={{
+          transactionType: TransactionType.RemoveLiquidity,
+          token: [symbol[0], symbol[1]],
+        }}
+        onClick={handleRemoveLiquidity.handler}
+        disabled={!amount}
+      >
+        <Trans>Remove Liquidity</Trans>
+      </TransactionButtonGroup>
     </Card>
   )
 }

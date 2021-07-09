@@ -156,7 +156,7 @@ const useSwap = (content: TansactionSwapContent) => {
       return
     }
 
-    push(
+    return push(
       {
         type: TransactionType.Swap,
         content,

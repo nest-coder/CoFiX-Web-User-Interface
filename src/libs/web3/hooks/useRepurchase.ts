@@ -67,7 +67,7 @@ const useRepurchase = (content: TransactionRepurchaseContent) => {
       return
     }
 
-    push(
+    return push(
       {
         type: TransactionType.Repurchase,
         content,

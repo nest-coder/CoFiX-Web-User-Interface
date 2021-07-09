@@ -13,6 +13,7 @@ import useEarnedCOFI from 'src/hooks/useEarnedCOFI'
 import useTokenUSDTAmount from 'src/hooks/useTokenUSDTAmount'
 import Field from 'src/components/Field'
 import useClaimCOFI from 'src/libs/web3/hooks/useClaimCOFI'
+import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 
 const Mining: FC = () => {
   const [pair, setPair] = useState(['ETH', 'USDT'])
@@ -112,11 +113,9 @@ const Mining: FC = () => {
           `}
           />
 
-          <ButtonGroup block responsive>
-            <Button block gradient primary onClick={handlePairClaimCOFI.handler}>
-              <Trans>Claim COFI</Trans>
-            </Button>
-          </ButtonGroup>
+          <TransactionButtonGroup onClick={handlePairClaimCOFI.handler}>
+            <Trans>Claim COFI</Trans>
+          </TransactionButtonGroup>
         </div>
       </div>
     </section>
@@ -199,11 +198,9 @@ const Mining: FC = () => {
           `}
           />
 
-          <ButtonGroup block responsive>
-            <Button block gradient primary onClick={handleAnchorClaimCOFI.handler}>
-              <Trans>Claim COFI</Trans>
-            </Button>
-          </ButtonGroup>
+          <TransactionButtonGroup onClick={handleAnchorClaimCOFI.handler}>
+            <Trans>Claim COFI</Trans>
+          </TransactionButtonGroup>
         </div>
       </div>
     </section>

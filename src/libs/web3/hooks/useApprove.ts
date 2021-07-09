@@ -1,13 +1,15 @@
-import { useCallback, useMemo, useState } from 'react'
-import useTransaction, { TransactionApproveContent, TransactionType } from './useTransaction'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import useTransaction, { TransactionApproveContent, TransactionReceiptStatus, TransactionType } from './useTransaction'
 import useWeb3 from './useWeb3'
 
-const useApprove = (content: TransactionApproveContent) => {
+const useApprove = (content?: TransactionApproveContent) => {
   const { api } = useWeb3()
-  const { push } = useTransaction()
+  const { push, getTransactionById } = useTransaction()
+  const [transactionId, setTransactionId] = useState('')
+  const transaction = getTransactionById(transactionId)
 
   const args = useMemo(() => {
-    if (!api) return
+    if (!api || !content) return
 
     switch (content.transactionType) {
       case TransactionType.AddLiquidity:
@@ -46,9 +48,10 @@ const useApprove = (content: TransactionApproveContent) => {
           spender: api.Contracts.CoFiXDAO.address,
         }
     }
-  }, [api, content.token[0], content.token[1], content.transactionType])
+  }, [api, content?.token?.[0], content?.token?.[1], content?.transactionType])
 
-  const [allowance, setAllowance] = useState(false)
+  // use true as default for a better expierence
+  const [allowance, setAllowance] = useState(true)
 
   const check = useCallback(async () => {
     if (!api || !args || !args.token || !args.spender) {
@@ -61,17 +64,11 @@ const useApprove = (content: TransactionApproveContent) => {
   }, [args?.token, args?.spender])
 
   const handler = useCallback(async () => {
-    if (!api || !args || !args.token || !args.spender) {
+    if (!api || !args || !args.token || !args.spender || !content) {
       return
     }
 
-    const interval = async () => {
-      if (!(await check())) {
-        setTimeout(interval, 200)
-      }
-    }
-
-    push(
+    const transaction = await push(
       {
         type: TransactionType.Approve,
         content,
@@ -79,14 +76,27 @@ const useApprove = (content: TransactionApproveContent) => {
       () => args.token.approve(args.spender as string)
     )
 
-    interval()
+    if (transaction?.id) {
+      setTransactionId(transaction.id)
+    }
+
+    return transaction
   }, [args])
 
   check()
 
+  useEffect(() => {
+    if (transaction?.receiptStatus === TransactionReceiptStatus.Successful) {
+      check()
+    }
+
+    check()
+  }, [transaction?.receiptStatus])
+
   return {
     handler,
     allowance,
+    check,
   }
 }
 

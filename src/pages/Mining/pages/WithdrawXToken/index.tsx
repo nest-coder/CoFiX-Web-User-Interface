@@ -4,14 +4,12 @@ import Card from 'src/components/Card'
 import { useHistory, useParams } from 'react-router-dom'
 import { t } from '@lingui/macro'
 import TokenInput from 'src/components/TokenInput'
-
-import ButtonGroup from 'src/components/Button/Group'
-import Button from 'src/components/Button'
 import { Trans } from '@lingui/macro'
 import useStakeInfo from 'src/hooks/useStakeInfo'
 import useWithdrawXToken from 'src/libs/web3/hooks/useWithdrawXToken'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import useXToken from 'src/libs/web3/hooks/useXToken'
+import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 
 const WithdrawXToken: FC = () => {
   const history = useHistory()
@@ -67,11 +65,9 @@ const WithdrawXToken: FC = () => {
         onChange={(v) => setAmount(v)}
       />
 
-      <ButtonGroup block responsive>
-        <Button block gradient primary={!!amount} disabled={!amount} onClick={handleWithdrawXToken?.handler}>
-          <Trans>Withdraw XToken</Trans>
-        </Button>
-      </ButtonGroup>
+      <TransactionButtonGroup disabled={!amount} onClick={handleWithdrawXToken.handler}>
+        <Trans>Withdraw XToken</Trans>
+      </TransactionButtonGroup>
     </Card>
   )
 }

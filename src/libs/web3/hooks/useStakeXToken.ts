@@ -8,7 +8,7 @@ const useStakeXToken = (content: TransactionStakeXTokenContent) => {
   const { push } = useTransaction()
 
   const handler = useCallback(async () => {
-    push(
+    return push(
       {
         type: TransactionType.StakeXToken,
         content,

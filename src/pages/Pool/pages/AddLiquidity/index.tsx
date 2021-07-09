@@ -5,15 +5,13 @@ import { useHistory, useParams } from 'react-router-dom'
 import { t } from '@lingui/macro'
 import TokenInput from 'src/components/TokenInput'
 import Field from 'src/components/Field'
-import ButtonGroup from 'src/components/Button/Group'
-import Button from 'src/components/Button'
 import { Trans } from '@lingui/macro'
 import usePoolRatio from 'src/hooks/usePoolRatio'
 import BigNumber from 'bignumber.js'
-import useApprove from 'src/libs/web3/hooks/useApprove'
 import useAddLiquidity from 'src/libs/web3/hooks/useAddLiquidity'
 import { TransactionType } from 'src/libs/web3/hooks/useTransaction'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
+import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 
 const AddLiquidity: FC = () => {
   const history = useHistory()
@@ -72,10 +70,6 @@ const AddLiquidity: FC = () => {
     setAmount([a0, a1])
   }
 
-  const handleApprove = useApprove({
-    transactionType: TransactionType.AddLiquidity,
-    token: [symbol[0], symbol[1] || symbol[0]],
-  })
   const handleAddLiquidity = useAddLiquidity({
     token0: { symbol: symbol[0], amount: amount[0] },
     token1: symbol[1] ? { symbol: symbol[1], amount: amount[1] } : undefined,
@@ -114,23 +108,16 @@ const AddLiquidity: FC = () => {
         onChange={(v) => setAutoStake(!!v)}
       />
 
-      <ButtonGroup block responsive>
-        {!handleApprove.allowance && (
-          <Button block gradient primary onClick={handleApprove?.handler}>
-            <Trans>Approve</Trans>
-          </Button>
-        )}
-
-        <Button
-          block
-          gradient
-          primary={!!amount[0] && handleApprove?.allowance}
-          disabled={!amount[0] || (symbol[1] && !ratio) || !handleApprove?.allowance}
-          onClick={handleAddLiquidity.handler}
-        >
-          <Trans>Add Liquidity</Trans>
-        </Button>
-      </ButtonGroup>
+      <TransactionButtonGroup
+        approve={{
+          transactionType: TransactionType.AddLiquidity,
+          token: [symbol[0], symbol[1] || symbol[0]],
+        }}
+        onClick={handleAddLiquidity.handler}
+        disabled={!amount[0] || (!!symbol[1] && !ratio)}
+      >
+        <Trans>Add Liquidity</Trans>
+      </TransactionButtonGroup>
     </Card>
   )
 }

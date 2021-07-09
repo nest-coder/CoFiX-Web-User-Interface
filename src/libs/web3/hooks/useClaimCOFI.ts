@@ -39,7 +39,7 @@ const useClaimCOFI = (content: TransasctionClaimCOFIContent) => {
   }, [api, content.token0, content.token1, content.amount])
 
   const handler = useCallback(async () => {
-    push(
+    return push(
       {
         type: TransactionType.ClaimCOFI,
         content,

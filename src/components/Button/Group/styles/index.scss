@@ -7,7 +7,7 @@
     width: 100%;
   }
 
-  button + button {
+  & > * + * {
     margin-top: $space-md;
 
     @include tablet {
@@ -20,7 +20,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      button + button {
+      & > * + * {
         margin: 0;
         margin-left: $space;
       }

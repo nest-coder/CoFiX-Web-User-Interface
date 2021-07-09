@@ -5,17 +5,15 @@ import { useHistory, useParams } from 'react-router-dom'
 import { t } from '@lingui/macro'
 import TokenInput from 'src/components/TokenInput'
 import Field from 'src/components/Field'
-import ButtonGroup from 'src/components/Button/Group'
-import Button from 'src/components/Button'
 import { Trans } from '@lingui/macro'
 import useStakeInfo from 'src/hooks/useStakeInfo'
 import usePoolInfo from 'src/hooks/usePoolInfo'
-import useApprove from 'src/libs/web3/hooks/useApprove'
 import useStakeXToken from 'src/libs/web3/hooks/useStakeXToken'
 import { TransactionType } from 'src/libs/web3/hooks/useTransaction'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import useXToken from 'src/libs/web3/hooks/useXToken'
 import { PoolInfo } from 'src/libs/web3/api/CoFiXPair'
+import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 
 const StakeXToken: FC = () => {
   const history = useHistory()
@@ -49,11 +47,6 @@ const StakeXToken: FC = () => {
     }
   }, [api, params])
 
-  const handleApprove = useApprove({
-    transactionType: TransactionType.StakeXToken,
-    token: [symbol[0], symbol[1]],
-  })
-
   const handleStakeXToken = useStakeXToken({
     token0: symbol[0],
     token1: symbol[1],
@@ -82,23 +75,16 @@ const StakeXToken: FC = () => {
       />
       <Field name={t`Estimated Daily Mined`} value={`${stakeInfo ? stakeInfo.dailyMined.toString() : '--'} COFI`} />
 
-      <ButtonGroup block responsive>
-        {!handleApprove?.allowance && (
-          <Button block gradient primary onClick={handleApprove?.handler}>
-            <Trans>Approve</Trans>
-          </Button>
-        )}
-
-        <Button
-          block
-          gradient
-          primary={!!amount && handleApprove?.allowance}
-          disabled={!amount || !handleApprove?.allowance}
-          onClick={handleStakeXToken?.handler}
-        >
-          <Trans>Stake XToken</Trans>
-        </Button>
-      </ButtonGroup>
+      <TransactionButtonGroup
+        approve={{
+          transactionType: TransactionType.StakeXToken,
+          token: [symbol[0], symbol[1]],
+        }}
+        disabled={!amount}
+        onClick={handleStakeXToken.handler}
+      >
+        <Trans>Stake XToken</Trans>
+      </TransactionButtonGroup>
     </Card>
   )
 }
