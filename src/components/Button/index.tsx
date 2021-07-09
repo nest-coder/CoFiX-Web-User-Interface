@@ -11,6 +11,7 @@ export type Props = {
   block?: boolean
   disabled?: boolean
   onClick?: MouseEventHandler<HTMLButtonElement>
+  flow?: boolean
 }
 
 const Button: FC<Props> = forwardRef(({ children, ...props }, ref?: any) => {
@@ -30,6 +31,7 @@ const Button: FC<Props> = forwardRef(({ children, ...props }, ref?: any) => {
         [`rounded`]: props.rounded,
         [`block`]: props.block,
         [`disabled`]: props.disabled,
+        [`flow`]: props.flow,
       })}
     >
       {children}

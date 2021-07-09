@@ -178,6 +178,10 @@ const _useTransaction = () => {
       // transaction.tx = utils.serializeTransaction(result)
       updateCurrent(transaction)
 
+      setTimeout(() => {
+        closeModal()
+      }, 2000)
+
       const check = async () => {
         if (transaction.status !== TransactionStatus.Success) {
           return
@@ -200,6 +204,7 @@ const _useTransaction = () => {
       console.error(e)
       transaction.msg = e
       transaction.status = TransactionStatus.Fail
+      transaction.receiptStatus = TransactionReceiptStatus.Reverted
       updateCurrent(transaction)
     }
 

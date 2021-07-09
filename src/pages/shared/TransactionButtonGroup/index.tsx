@@ -1,3 +1,4 @@
+import './styles'
 import { FC, useState } from 'react'
 import useTransaction, {
   Transaction,
@@ -46,8 +47,9 @@ const TransactionButtonGroup: FC<Props> = (props) => {
   const transactionChecking = transaction?.receiptStatus === TransactionReceiptStatus.Unknown
   const approveTransactionChecking = approveTransaction?.receiptStatus === TransactionReceiptStatus.Unknown
 
+  const classPrefix = 'cofi-transaction-button-group'
   return (
-    <ButtonGroup block responsive>
+    <ButtonGroup block responsive className={`${classPrefix}`}>
       {!account && <WalletConnectButton block gradient primary />}
 
       {account && !approve.allowance && (
@@ -64,7 +66,6 @@ const TransactionButtonGroup: FC<Props> = (props) => {
         primary={!!account && approve.allowance && !transactionChecking}
         onClick={handleClick}
         disabled={props.disabled || !approve.allowance || transactionChecking}
-        className="cofi-transaction-button"
       >
         {transactionChecking && <Loading className="animation-spin" height={22} />}
 

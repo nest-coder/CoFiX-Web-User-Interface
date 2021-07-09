@@ -3,8 +3,13 @@ import Card from 'src/components/Card'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import { Trans, t } from '@lingui/macro'
 import './styles'
-import useTransaction, { Transaction, TransactionStatus, TransactionType } from 'src/libs/web3/hooks/useTransaction'
-import { SuccessOutline, FailOutline } from 'src/components/Icon'
+import useTransaction, {
+  Transaction,
+  TransactionReceiptStatus,
+  TransactionStatus,
+  TransactionType,
+} from 'src/libs/web3/hooks/useTransaction'
+import { Loading, SuccessOutline, FailOutline } from 'src/components/Icon'
 import useEtherScanHost from 'src/hooks/useEtherScanHost'
 
 type Props = { onClose?: () => void }
@@ -16,7 +21,19 @@ const TransactionItem: FC<{ transaction: Transaction }> = ({ transaction }) => {
       case TransactionStatus.Fail:
         return <FailOutline width={22} height={22} />
       case TransactionStatus.Success:
+        switch (transaction.receiptStatus) {
+          case TransactionReceiptStatus.Unknown:
+            return <Loading width={22} height={22} className="animation-spin" />
+          case TransactionReceiptStatus.Successful:
+            return <SuccessOutline width={22} height={22} />
+          case TransactionReceiptStatus.Reverted:
+            return <FailOutline width={22} height={22} />
+          default:
+        }
+
         return <SuccessOutline width={22} height={22} />
+      case TransactionStatus.Pending:
+        return <Loading width={22} height={22} className="animation-spin" />
       default:
         return <></>
     }

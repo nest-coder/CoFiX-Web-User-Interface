@@ -1,7 +1,9 @@
 @import 'src/styles/shared.scss';
 
-.cofi-transaction-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.cofi-transaction-button-group {
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
