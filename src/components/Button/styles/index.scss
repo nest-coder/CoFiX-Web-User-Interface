@@ -21,14 +21,14 @@
   }
   &:hover {
     outline: none;
-    background-image: $gradient-color;
+    background-image: $button-gradient-color;
   }
 
   &.gradient {
-    border-image: $gradient-color;
+    border-image: $button-gradient-color;
     border-image-slice: 10;
 
-    background-image: $gradient-color;
+    background-image: $button-gradient-color;
     background-clip: text;
     color: transparent;
 
@@ -38,14 +38,14 @@
     }
 
     &.primary {
-      background-image: $gradient-color;
+      background-image: $button-gradient-color;
       background-clip: unset;
       color: #000000;
     }
   }
 
   &.flow {
-    background: $gradient-color;
+    background: $button-gradient-color;
     background-size: 200% 200%;
 
     animation: flow 1s linear infinite;
@@ -64,7 +64,7 @@
   }
 
   &.primary {
-    background-image: $gradient-color;
+    background-image: $button-gradient-color;
   }
 
   &.block {

@@ -46,7 +46,7 @@ $radius: 11px;
 
   &:checked {
     &::before {
-      background: $gradient-color;
+      background: $text-gradient-color;
     }
 
     &::after {
