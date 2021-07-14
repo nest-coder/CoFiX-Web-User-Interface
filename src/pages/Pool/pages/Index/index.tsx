@@ -54,7 +54,7 @@ const Pool: FC = () => {
                   <DollarOutline />
                   <div>
                     <span>
-                      <Trans>Total Funds ($)</Trans>
+                      <Trans>TVL</Trans>
                     </span>
                     <span>{poolInfo ? poolInfo.totalFunds.toFormat(2) : '--'}</span>
                   </div>
@@ -63,7 +63,7 @@ const Pool: FC = () => {
                   <PercentageSignOutline />
                   <div>
                     <span>
-                      <Trans>Current NAV</Trans>
+                      <Trans>Net worth</Trans>
                     </span>
                     <span>{poolInfo ? poolInfo.nav.toFormat(8) : '--'}</span>
                   </div>
@@ -182,7 +182,7 @@ const Pool: FC = () => {
                   <DollarOutline />
                   <div>
                     <span>
-                      <Trans>Total Funds ($)</Trans>
+                      <Trans>TVL</Trans>
                     </span>
                     <span>{anchorPoolInfo ? anchorPoolInfo.totalFunds.toFormat(2) : '--'}</span>
                   </div>

@@ -16,6 +16,7 @@ import { toBigNumber } from 'src/libs/web3/util'
 import { useMemo } from 'react'
 import useSlippageTolerance from 'src/hooks/useSlippageTolerance'
 import TransactionButtonGroup from '../shared/TransactionButtonGroup'
+import { RiskAction, useRiskModal } from '../shared/RiskModal'
 
 const Swap: FC = () => {
   const { api } = useWeb3()
@@ -24,6 +25,7 @@ const Swap: FC = () => {
   const [dest, setDest] = useState({ symbol: 'USDT', amount: '' })
   const swap = useSwap({ src, dest })
   const [confirm, setConfirm] = useState(false)
+  const { checkRisk } = useRiskModal()
 
   const handleSwitch = () => {
     const oldSrc = src
@@ -194,8 +196,13 @@ const Swap: FC = () => {
             token: [src.symbol, dest.symbol],
           }}
           disabled={!src.amount || !swap.ratio}
-          onClick={() => {
-            setConfirm(true)
+          onClick={async () => {
+            try {
+              await checkRisk(RiskAction.Swap)
+              setConfirm(true)
+            } catch (_) {
+              // comment for eslint
+            }
           }}
         >
           <Trans>Exchange</Trans>
@@ -217,11 +224,8 @@ const Swap: FC = () => {
       <Card title={t`Confirm Swap`} backward onBackwardClick={() => setConfirm(false)}>
         <Field name={t`FROM`} value={`${src.amount} ${src.symbol}`} />
         <Field name={t`TO(ESTIMATED)`} value={`${dest.amount} ${dest.symbol}`} />
-        <Field
-          name={t`Trading Price`}
-          value={`1 ${src.symbol} = ${swap?.amount?.finalFormat || '--'} ${dest.symbol}`}
-        />
-        <Field name={t`Route`} value={paths} />
+        <Field name={t`Swap Rate`} value={`1 ${src.symbol} = ${swap?.amount?.finalFormat || '--'} ${dest.symbol}`} />
+        <Field name={t`Swap Route`} value={paths} />
         <Field
           tooltip={
             <>

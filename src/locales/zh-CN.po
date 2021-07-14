@@ -11,13 +11,29 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#: src/pages/shared/RiskModal/index.tsx
+msgid "1. The price of COFI comes from the NEST oracle machine, which will generate oracle call fees. In addition, due to the characteristics of the blockchain itself. The actual settlement price may be different from the price displayed on this page, because when the repurchase code is executed, it uses the effective price of the oracle at the time of the repurchase;"
+msgstr "1. COFI价格来源于NEST 预言机，会产生预言机调用费，另外由于区块链本身的特性，实际结算价格可能与此页面显示的价格不同，因为回售代码在执行时，使用的是回售时刻预言机的生效价格；"
+
+#: src/pages/shared/RiskModal/index.tsx
+msgid "2. CoFiX DAO repurchase quota is released according to blocks, each block releases 50 COFI, and the amount of repurchase has an upper limit. If the current upper limit has been reached, you may have to wait a few blocks before continuing to participate;"
+msgstr "2. CoFiX DAO的回售额度按照区块释放，每个区块释放50 COFI ，回售额度有上限，如果已达到当前额度上限，则可能要等待几个区块后才能继续参与；"
+
+#: src/pages/shared/RiskModal/index.tsx
+msgid "3. In order to ensure the security of the system, when the COFI price fluctuates sharply, the repurchase may fail, and the failure will result in the loss of the mining fee and the oracle call fee;"
+msgstr "3. 为了保证系统安全性，当COFI价格剧烈波动时进行回售可能会失败，回售失败会损失矿工费和预言机调用费；"
+
+#: src/pages/shared/RiskModal/index.tsx
+msgid "4. As market prices fluctuate, participating in the repurchase may not always be beneficial; smart contracts have been tested, but there are inherent risks in the contract code, so please use it at your own risk."
+msgstr "4. 随着市场价格波动，参与回售可能并不总是有利；智能合约经过测试，但合约代码存在固有风险，使用时请风险自负。"
+
 #: src/pages/Repurchase/index.tsx
 msgid "About Repurchase"
 msgstr "关于回售"
 
 #: src/pages/Repurchase/index.tsx
-msgid "Accumulated repurchase amount in DAO (COFI)"
-msgstr "DAO 累计回售量（COFI）"
+msgid "Accumulated repurchase in DAO (COFI)"
+msgstr "DAO 累计回售量"
 
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
@@ -46,10 +62,6 @@ msgstr "数量"
 msgid "Amount | Percentage"
 msgstr "数量 ｜ 比例"
 
-#: src/pages/shared/PoolSelector/index.tsx
-msgid "Anchor Pool"
-msgstr "单币种池"
-
 #: src/pages/shared/TransactionButtonGroup/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Approve"
@@ -60,6 +72,14 @@ msgstr "授权"
 #: src/pages/Mining/pages/Index/index.tsx
 msgid "Available COFI Amount to Claim"
 msgstr "可领取 COFI 数量"
+
+#: src/pages/Repurchase/AnchorSelector/index.tsx
+msgid "Balance In DAO"
+msgstr "DAO 合约余额"
+
+#: src/pages/Repurchase/AnchorSelector/index.tsx
+msgid "Balance in DAO:"
+msgstr "DAO 合约余额："
 
 #: src/components/TokenInput/index.tsx
 msgid "Balance:"
@@ -113,6 +133,10 @@ msgstr "CoFiX DApp是以太坊上最高效的闪兑应用。"
 msgid "CoFiX Repurchase means that users can exchange COFI Token and DAO contract transactions into ETH, thus reducing the circulation of COFI Token and enhancing its intrinsic value."
 msgstr "CoFiX 回售指用户可以将钱包中的 COFI Token 与 DAO 合约交易兑换成 ETH，从而降低 COFI Token 的流通量，提升其内在价值。"
 
+#: src/pages/shared/RiskModal/index.tsx
+msgid "CoFiX rewards Liquidity Providers with XToken, which allow you to mine COFI tokens and earn ETH dividends from market fees."
+msgstr "CoFiX 用 XTokens 回报资金流动性提供者，允许您挖掘 COFI 代币并从市场费中赚取 ETH 收益。"
+
 #: src/pages/shared/Menu/index.tsx
 msgid "Community"
 msgstr "社区"
@@ -146,25 +170,21 @@ msgstr "当前 APY"
 msgid "Current Circulation (COFI)"
 msgstr "当前流通量（COFI）"
 
-#: src/pages/Pool/pages/Index/index.tsx
-msgid "Current NAV"
-msgstr "当前净值"
-
 #: src/pages/Repurchase/index.tsx
 msgid "Current Repurchase Price (COFI/ETH)"
 msgstr "当前回售价格（COFI/ETH）"
 
 #: src/pages/Repurchase/index.tsx
-msgid "Current amount locked in DAO (ETH)"
-msgstr "DAO 当前锁定量（ETH）"
-
-#: src/pages/Repurchase/index.tsx
-msgid "Current amount locked in DAO (USDT)"
-msgstr "DAO 当前锁定量（USDT）"
-
-#: src/pages/Repurchase/index.tsx
 msgid "Current available amount of repurchase"
 msgstr "当前可回售数量（COFI）"
+
+#: src/pages/Repurchase/index.tsx
+msgid "Current locked in DAO (ETH-Anchor)"
+msgstr "ETH 锚定币当前锁定量"
+
+#: src/pages/Repurchase/index.tsx
+msgid "Current locked in DAO (USDT-Anchor)"
+msgstr "USDT 锚定币当前锁定量"
 
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 msgid "Deposit received XToken to the Mining Pool"
@@ -178,13 +198,17 @@ msgstr "断开"
 msgid "Document"
 msgstr "文档"
 
+#: src/pages/shared/PoolSelector/index.tsx
+msgid "Double-Sided Pool"
+msgstr "双币种池"
+
+#: src/libs/web3/constants/anchor-pool.ts
+msgid "ETH Anchor"
+msgstr "ETH 锚定币"
+
 #: src/pages/Repurchase/index.tsx
 msgid "ETH Balance in your wallet"
 msgstr "您钱包内的 ETH 余额"
-
-#: src/libs/web3/constants/anchor-pool.ts
-msgid "ETH Pool"
-msgstr "ETH 锚定池"
 
 #: src/pages/Pool/pages/Index/index.tsx
 msgid "Empty Liquidity"
@@ -197,6 +221,7 @@ msgid "Estimated Daily Mined"
 msgstr "预计每日出矿量"
 
 #: src/pages/Repurchase/TokenRadioGroup/index.tsx
+#: src/pages/Repurchase/index.tsx
 msgid "Estimated Receive:"
 msgstr "预计获得："
 
@@ -261,6 +286,10 @@ msgstr "输入参与回售数量"
 msgid "Input Stake Amount (XToken)"
 msgstr "输入质押数量（XToken）"
 
+#: src/pages/shared/RiskModal/index.tsx
+msgid "Market making has the risk of losing money in case of big directional changes in the underlying price of your assets, and changes in the liquidity pool ratio or balance. Please understand how it affects your assets before you add liquidity and hedge appropriately."
+msgstr "做市有风险，当所投入的资产种类发生大的方向性价格变更，以及资金池比例或余额变更时，您可能会亏损。请先了解此机制对您的资产的影响，再适当地决定做市提供流动性盒对冲风险。"
+
 #: src/libs/web3/connectors/injected.tsx
 msgid "MetaMask"
 msgstr "MetaMask"
@@ -291,6 +320,14 @@ msgstr "我的资金池"
 msgid "NEST Oracle Price"
 msgstr "NEST 预言机价格"
 
+#: src/pages/Pool/pages/Index/index.tsx
+msgid "Net worth"
+msgstr "当前净值"
+
+#: src/pages/shared/RiskModal/index.tsx
+msgid "Ok, I understand the risk"
+msgstr "我明白风险"
+
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 #: src/pages/Repurchase/index.tsx
 #: src/pages/Swap/index.tsx
@@ -301,10 +338,6 @@ msgstr "预言机调用费"
 #: src/pages/Swap/index.tsx
 msgid "Oracle Fee is what you pay to the NEST protocol for providing accurate market price data to the smart contract."
 msgstr "您需要向NEST协议支付预言机价格使用费，以便为智能合约提供准确的市场价格数据。"
-
-#: src/pages/shared/PoolSelector/index.tsx
-msgid "Pair Pool"
-msgstr "双币种池"
 
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
@@ -331,6 +364,7 @@ msgstr "点差"
 #: src/pages/Mining/index.tsx
 #: src/pages/Pool/index.tsx
 #: src/pages/Repurchase/index.tsx
+#: src/pages/shared/RiskModal/index.tsx
 msgid "Read More"
 msgstr "了解更多"
 
@@ -349,6 +383,10 @@ msgstr "预计获得"
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Recent Transactions"
 msgstr "最近交易"
+
+#: src/pages/shared/RiskModal/index.tsx
+msgid "Regarding the CoFiX repurchase, you need to know the following rules and risks. Please read carefully before participating in the CoFiX repurchase"
+msgstr "关于 CoFiX 的回售，您需要知道以下几点规则和风险，请仔细阅读后再参与 CoFiX 回售"
 
 #: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
@@ -370,13 +408,18 @@ msgstr "回售"
 msgid "Reversing trade in CoFiX can mining COFI Tokens by hedging."
 msgstr "在 CoFiX 中进行反向交易可以对冲挖矿获得 COFI Token。"
 
-#: src/pages/Swap/index.tsx
-msgid "Route"
-msgstr "路由"
+#: src/pages/shared/RiskModal/index.tsx
+msgid "Risk Warning"
+msgstr "风险提示"
 
 #: src/components/TokenInput/Modal/index.tsx
 msgid "Search name or address"
 msgstr "查询名称或地址"
+
+#: src/pages/Repurchase/AnchorSelector/index.tsx
+#: src/pages/Repurchase/AnchorSelector/index.tsx
+msgid "Select Anchor"
+msgstr "选择锚定币"
 
 #: src/pages/shared/PoolSelector/index.tsx
 #: src/pages/shared/PoolSelector/index.tsx
@@ -391,6 +434,10 @@ msgstr "选择 Token"
 msgid "Select token to repurchase"
 msgstr "选择回售资产"
 
+#: src/pages/shared/PoolSelector/index.tsx
+msgid "Single-Sided Pool"
+msgstr "单币种池"
+
 #: src/pages/Swap/index.tsx
 msgid "Slippage Tolerance"
 msgstr "滑点"
@@ -399,6 +446,7 @@ msgstr "滑点"
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/StakeXToken/index.tsx
 #: src/pages/Mining/pages/StakeXToken/index.tsx
+#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Stake XToken"
 msgstr "质押 XToken"
 
@@ -412,9 +460,22 @@ msgid "Swap"
 msgstr "交易"
 
 #: src/pages/Swap/index.tsx
+msgid "Swap Rate"
+msgstr "汇率"
+
+#: src/pages/Swap/index.tsx
+msgid "Swap Route"
+msgstr "交易路由"
+
+#: src/pages/Swap/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "TO(ESTIMATED)"
 msgstr "获得（预估）"
+
+#: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
+msgid "TVL"
+msgstr "资金总额（$）"
 
 #: src/pages/Swap/index.tsx
 msgid "The Trade Price is calculated based on the Decentralised NEST Oracle Price, the Computable Risk Compensation Coefficient, the Price Impact, and a Trading Fee. Trading Fee goes to all the COFI holders."
@@ -429,14 +490,13 @@ msgstr "兑换价格基于去中心化预言机 NEST Oracle提供价格，结合
 msgid "The amount of XToken you deposited to the mining Pool impacts the number of COFI mined."
 msgstr "存入矿池的 XToken 数额会影响您的挖矿速度。"
 
+#: src/pages/shared/RiskModal/index.tsx
+msgid "The current exchange price is calculated based on the NEST oracle quotation and comprehensive risk compensation, and may be slightly higher than the market price. When the oracle quotation is not timely or the risk compensation is too large, it will cause losses. Please understand the CoFiX trading mechanism thoroughly before trading."
+msgstr "当前兑换价格根据 NEST 预言机报价及综合风险补偿计算而来，可能会略高于市场价格，当预言机报价不及时或风险补偿过大，会给您造成损失，请仔细了解 CoFiX 交易机制，再进行交易。"
+
 #: src/pages/Pool/pages/RemoveLiquidity/index.tsx
 msgid "The pledged XToken needs to be withdrawn to the wallet before it can be used to remove liquidity"
 msgstr "质押的 XToken 需要先取出到钱包才能用于移除流动性"
-
-#: src/pages/Pool/pages/Index/index.tsx
-#: src/pages/Pool/pages/Index/index.tsx
-msgid "Total Funds ($)"
-msgstr "资金总额（$）"
 
 #: src/pages/Pool/pages/Index/index.tsx
 msgid "Total Supply"
@@ -452,7 +512,6 @@ msgid "Traders always get market prices at the smallest spread."
 msgstr "交易者总是能以最小的点差，依照市场价格进行交易。"
 
 #: src/pages/Swap/index.tsx
-#: src/pages/Swap/index.tsx
 msgid "Trading Price"
 msgstr "兑换价格"
 
@@ -465,8 +524,8 @@ msgid "Transaction Submitted"
 msgstr "交易已提交"
 
 #: src/libs/web3/constants/anchor-pool.ts
-msgid "USD Pool"
-msgstr "稳定币池"
+msgid "USD Anchor"
+msgstr "USD 锚定币"
 
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Unsupported Content"
@@ -511,6 +570,7 @@ msgstr "白皮书"
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/WithdrawXToken/index.tsx
+#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Withdraw XToken"
 msgstr "取回 XToken"
 

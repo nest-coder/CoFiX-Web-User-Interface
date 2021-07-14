@@ -94,7 +94,7 @@ const PoolSelector: FC<Props> = ({ ...props }) => {
             </div>
 
             <Tag>
-              <Trans>Pair Pool</Trans>
+              <Trans>Double-Sided Pool</Trans>
             </Tag>
           </div>
         }
@@ -148,7 +148,7 @@ const PoolSelector: FC<Props> = ({ ...props }) => {
             </div>
 
             <Tag>
-              <Trans>Anchor Pool</Trans>
+              <Trans>Single-Sided Pool</Trans>
             </Tag>
           </div>
         }

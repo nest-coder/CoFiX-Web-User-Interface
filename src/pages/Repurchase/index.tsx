@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import CollapseCard from 'src/components/CollapaseCard'
 import { t, Trans } from '@lingui/macro'
 import './styles'
@@ -14,8 +14,20 @@ import useTokenBalance from 'src/hooks/useTokenBalance'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 import AnchorSelector from './AnchorSelector'
+import { RiskAction, useRiskModal } from '../shared/RiskModal'
 
 const Repurchase: FC = () => {
+  const { checkRisk } = useRiskModal()
+  useEffect(() => {
+    ;(async () => {
+      try {
+        await checkRisk(RiskAction.Pool)
+      } catch (_) {
+        // comment for eslint
+      }
+    })()
+  }, [])
+
   const { account, api } = useWeb3()
   const daoInfo = useDAOInfo()
 

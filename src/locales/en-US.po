@@ -11,13 +11,29 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#: src/pages/shared/RiskModal/index.tsx
+msgid "1. The price of COFI comes from the NEST oracle machine, which will generate oracle call fees. In addition, due to the characteristics of the blockchain itself. The actual settlement price may be different from the price displayed on this page, because when the repurchase code is executed, it uses the effective price of the oracle at the time of the repurchase;"
+msgstr "1. The price of COFI comes from the NEST oracle machine, which will generate oracle call fees. In addition, due to the characteristics of the blockchain itself. The actual settlement price may be different from the price displayed on this page, because when the repurchase code is executed, it uses the effective price of the oracle at the time of the repurchase;"
+
+#: src/pages/shared/RiskModal/index.tsx
+msgid "2. CoFiX DAO repurchase quota is released according to blocks, each block releases 50 COFI, and the amount of repurchase has an upper limit. If the current upper limit has been reached, you may have to wait a few blocks before continuing to participate;"
+msgstr "2. CoFiX DAO repurchase quota is released according to blocks, each block releases 50 COFI, and the amount of repurchase has an upper limit. If the current upper limit has been reached, you may have to wait a few blocks before continuing to participate;"
+
+#: src/pages/shared/RiskModal/index.tsx
+msgid "3. In order to ensure the security of the system, when the COFI price fluctuates sharply, the repurchase may fail, and the failure will result in the loss of the mining fee and the oracle call fee;"
+msgstr "3. In order to ensure the security of the system, when the COFI price fluctuates sharply, the repurchase may fail, and the failure will result in the loss of the mining fee and the oracle call fee;"
+
+#: src/pages/shared/RiskModal/index.tsx
+msgid "4. As market prices fluctuate, participating in the repurchase may not always be beneficial; smart contracts have been tested, but there are inherent risks in the contract code, so please use it at your own risk."
+msgstr "4. As market prices fluctuate, participating in the repurchase may not always be beneficial; smart contracts have been tested, but there are inherent risks in the contract code, so please use it at your own risk."
+
 #: src/pages/Repurchase/index.tsx
 msgid "About Repurchase"
 msgstr "About Repurchase"
 
 #: src/pages/Repurchase/index.tsx
-msgid "Accumulated repurchase amount in DAO (COFI)"
-msgstr "Accumulated repurchase amount in DAO (COFI)"
+msgid "Accumulated repurchase in DAO (COFI)"
+msgstr "Accumulated repurchase in DAO (COFI)"
 
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
@@ -46,10 +62,6 @@ msgstr "Amount"
 msgid "Amount | Percentage"
 msgstr "Amount | Percentage"
 
-#: src/pages/shared/PoolSelector/index.tsx
-msgid "Anchor Pool"
-msgstr "Anchor Pool"
-
 #: src/pages/shared/TransactionButtonGroup/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Approve"
@@ -60,6 +72,14 @@ msgstr "Approve"
 #: src/pages/Mining/pages/Index/index.tsx
 msgid "Available COFI Amount to Claim"
 msgstr "Available COFI Amount to Claim"
+
+#: src/pages/Repurchase/AnchorSelector/index.tsx
+msgid "Balance In DAO"
+msgstr "Balance In DAO"
+
+#: src/pages/Repurchase/AnchorSelector/index.tsx
+msgid "Balance in DAO:"
+msgstr "Balance in DAO:"
 
 #: src/components/TokenInput/index.tsx
 msgid "Balance:"
@@ -113,6 +133,10 @@ msgstr "CoFiX Dapp is the most efficient Token Swap on Ethereum."
 msgid "CoFiX Repurchase means that users can exchange COFI Token and DAO contract transactions into ETH, thus reducing the circulation of COFI Token and enhancing its intrinsic value."
 msgstr "CoFiX Repurchase means that users can exchange COFI Token and DAO contract transactions into ETH, thus reducing the circulation of COFI Token and enhancing its intrinsic value."
 
+#: src/pages/shared/RiskModal/index.tsx
+msgid "CoFiX rewards Liquidity Providers with XToken, which allow you to mine COFI tokens and earn ETH dividends from market fees."
+msgstr "CoFiX rewards Liquidity Providers with XToken, which allow you to mine COFI tokens and earn ETH dividends from market fees."
+
 #: src/pages/shared/Menu/index.tsx
 msgid "Community"
 msgstr "Community"
@@ -146,25 +170,21 @@ msgstr "Current APY"
 msgid "Current Circulation (COFI)"
 msgstr "Current Circulation (COFI)"
 
-#: src/pages/Pool/pages/Index/index.tsx
-msgid "Current NAV"
-msgstr "Current NAV"
-
 #: src/pages/Repurchase/index.tsx
 msgid "Current Repurchase Price (COFI/ETH)"
 msgstr "Current Repurchase Price (COFI/ETH)"
 
 #: src/pages/Repurchase/index.tsx
-msgid "Current amount locked in DAO (ETH)"
-msgstr "Current amount locked in DAO (ETH)"
-
-#: src/pages/Repurchase/index.tsx
-msgid "Current amount locked in DAO (USDT)"
-msgstr "Current amount locked in DAO (USDT)"
-
-#: src/pages/Repurchase/index.tsx
 msgid "Current available amount of repurchase"
 msgstr "Current available amount of repurchase"
+
+#: src/pages/Repurchase/index.tsx
+msgid "Current locked in DAO (ETH-Anchor)"
+msgstr "Current locked in DAO (ETH-Anchor)"
+
+#: src/pages/Repurchase/index.tsx
+msgid "Current locked in DAO (USDT-Anchor)"
+msgstr "Current locked in DAO (USDT-Anchor)"
 
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 msgid "Deposit received XToken to the Mining Pool"
@@ -178,13 +198,17 @@ msgstr "Disconnect"
 msgid "Document"
 msgstr "Document"
 
+#: src/pages/shared/PoolSelector/index.tsx
+msgid "Double-Sided Pool"
+msgstr "Double-Sided Pool"
+
+#: src/libs/web3/constants/anchor-pool.ts
+msgid "ETH Anchor"
+msgstr "ETH Anchor"
+
 #: src/pages/Repurchase/index.tsx
 msgid "ETH Balance in your wallet"
 msgstr "ETH Balance in your wallet"
-
-#: src/libs/web3/constants/anchor-pool.ts
-msgid "ETH Pool"
-msgstr "ETH Pool"
 
 #: src/pages/Pool/pages/Index/index.tsx
 msgid "Empty Liquidity"
@@ -197,6 +221,7 @@ msgid "Estimated Daily Mined"
 msgstr "Estimated Daily Mined"
 
 #: src/pages/Repurchase/TokenRadioGroup/index.tsx
+#: src/pages/Repurchase/index.tsx
 msgid "Estimated Receive:"
 msgstr "Estimated Receive:"
 
@@ -261,6 +286,10 @@ msgstr "Input Repurchase Amount"
 msgid "Input Stake Amount (XToken)"
 msgstr "Input Stake Amount (XToken)"
 
+#: src/pages/shared/RiskModal/index.tsx
+msgid "Market making has the risk of losing money in case of big directional changes in the underlying price of your assets, and changes in the liquidity pool ratio or balance. Please understand how it affects your assets before you add liquidity and hedge appropriately."
+msgstr "Market making has the risk of losing money in case of big directional changes in the underlying price of your assets, and changes in the liquidity pool ratio or balance. Please understand how it affects your assets before you add liquidity and hedge appropriately."
+
 #: src/libs/web3/connectors/injected.tsx
 msgid "MetaMask"
 msgstr "MetaMask"
@@ -291,6 +320,14 @@ msgstr "My Pool"
 msgid "NEST Oracle Price"
 msgstr "NEST Oracle Price"
 
+#: src/pages/Pool/pages/Index/index.tsx
+msgid "Net worth"
+msgstr "Net worth"
+
+#: src/pages/shared/RiskModal/index.tsx
+msgid "Ok, I understand the risk"
+msgstr "Ok, I understand the risk"
+
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 #: src/pages/Repurchase/index.tsx
 #: src/pages/Swap/index.tsx
@@ -301,10 +338,6 @@ msgstr "Oracle Call Fee"
 #: src/pages/Swap/index.tsx
 msgid "Oracle Fee is what you pay to the NEST protocol for providing accurate market price data to the smart contract."
 msgstr "Oracle Fee is what you pay to the NEST protocol for providing accurate market price data to the smart contract."
-
-#: src/pages/shared/PoolSelector/index.tsx
-msgid "Pair Pool"
-msgstr "Pair Pool"
 
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
@@ -331,6 +364,7 @@ msgstr "Price Spread"
 #: src/pages/Mining/index.tsx
 #: src/pages/Pool/index.tsx
 #: src/pages/Repurchase/index.tsx
+#: src/pages/shared/RiskModal/index.tsx
 msgid "Read More"
 msgstr "Read More"
 
@@ -349,6 +383,10 @@ msgstr "Received Tokens (Estimated)"
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Recent Transactions"
 msgstr "Recent Transactions"
+
+#: src/pages/shared/RiskModal/index.tsx
+msgid "Regarding the CoFiX repurchase, you need to know the following rules and risks. Please read carefully before participating in the CoFiX repurchase"
+msgstr "Regarding the CoFiX repurchase, you need to know the following rules and risks. Please read carefully before participating in the CoFiX repurchase"
 
 #: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
@@ -370,13 +408,18 @@ msgstr "Repurchase"
 msgid "Reversing trade in CoFiX can mining COFI Tokens by hedging."
 msgstr "Reversing trade in CoFiX can mining COFI Tokens by hedging."
 
-#: src/pages/Swap/index.tsx
-msgid "Route"
-msgstr "Route"
+#: src/pages/shared/RiskModal/index.tsx
+msgid "Risk Warning"
+msgstr "Risk Warning"
 
 #: src/components/TokenInput/Modal/index.tsx
 msgid "Search name or address"
 msgstr "Search name or address"
+
+#: src/pages/Repurchase/AnchorSelector/index.tsx
+#: src/pages/Repurchase/AnchorSelector/index.tsx
+msgid "Select Anchor"
+msgstr "Select Anchor"
 
 #: src/pages/shared/PoolSelector/index.tsx
 #: src/pages/shared/PoolSelector/index.tsx
@@ -391,6 +434,10 @@ msgstr "Select Token"
 msgid "Select token to repurchase"
 msgstr "Select token to repurchase"
 
+#: src/pages/shared/PoolSelector/index.tsx
+msgid "Single-Sided Pool"
+msgstr "Single-Sided Pool"
+
 #: src/pages/Swap/index.tsx
 msgid "Slippage Tolerance"
 msgstr "Slippage Tolerance"
@@ -399,6 +446,7 @@ msgstr "Slippage Tolerance"
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/StakeXToken/index.tsx
 #: src/pages/Mining/pages/StakeXToken/index.tsx
+#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Stake XToken"
 msgstr "Stake XToken"
 
@@ -412,9 +460,22 @@ msgid "Swap"
 msgstr "Swap"
 
 #: src/pages/Swap/index.tsx
+msgid "Swap Rate"
+msgstr "Swap Rate"
+
+#: src/pages/Swap/index.tsx
+msgid "Swap Route"
+msgstr "Swap Route"
+
+#: src/pages/Swap/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "TO(ESTIMATED)"
 msgstr "TO(ESTIMATED)"
+
+#: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/Pool/pages/Index/index.tsx
+msgid "TVL"
+msgstr "TVL"
 
 #: src/pages/Swap/index.tsx
 msgid "The Trade Price is calculated based on the Decentralised NEST Oracle Price, the Computable Risk Compensation Coefficient, the Price Impact, and a Trading Fee. Trading Fee goes to all the COFI holders."
@@ -429,14 +490,13 @@ msgstr "The Trade Price is calculated based on the Decentralized NEST Oracle Pri
 msgid "The amount of XToken you deposited to the mining Pool impacts the number of COFI mined."
 msgstr "The amount of XToken you deposited to the mining Pool impacts the number of COFI mined."
 
+#: src/pages/shared/RiskModal/index.tsx
+msgid "The current exchange price is calculated based on the NEST oracle quotation and comprehensive risk compensation, and may be slightly higher than the market price. When the oracle quotation is not timely or the risk compensation is too large, it will cause losses. Please understand the CoFiX trading mechanism thoroughly before trading."
+msgstr "The current exchange price is calculated based on the NEST oracle quotation and comprehensive risk compensation, and may be slightly higher than the market price. When the oracle quotation is not timely or the risk compensation is too large, it will cause losses. Please understand the CoFiX trading mechanism thoroughly before trading."
+
 #: src/pages/Pool/pages/RemoveLiquidity/index.tsx
 msgid "The pledged XToken needs to be withdrawn to the wallet before it can be used to remove liquidity"
 msgstr "The pledged XToken needs to be withdrawn to the wallet before it can be used to remove liquidity"
-
-#: src/pages/Pool/pages/Index/index.tsx
-#: src/pages/Pool/pages/Index/index.tsx
-msgid "Total Funds ($)"
-msgstr "Total Funds ($)"
 
 #: src/pages/Pool/pages/Index/index.tsx
 msgid "Total Supply"
@@ -452,7 +512,6 @@ msgid "Traders always get market prices at the smallest spread."
 msgstr "Traders always get market prices at the smallest spread."
 
 #: src/pages/Swap/index.tsx
-#: src/pages/Swap/index.tsx
 msgid "Trading Price"
 msgstr "Trading Price"
 
@@ -465,8 +524,8 @@ msgid "Transaction Submitted"
 msgstr "Transaction Submitted"
 
 #: src/libs/web3/constants/anchor-pool.ts
-msgid "USD Pool"
-msgstr "USD Pool"
+msgid "USD Anchor"
+msgstr "USD Anchor"
 
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Unsupported Content"
@@ -511,6 +570,7 @@ msgstr "WhitePaper"
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/WithdrawXToken/index.tsx
+#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Withdraw XToken"
 msgstr "Withdraw XToken"
 

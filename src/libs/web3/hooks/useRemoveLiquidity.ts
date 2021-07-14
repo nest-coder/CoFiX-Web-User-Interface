@@ -83,7 +83,7 @@ const useRemoveLiquidity = (content: TransactionRemoveLiquidityContent) => {
           setArgs(newArgs)
         }
       } else if (content.token0) {
-        // find anchor pool
+        // find Single-Sided Pool
         const pool = api.CoFixAnchorPools[content.token0]
         const token = api.Tokens[content.token0]
 

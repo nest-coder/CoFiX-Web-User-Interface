@@ -6,13 +6,16 @@ import App from './pages/App'
 import 'src/components/Icon'
 import I18nProvider from 'src/libs/i18n/provider'
 import Web3Provider from 'src/libs/web3/provider'
+import { RiskModalProvider } from './pages/shared/RiskModal'
 
-const rootElement = document.getElementById('root')
+export const rootElement = document.getElementById('root')
 const app = (
   <React.StrictMode>
     <I18nProvider>
       <Web3Provider>
-        <App />
+        <RiskModalProvider>
+          <App />
+        </RiskModalProvider>
       </Web3Provider>
     </I18nProvider>
   </React.StrictMode>

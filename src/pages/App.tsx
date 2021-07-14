@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Header from 'src/pages/shared/Header'
 import Footer from 'src/pages/shared/Footer'
 import TransactionModal from 'src/pages/shared/TransactionModal'
+import RiskModal from './shared/RiskModal'
 
 const Swap = loadable(() => import('./Swap'))
 const Pool = loadable(() => import('./Pool'))
@@ -16,6 +17,8 @@ function App() {
   return (
     <main>
       <TransactionModal />
+      <RiskModal />
+
       <Router>
         <Header />
 
