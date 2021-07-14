@@ -55,7 +55,7 @@ const useAddLiquidity = (content: TransactionAddLiquidityContent) => {
             .shiftedBy(18)
             .toFixed(0),
           to: api.account || '',
-          oracleCallFee: api.Tokens.ETH.parse(0.01).toFixed(0),
+          oracleCallFee: '0.01',
           sendETHValue: api.Tokens.ETH.parse(toBigNumber(0.01).plus(content.token0.amount)).toFixed(0),
         }
 

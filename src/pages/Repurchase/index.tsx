@@ -8,20 +8,21 @@ import Card from 'src/components/Card'
 import TokenInput from 'src/components/TokenInput'
 import Field from 'src/components/Field'
 import useDAOInfo from 'src/hooks/useDAOInfo'
-import TokenRadioGroup from './TokenRadioGroup'
 import { TransactionType } from 'src/libs/web3/hooks/useTransaction'
 import useRepurchase from 'src/libs/web3/hooks/useRepurchase'
 import useTokenBalance from 'src/hooks/useTokenBalance'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
-import TransactionButtonGroup from '../shared/TransactionButtonGroup'
+import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
+import AnchorSelector from './AnchorSelector'
 
 const Repurchase: FC = () => {
-  const { account } = useWeb3()
+  const { account, api } = useWeb3()
   const daoInfo = useDAOInfo()
 
   const [amount, setAmount] = useState('')
   const [symbol, setSymbol] = useState('ETH')
   const ethBalance = useTokenBalance('ETH', account || '')
+  const anchorPool = api?.CoFixAnchorPools[symbol]
 
   const handleRepurchase = useRepurchase({
     amount,
@@ -36,7 +37,7 @@ const Repurchase: FC = () => {
         <ul>
           <li>
             <RepurchaseCard
-              title={t`Current amount locked in DAO (ETH)`}
+              title={t`Current locked in DAO (ETH-Anchor)`}
               value={daoInfo ? daoInfo.ethAmount.toFixed(6) : '--'}
               icon={<GrayTokenETH />}
               // icon={<TokenETH height={110} width={68} style={{ opacity: 0.08 }} />}
@@ -44,14 +45,14 @@ const Repurchase: FC = () => {
           </li>
           <li>
             <RepurchaseCard
-              title={t`Current amount locked in DAO (USDT)`}
+              title={t`Current locked in DAO (USDT-Anchor)`}
               value={daoInfo ? daoInfo.usdtAmount.toFixed(6) : '--'}
               icon={<GrayTokenUSDT />}
             />
           </li>
           <li>
             <RepurchaseCard
-              title={t`Accumulated repurchase amount in DAO (COFI)`}
+              title={t`Accumulated repurchase in DAO (COFI)`}
               value={daoInfo ? daoInfo.cofiAmount.toFixed(6) : '--'}
               icon={<GrayTokenCOFI />}
             />
@@ -76,20 +77,25 @@ const Repurchase: FC = () => {
             onChange={(v) => setAmount(v)}
           />
 
-          <TokenRadioGroup
-            tokens={['ETH', 'USDT']}
-            value={symbol}
-            onChange={(t) => {
-              setSymbol(t)
-            }}
-            amounts={
-              handleRepurchase.ethAmount && handleRepurchase.usdtAmount
-                ? [handleRepurchase.ethAmount.formatAmount, handleRepurchase.usdtAmount.formatAmount]
-                : []
+          <AnchorSelector symbol={symbol} onChange={(s) => setSymbol(s)} />
+
+          <TokenInput
+            title={t`Estimated Receive:`}
+            value={
+              (anchorPool?.anchorToken === 'ETH'
+                ? handleRepurchase.ethAmount?.formatAmount
+                : handleRepurchase.usdtAmount?.formatAmount) || '--'
             }
+            symbol={symbol}
+            selectable={false}
+            noExtra
+            editable={false}
           />
 
-          <Field name={t`Oracle Call Fee`} value="+0.01 ETH" />
+          <Field
+            name={t`Oracle Call Fee`}
+            value={`${handleRepurchase.oracleFee ? handleRepurchase.oracleFee.formatAmount : '--'}  ETH`}
+          />
           <Field name={t`Current available amount of repurchase`} value={daoInfo ? daoInfo.quota.toFixed(0) : `--`} />
           <Field
             name={t`Current Repurchase Price (COFI/ETH)`}

@@ -7,6 +7,9 @@ import { CoFiXLogoWithText, CoFiXLogoSmall } from 'src/components/Icon'
 import { Trans } from '@lingui/macro'
 import WalletConnect from 'src/pages/shared/WalletConnect'
 import { MenuButton } from 'src/pages/shared/Menu'
+import useWeb3 from 'src/libs/web3/hooks/useWeb3'
+import Tag from 'src/components/Tag'
+import { Mainnet, SupportedChains } from 'src/libs/web3/constants/chains'
 
 const Nav: FC = () => {
   const location = useLocation()
@@ -42,13 +45,18 @@ const Nav: FC = () => {
 
 const Header: FC = () => {
   const classPrefix = 'cofi-header'
+  const { chainId } = useWeb3()
+  const chain = SupportedChains.find((c) => c.chainId === chainId && chainId !== Mainnet.chainId)
 
   return (
     <div className="container">
       <header className={`${classPrefix}`}>
-        <Link to="/">
-          <CoFiXLogoWithText className={`${classPrefix}-logo`} />
-        </Link>
+        <div className={`${classPrefix}-prefix`}>
+          <Link to="/">
+            <CoFiXLogoWithText />
+          </Link>
+          {chain && <Tag primary>{chain.network[0].toUpperCase() + chain.network.slice(1)}</Tag>}
+        </div>
 
         <Nav />
 

@@ -1,6 +1,6 @@
 @import 'src/styles/shared.scss';
 
-.cofi-token-input {
+.cofi-anchor-selector {
   background: #ffffff;
   box-shadow: $shadow-sm;
   border-radius: $border-radius;
@@ -40,34 +40,6 @@
     line-height: none;
   }
 
-  input {
-    text-align: right;
-    font-size: $font-size;
-    color: #000000;
-    border: none;
-    width: 100%;
-
-    &:disabled {
-      background: transparent;
-    }
-
-    &:focus {
-      outline: none;
-    }
-
-    /* Chrome, Safari, Edge, Opera */
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    /* Firefox */
-    &[type='number'] {
-      -moz-appearance: textfield;
-    }
-  }
-
   &-extra {
     display: flex;
     align-items: center;
@@ -88,9 +60,43 @@
     }
   }
 
-  &-max {
-    color: $link-color;
-    cursor: pointer;
-    font-size: $font-size-sm;
+  &-modal {
+    h1 {
+      margin: 0;
+      font-size: $font-size-sm;
+      color: $dim-color;
+      margin-bottom: $space;
+    }
+
+    ul {
+      width: 100%;
+      li {
+        width: 100%;
+
+        button {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+
+      li + li {
+        margin-top: $space;
+      }
+    }
+
+    &-token {
+      display: flex;
+      align-items: center;
+      div {
+        margin-left: $space-sm;
+      }
+    }
+
+    &-balance {
+      color: $dim-color;
+      font-size: $font-size-sm;
+      text-align: right;
+    }
   }
 }

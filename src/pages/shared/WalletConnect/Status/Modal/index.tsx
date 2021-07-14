@@ -47,6 +47,10 @@ const TransactionItem: FC<{ transaction: Transaction }> = ({ transaction }) => {
         return t`Add Liquidity`
       case TransactionType.RemoveLiquidity:
         return t`Remove Liquidity`
+      case TransactionType.StakeXToken:
+        return t`Stake XToken`
+      case TransactionType.WithdrawXToken:
+        return t`Withdraw XToken`
       case TransactionType.ClaimCOFI:
         return t`Claim COFI`
       case TransactionType.Repurchase:
@@ -149,6 +153,7 @@ const WalletConnectModal: FC<Props> = memo((props) => {
 
         <ul>
           {[...transactions]
+            .filter((t) => t.type !== TransactionType.Swap)
             .reverse()
             .slice(0, 5)
             .map((t: any) => {

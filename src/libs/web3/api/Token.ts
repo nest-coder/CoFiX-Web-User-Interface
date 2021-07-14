@@ -54,7 +54,10 @@ abstract class Token extends Contract {
   }
 
   format(n: BigNumber | BigNumberish) {
-    return toBigNumber(toBigNumber(n).toFixed(this.decimals)).toFormat(this.formatPrecision || 4)
+    return toBigNumber(toBigNumber(n).toFixed(this.decimals))
+      .toFormat(this.formatPrecision || 4)
+      .replace(/(\.\d*?[1-9])0+$/, '$1')
+      .replace(/\.0+$/, '')
   }
 
   async getETHValue() {

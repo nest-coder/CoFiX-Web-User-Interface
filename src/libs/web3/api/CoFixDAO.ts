@@ -63,6 +63,53 @@ class CoFiXDAO extends Contract {
       quota: this.api.Tokens.COFI.amount(quota),
     }
   }
+
+  async getDAOBalance() {
+    if (!this.address || !this.contract) {
+      return
+    }
+
+    const daoAddress = this.address
+    const balances = await Promise.all(
+      Array.from(new Set(Object.values(this.api.CoFixAnchorPools))).map(async (p) => {
+        return Promise.all(
+          Object.values(p.tokens).map(async (symbol) => {
+            const token = this.api.Tokens[symbol]
+            if (!token) {
+              return
+            }
+            const balance = await token.balanceOf(daoAddress)
+            return {
+              symbol,
+              balance: {
+                value: balance,
+                amount: token.amount(balance),
+                formatAmount: token.format(token.amount(balance)),
+              },
+            }
+          })
+        )
+      })
+    )
+
+    const map = balances.reduce((map, arr) => {
+      arr.forEach((a) => {
+        if (!a) {
+          return
+        }
+        map[a.symbol] = a.balance
+      })
+      return map
+    }, Object.create(null))
+
+    return map as {
+      [symbol: string]: {
+        value: BigNumber
+        amount: BigNumber
+        formatAmount: string
+      }
+    }
+  }
 }
 
 export default CoFiXDAO

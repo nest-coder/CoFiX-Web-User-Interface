@@ -5,7 +5,7 @@ import Button from 'src/components/Button'
 import Modal from './Modal'
 import Popup from 'reactjs-popup'
 import { useState } from 'react'
-import useTransaction, { TransactionReceiptStatus } from 'src/libs/web3/hooks/useTransaction'
+import useTransaction, { TransactionReceiptStatus, TransactionStatus } from 'src/libs/web3/hooks/useTransaction'
 import { Loading } from 'src/components/Icon'
 
 const WalletConnectStatus: FC = () => {
@@ -18,7 +18,7 @@ const WalletConnectStatus: FC = () => {
   const { transactions } = useTransaction()
 
   const pendingTransactions = (transactions || []).filter(
-    (t) => t?.receiptStatus === TransactionReceiptStatus.Unknown
+    (t) => t?.receiptStatus === TransactionReceiptStatus.Unknown && t?.status === TransactionStatus.Success
   ).length
 
   const classPrefix = 'cofi-wallet-connect'

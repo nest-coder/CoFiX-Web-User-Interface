@@ -61,9 +61,7 @@ const TransactionModal: FC = () => {
         <Trans>Transaction Rejected</Trans>
       </h1>
 
-      <p>
-        <Trans>You failed confirming the transaction</Trans>
-      </p>
+      <p>{current.msg?.error?.data?.reason || <Trans>You failed confirming the transaction</Trans>}</p>
 
       <Button block primary gradient onClick={closeModal}>
         <Trans>Close</Trans>

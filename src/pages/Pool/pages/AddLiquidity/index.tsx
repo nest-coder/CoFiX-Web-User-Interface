@@ -21,7 +21,7 @@ const AddLiquidity: FC = () => {
   }>()
 
   const { api } = useWeb3()
-  const [autoStake, setAutoStake] = useState(false)
+  const [autoStake, setAutoStake] = useState(true)
   const [symbol, setSymbol] = useState(['', ''])
   const [amount, setAmount] = useState(['', ''])
   const ratio = usePoolRatio(symbol[0], symbol[1])

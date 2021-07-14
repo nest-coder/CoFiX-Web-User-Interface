@@ -11,7 +11,7 @@
     padding: $space $space * 2;
   }
 
-  &-logo {
+  &-prefix {
     display: none;
 
     @include tablet {
@@ -20,9 +20,14 @@
       top: 50%;
       transform: translateY(-50%);
 
-      display: block;
+      display: flex;
+      align-items: center;
+      & > * + * {
+        margin-left: $space;
+      }
     }
   }
+
 
   &-extra {
     display: none;

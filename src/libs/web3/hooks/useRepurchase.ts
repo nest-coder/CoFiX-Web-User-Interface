@@ -21,6 +21,11 @@ const useRepurchase = (content: TransactionRepurchaseContent) => {
       amount: BigNumber
       formatAmount: string
     }
+    oracleFee: {
+      value: BigNumber
+      amount: BigNumber
+      formatAmount: string
+    }
   }>()
 
   useEffect(() => {
@@ -35,29 +40,37 @@ const useRepurchase = (content: TransactionRepurchaseContent) => {
       ])
 
       const amount = toBigNumber(content.amount)
+      const anchorPool = api.CoFixAnchorPools[content.symbol]
+
+      const oracleFee = anchorPool.anchorToken === 'ETH' ? toBigNumber(0.01) : toBigNumber(0.02)
+      const newArgs: Partial<typeof args> = {
+        symbol: content.symbol,
+        amount,
+        oracleFee: {
+          value: api.Tokens.ETH.parse(oracleFee),
+          amount: oracleFee,
+          formatAmount: api.Tokens.ETH.format(oracleFee),
+        },
+      }
 
       if (!amount.isNaN()) {
         const eth = ethAmount.multipliedBy(amount)
         const usdt = usdtAmount.multipliedBy(amount)
 
-        const newArgs = {
-          symbol: content.symbol,
-          amount,
-          ethAmount: {
-            value: api.Tokens.ETH.parse(eth),
-            amount: eth,
-            formatAmount: api.Tokens.ETH.format(eth),
-          },
-          usdtAmount: {
-            value: api.Tokens.USDT.parse(usdt),
-            amount: usdt,
-            formatAmount: api.Tokens.USDT.format(usdt),
-          },
+        newArgs.usdtAmount = {
+          value: api.Tokens.USDT.parse(usdt),
+          amount: usdt,
+          formatAmount: api.Tokens.USDT.format(usdt),
         }
+        newArgs.ethAmount = {
+          value: api.Tokens.ETH.parse(eth),
+          amount: usdt,
+          formatAmount: api.Tokens.ETH.format(eth),
+        }
+      }
 
-        if (JSON.stringify(newArgs) !== JSON.stringify(args)) {
-          setArgs(newArgs)
-        }
+      if (JSON.stringify(newArgs) !== JSON.stringify(args)) {
+        setArgs(newArgs as typeof args)
       }
     })()
   }, [api, content.amount, content.symbol])
@@ -78,7 +91,7 @@ const useRepurchase = (content: TransactionRepurchaseContent) => {
             api.Tokens.ETH.parse(content.amount).toFixed(0),
             api.account || '',
             {
-              value: api.Tokens.ETH.parse(0.01).toFixed(0),
+              value: args.oracleFee.value.toFixed(0),
             }
           )
         } else {
@@ -87,7 +100,7 @@ const useRepurchase = (content: TransactionRepurchaseContent) => {
             api.Tokens.USDT.parse(content.amount).toFixed(0),
             api.account || '',
             {
-              value: api.Tokens.ETH.parse(0.02).toFixed(0),
+              value: args.oracleFee.value.toFixed(0),
             }
           )
         }

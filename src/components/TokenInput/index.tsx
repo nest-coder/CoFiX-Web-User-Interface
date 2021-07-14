@@ -11,6 +11,8 @@ import useTokenBalance from 'src/hooks/useTokenBalance'
 import BigNumber from 'bignumber.js'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import useToken from 'src/hooks/useToken'
+import { toBigNumber } from 'src/libs/web3/util'
+import classNames from 'classnames'
 
 type Props = {
   title?: string
@@ -60,10 +62,9 @@ const TokenInput: FC<Props> = ({ ...props }) => {
       return
     }
 
-    if (balance) {
-      if (new BigNumber(v).gt(balance.amount)) {
-        v = balance.amount.toString()
-      }
+    const value = toBigNumber(v)
+    if (value.lt(0)) {
+      v = '0'
     }
 
     setValue(v)
@@ -78,7 +79,8 @@ const TokenInput: FC<Props> = ({ ...props }) => {
     }
 
     if (symbol === 'ETH' && gasFee) {
-      setValue(api.Tokens.ETH.amount(balance.value.minus(gasFee.value)).toString())
+      // NOTICE: 50000 is estimate gas limit
+      setValue(api.Tokens.ETH.amount(balance.value.minus(gasFee.value.multipliedBy(50000))).toString())
     } else {
       setValue(balance.amount.toString())
     }
@@ -111,6 +113,7 @@ const TokenInput: FC<Props> = ({ ...props }) => {
     }
   }, [value, symbol])
 
+  const insufficientBalance = !!balance && toBigNumber(value).gt(balance.amount)
   const classPrefix = 'cofi-token-input'
   return (
     <div className={`${classPrefix} ${props.className}`}>
@@ -148,9 +151,14 @@ const TokenInput: FC<Props> = ({ ...props }) => {
 
       {props.noExtra !== true && (
         <div className={`${classPrefix}-extra`}>
-          <span className={`${classPrefix}-balance`}>{`${props.balanceTitle || t`Balance:`} ${
-            balance ? balance.formatAmount : '--'
-          } ${token ? (token.isXToken ? 'XToken' : token.symbol) : ''}`}</span>
+          <span
+            className={classNames({
+              [`${classPrefix}-balance`]: true,
+              error: insufficientBalance,
+            })}
+          >{`${props.balanceTitle || t`Balance:`} ${balance ? balance.formatAmount : '--'} ${
+            token ? (token.isXToken ? 'XToken' : token.symbol) : ''
+          }`}</span>
 
           {props.maximize && balance && (
             <span className={`${classPrefix}-max`} onClick={handleMax}>

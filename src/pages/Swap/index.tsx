@@ -83,7 +83,6 @@ const Swap: FC = () => {
   }, [swap?.ratio?.final])
 
   const classPrefix = 'cofi-page-swap'
-
   const sectionSwap = (
     <section>
       <Card title={t`Exchange`}>

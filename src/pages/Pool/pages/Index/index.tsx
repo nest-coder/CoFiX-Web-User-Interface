@@ -149,11 +149,13 @@ const Pool: FC = () => {
             </Card>
           )}
 
-          <Button block gradient>
-            <Link to={`/pool/remove-liquidity/${token0.symbol}/${token1.symbol}`}>
-              <Trans>Remove Liquidity</Trans>
-            </Link>
-          </Button>
+          {poolInfo?.emptyLiquidity && (
+            <Button block gradient>
+              <Link to={`/pool/remove-liquidity/${token0.symbol}/${token1.symbol}`}>
+                <Trans>Remove Liquidity</Trans>
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
     </section>
@@ -265,11 +267,13 @@ const Pool: FC = () => {
             </Card>
           )}
 
-          <Button block gradient>
-            <Link to={`/pool/remove-liquidity/${token.symbol}`}>
-              <Trans>Remove Liquidity</Trans>
-            </Link>
-          </Button>
+          {anchorPoolInfo?.emptyLiquidity && (
+            <Button block gradient>
+              <Link to={`/pool/remove-liquidity/${token.symbol}`}>
+                <Trans>Remove Liquidity</Trans>
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
     </section>

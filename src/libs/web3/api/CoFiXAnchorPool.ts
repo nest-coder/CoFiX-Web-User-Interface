@@ -9,7 +9,7 @@ import { toBigNumber } from '../util'
 
 export type CoFiXAnchorPoolProps = ContractProps & {
   title: string
-  baseToken: string
+  anchorToken: string
   tokens: Array<string>
   cofiAmountPerBlock: number
 }
@@ -59,7 +59,7 @@ export type AnchorStakeInfo = {
 class CoFiXAnchorPool extends Contract {
   contract?: TypeCoFiXAnchorPool
   tokens: Array<string>
-  baseToken: string
+  anchorToken: string
   title: string
   cofiAmountPerBlock: number
 
@@ -75,7 +75,7 @@ class CoFiXAnchorPool extends Contract {
     }
 
     this.tokens = props.tokens
-    this.baseToken = props.baseToken
+    this.anchorToken = props.anchorToken
     this.xtokens = {}
     this.title = props.title
     this.cofiAmountPerBlock = props.cofiAmountPerBlock
@@ -124,7 +124,7 @@ class CoFiXAnchorPool extends Contract {
   async getAnchorPoolInfo(symbol: string): Promise<AnchorPoolInfo | undefined> {
     const xtoken = this.xtokens[symbol]
     const token = this.api.Tokens[symbol]
-    const baseToken = this.api.Tokens[this.baseToken]
+    const anchorToken = this.api.Tokens[this.anchorToken]
 
     if (!this.address || !this.contract || !xtoken) {
       return
@@ -132,7 +132,7 @@ class CoFiXAnchorPool extends Contract {
 
     const [balance, usdtAmount, cofiUSDTAmount, xtokenTotalSupplys] = await Promise.all([
       token.balanceOf(this.address),
-      baseToken.getUSDTAmount(),
+      anchorToken.getUSDTAmount(),
       this.api.Tokens.COFI.getUSDTAmount(),
       Promise.all(
         Object.values(this.xtokens).map(async (xt) => {

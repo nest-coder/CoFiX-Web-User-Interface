@@ -86,7 +86,7 @@ export type Transaction = {
   timestamp?: number
   status?: TransactionStatus
   hash?: string
-  msg?: string
+  msg?: any
   tx?: string
 
   receiptStatus?: TransactionReceiptStatus

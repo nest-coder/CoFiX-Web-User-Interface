@@ -23,7 +23,6 @@ export async function dynamicActivate(locale: string = defaultLocale) {
   }
   const { messages } = await import(`@lingui/loader!src/locales/${locale}.po`)
 
-  console.log('load')
   i18n.load(locale, messages)
   i18n.activate(locale)
 

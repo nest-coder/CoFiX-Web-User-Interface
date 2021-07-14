@@ -11,4 +11,10 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+
+  &.primary {
+    color: white;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+  }
 }
