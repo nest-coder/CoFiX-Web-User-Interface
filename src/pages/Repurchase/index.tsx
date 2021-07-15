@@ -21,7 +21,7 @@ const Repurchase: FC = () => {
   useEffect(() => {
     ;(async () => {
       try {
-        await checkRisk(RiskAction.Pool)
+        await checkRisk(RiskAction.Repurchase)
       } catch (_) {
         // comment for eslint
       }
