@@ -53,7 +53,6 @@ const Repurchase: FC = () => {
               title={t`Current locked in DAO (ETH-Anchor)`}
               value={daoInfo ? api?.Tokens.ETH.format(daoInfo.ethAmount) : '--'}
               icon={<GrayTokenETH />}
-              // icon={<TokenETH height={110} width={68} style={{ opacity: 0.08 }} />}
             />
           </li>
           <li>

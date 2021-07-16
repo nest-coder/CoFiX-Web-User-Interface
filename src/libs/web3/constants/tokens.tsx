@@ -73,6 +73,7 @@ export const DAI: TokenProps = {
   },
 }
 
+console.log(TokenUSDC)
 export const USDC: TokenProps = {
   symbol: 'USDC',
   Icon: TokenUSDC,
