@@ -10,6 +10,7 @@ import useWithdrawXToken from 'src/libs/web3/hooks/useWithdrawXToken'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import useXToken from 'src/libs/web3/hooks/useXToken'
 import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
+import { toBigNumber } from 'src/libs/web3/util'
 
 const WithdrawXToken: FC = () => {
   const history = useHistory()
@@ -65,7 +66,7 @@ const WithdrawXToken: FC = () => {
         onChange={(v) => setAmount(v)}
       />
 
-      <TransactionButtonGroup disabled={!amount} onClick={handleWithdrawXToken.handler}>
+      <TransactionButtonGroup disabled={!amount || toBigNumber(amount).lte(0)} onClick={handleWithdrawXToken.handler}>
         <Trans>Withdraw XToken</Trans>
       </TransactionButtonGroup>
     </Card>

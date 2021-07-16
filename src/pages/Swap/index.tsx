@@ -26,6 +26,7 @@ const Swap: FC = () => {
   const swap = useSwap({ src, dest })
   const [confirm, setConfirm] = useState(false)
   const { checkRisk } = useRiskModal()
+  const [insufficient, setInsufficient] = useState(false)
 
   const handleSwitch = () => {
     const oldSrc = src
@@ -89,7 +90,13 @@ const Swap: FC = () => {
     <section>
       <Card title={t`Exchange`}>
         <div className="token-input-pair">
-          <TokenInput title={t`FROM`} symbol={src.symbol} value={src.amount} onChange={handleChangeSrc} />
+          <TokenInput
+            title={t`FROM`}
+            symbol={src.symbol}
+            value={src.amount}
+            onChange={handleChangeSrc}
+            onInsufficientBalance={(b) => setInsufficient(b)}
+          />
           <SwitchOutline onClick={handleSwitch} />
           <TokenInput title={t`TO(ESTIMATED)`} symbol={dest.symbol} value={dest.amount} onChange={handleChangeDest} />
         </div>
@@ -195,7 +202,7 @@ const Swap: FC = () => {
             transactionType: TransactionType.Swap,
             token: [src.symbol, dest.symbol],
           }}
-          disabled={!src.amount || !swap.ratio}
+          disabled={!src.amount || toBigNumber(src.amount).lte(0) || !swap.ratio || insufficient}
           onClick={async () => {
             try {
               await checkRisk(RiskAction.Swap)

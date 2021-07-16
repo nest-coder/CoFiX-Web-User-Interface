@@ -12,6 +12,7 @@ import useAddLiquidity from 'src/libs/web3/hooks/useAddLiquidity'
 import { TransactionType } from 'src/libs/web3/hooks/useTransaction'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
+import { toBigNumber } from 'src/libs/web3/util'
 
 const AddLiquidity: FC = () => {
   const history = useHistory()
@@ -114,7 +115,7 @@ const AddLiquidity: FC = () => {
           token: [symbol[0], symbol[1] || symbol[0]],
         }}
         onClick={handleAddLiquidity.handler}
-        disabled={!amount[0] || (!!symbol[1] && !ratio)}
+        disabled={!amount[0] || toBigNumber(amount[0]).lte(0) || (!!symbol[1] && !ratio)}
       >
         <Trans>Add Liquidity</Trans>
       </TransactionButtonGroup>

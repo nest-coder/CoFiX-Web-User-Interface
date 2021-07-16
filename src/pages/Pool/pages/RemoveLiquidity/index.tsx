@@ -14,6 +14,7 @@ import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import useXToken from 'src/libs/web3/hooks/useXToken'
 import { PoolInfo } from 'src/libs/web3/api/CoFiXPair'
 import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
+import { toBigNumber } from 'src/libs/web3/util'
 
 const RemoveLiquidity: FC = () => {
   const history = useHistory()
@@ -89,7 +90,7 @@ const RemoveLiquidity: FC = () => {
           token: [symbol[0], symbol[1]],
         }}
         onClick={handleRemoveLiquidity.handler}
-        disabled={!amount}
+        disabled={!amount || toBigNumber(amount).lte(0)}
       >
         <Trans>Remove Liquidity</Trans>
       </TransactionButtonGroup>

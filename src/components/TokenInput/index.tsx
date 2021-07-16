@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useRef } from 'react'
+import { FC, ChangeEvent, useRef, useMemo } from 'react'
 import './styles'
 import { t } from '@lingui/macro'
 import { useState } from 'react'
@@ -34,6 +34,7 @@ type Props = {
 
   value?: string
   onChange?: (amount: string, symbol: string) => any
+  onInsufficientBalance?: (insufficient: boolean) => any
 }
 
 const TokenInput: FC<Props> = ({ ...props }) => {
@@ -113,7 +114,16 @@ const TokenInput: FC<Props> = ({ ...props }) => {
     }
   }, [value, symbol])
 
-  const insufficientBalance = !!balance && toBigNumber(value).gt(balance.amount)
+  const insufficientBalance = useMemo(() => {
+    return !!balance && toBigNumber(value).gt(balance.amount)
+  }, [value, balance, balance?.amount])
+
+  useEffect(() => {
+    if (props.onInsufficientBalance) {
+      props.onInsufficientBalance(insufficientBalance)
+    }
+  }, [insufficientBalance])
+
   const classPrefix = 'cofi-token-input'
   return (
     <div className={`${classPrefix} ${props.className}`}>

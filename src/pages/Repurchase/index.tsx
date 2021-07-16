@@ -15,6 +15,7 @@ import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 import AnchorSelector from './AnchorSelector'
 import { RiskAction, useRiskModal } from '../shared/RiskModal'
+import { toBigNumber } from 'src/libs/web3/util'
 
 const Repurchase: FC = () => {
   const { checkRisk } = useRiskModal()
@@ -135,7 +136,7 @@ const Repurchase: FC = () => {
               transactionType: TransactionType.Repurchase,
               token: ['COFI', 'COFI'],
             }}
-            disabled={!amount}
+            disabled={!amount || toBigNumber(amount).lte(0)}
             onClick={handleRepurchase.handler}
           >
             <Trans>Repurchase</Trans>
