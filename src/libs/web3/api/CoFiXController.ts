@@ -11,7 +11,10 @@ class CoFiXController extends Contract {
     super(api, props)
 
     if (this.address && this.api.provider) {
-      this.contract = CoFiXController__factory.connect(this.address, this.api.provider?.getSigner() || this.api.provider)
+      this.contract = CoFiXController__factory.connect(
+        this.address,
+        this.api.provider?.getSigner() || this.api.provider
+      )
     }
   }
 }

@@ -71,7 +71,10 @@ class CoFiXAnchorPool extends Contract {
     super(api, props)
 
     if (this.address && this.api.provider) {
-      this.contract = CoFiXAnchorPool__factory.connect(this.address, this.api.provider?.getSigner() || this.api.provider)
+      this.contract = CoFiXAnchorPool__factory.connect(
+        this.address,
+        this.api.provider?.getSigner() || this.api.provider
+      )
     }
 
     this.tokens = props.tokens

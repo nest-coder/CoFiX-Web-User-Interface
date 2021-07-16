@@ -2,7 +2,7 @@
 
 interface RequestArguments {
   method: string
-  params?: unknown[] | object
+  params?: unknown[] | Record<string, unknown>
 }
 
 interface ProviderMessage {

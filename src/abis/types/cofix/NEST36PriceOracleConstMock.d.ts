@@ -14,93 +14,78 @@ import {
   Overrides,
   PayableOverrides,
   CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import { TypedEventFilter, TypedEvent, TypedListener } from './commons'
 
 interface NEST36PriceOracleConstMockInterface extends ethers.utils.Interface {
   functions: {
-    "priceInfoMap(address)": FunctionFragment;
-    "latestPriceAndTriggeredPriceInfo(address,address)": FunctionFragment;
-    "latestPrice(address)": FunctionFragment;
-    "feedPrice(address,uint256,uint256,uint256,uint256)": FunctionFragment;
-  };
+    'priceInfoMap(address)': FunctionFragment
+    'latestPriceAndTriggeredPriceInfo(address,address)': FunctionFragment
+    'latestPrice(address)': FunctionFragment
+    'feedPrice(address,uint256,uint256,uint256,uint256)': FunctionFragment
+  }
 
+  encodeFunctionData(functionFragment: 'priceInfoMap', values: [string]): string
+  encodeFunctionData(functionFragment: 'latestPriceAndTriggeredPriceInfo', values: [string, string]): string
+  encodeFunctionData(functionFragment: 'latestPrice', values: [string]): string
   encodeFunctionData(
-    functionFragment: "priceInfoMap",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "latestPriceAndTriggeredPriceInfo",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(functionFragment: "latestPrice", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "feedPrice",
+    functionFragment: 'feedPrice',
     values: [string, BigNumberish, BigNumberish, BigNumberish, BigNumberish]
-  ): string;
+  ): string
 
-  decodeFunctionResult(
-    functionFragment: "priceInfoMap",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "latestPriceAndTriggeredPriceInfo",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "latestPrice",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "feedPrice", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'priceInfoMap', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'latestPriceAndTriggeredPriceInfo', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'latestPrice', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'feedPrice', data: BytesLike): Result
 
-  events: {};
+  events: {}
 }
 
 export class NEST36PriceOracleConstMock extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: NEST36PriceOracleConstMockInterface;
+  interface: NEST36PriceOracleConstMockInterface
 
   functions: {
     priceInfoMap(
@@ -108,34 +93,34 @@ export class NEST36PriceOracleConstMock extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        latestPriceBlockNumber: BigNumber;
-        latestPriceValue: BigNumber;
-        triggeredPriceBlockNumber: BigNumber;
-        triggeredPriceValue: BigNumber;
-        triggeredAvgPrice: BigNumber;
-        triggeredSigmaSQ: BigNumber;
+        latestPriceBlockNumber: BigNumber
+        latestPriceValue: BigNumber
+        triggeredPriceBlockNumber: BigNumber
+        triggeredPriceValue: BigNumber
+        triggeredAvgPrice: BigNumber
+        triggeredSigmaSQ: BigNumber
       }
-    >;
+    >
 
     latestPriceAndTriggeredPriceInfo(
       token: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     latestPrice(
       token: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        latestPriceBlockNumber: BigNumber;
-        latestPriceValue: BigNumber;
-        triggeredPriceBlockNumber: BigNumber;
-        triggeredPriceValue: BigNumber;
-        triggeredAvgPrice: BigNumber;
-        triggeredSigmaSQ: BigNumber;
+        latestPriceBlockNumber: BigNumber
+        latestPriceValue: BigNumber
+        triggeredPriceBlockNumber: BigNumber
+        triggeredPriceValue: BigNumber
+        triggeredAvgPrice: BigNumber
+        triggeredSigmaSQ: BigNumber
       }
-    >;
+    >
 
     feedPrice(
       token: string,
@@ -144,42 +129,42 @@ export class NEST36PriceOracleConstMock extends BaseContract {
       triggeredAvgPrice: BigNumberish,
       triggeredSigmaSQ: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-  };
+    ): Promise<ContractTransaction>
+  }
 
   priceInfoMap(
     arg0: string,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-      latestPriceBlockNumber: BigNumber;
-      latestPriceValue: BigNumber;
-      triggeredPriceBlockNumber: BigNumber;
-      triggeredPriceValue: BigNumber;
-      triggeredAvgPrice: BigNumber;
-      triggeredSigmaSQ: BigNumber;
+      latestPriceBlockNumber: BigNumber
+      latestPriceValue: BigNumber
+      triggeredPriceBlockNumber: BigNumber
+      triggeredPriceValue: BigNumber
+      triggeredAvgPrice: BigNumber
+      triggeredSigmaSQ: BigNumber
     }
-  >;
+  >
 
   latestPriceAndTriggeredPriceInfo(
     token: string,
     payback: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   latestPrice(
     token: string,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-      latestPriceBlockNumber: BigNumber;
-      latestPriceValue: BigNumber;
-      triggeredPriceBlockNumber: BigNumber;
-      triggeredPriceValue: BigNumber;
-      triggeredAvgPrice: BigNumber;
-      triggeredSigmaSQ: BigNumber;
+      latestPriceBlockNumber: BigNumber
+      latestPriceValue: BigNumber
+      triggeredPriceBlockNumber: BigNumber
+      triggeredPriceValue: BigNumber
+      triggeredAvgPrice: BigNumber
+      triggeredSigmaSQ: BigNumber
     }
-  >;
+  >
 
   feedPrice(
     token: string,
@@ -188,7 +173,7 @@ export class NEST36PriceOracleConstMock extends BaseContract {
     triggeredAvgPrice: BigNumberish,
     triggeredSigmaSQ: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   callStatic: {
     priceInfoMap(
@@ -196,14 +181,14 @@ export class NEST36PriceOracleConstMock extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        latestPriceBlockNumber: BigNumber;
-        latestPriceValue: BigNumber;
-        triggeredPriceBlockNumber: BigNumber;
-        triggeredPriceValue: BigNumber;
-        triggeredAvgPrice: BigNumber;
-        triggeredSigmaSQ: BigNumber;
+        latestPriceBlockNumber: BigNumber
+        latestPriceValue: BigNumber
+        triggeredPriceBlockNumber: BigNumber
+        triggeredPriceValue: BigNumber
+        triggeredAvgPrice: BigNumber
+        triggeredSigmaSQ: BigNumber
       }
-    >;
+    >
 
     latestPriceAndTriggeredPriceInfo(
       token: string,
@@ -211,28 +196,28 @@ export class NEST36PriceOracleConstMock extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        latestPriceBlockNumber: BigNumber;
-        latestPriceValue: BigNumber;
-        triggeredPriceBlockNumber: BigNumber;
-        triggeredPriceValue: BigNumber;
-        triggeredAvgPrice: BigNumber;
-        triggeredSigmaSQ: BigNumber;
+        latestPriceBlockNumber: BigNumber
+        latestPriceValue: BigNumber
+        triggeredPriceBlockNumber: BigNumber
+        triggeredPriceValue: BigNumber
+        triggeredAvgPrice: BigNumber
+        triggeredSigmaSQ: BigNumber
       }
-    >;
+    >
 
     latestPrice(
       token: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        latestPriceBlockNumber: BigNumber;
-        latestPriceValue: BigNumber;
-        triggeredPriceBlockNumber: BigNumber;
-        triggeredPriceValue: BigNumber;
-        triggeredAvgPrice: BigNumber;
-        triggeredSigmaSQ: BigNumber;
+        latestPriceBlockNumber: BigNumber
+        latestPriceValue: BigNumber
+        triggeredPriceBlockNumber: BigNumber
+        triggeredPriceValue: BigNumber
+        triggeredAvgPrice: BigNumber
+        triggeredSigmaSQ: BigNumber
       }
-    >;
+    >
 
     feedPrice(
       token: string,
@@ -241,21 +226,21 @@ export class NEST36PriceOracleConstMock extends BaseContract {
       triggeredAvgPrice: BigNumberish,
       triggeredSigmaSQ: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
-  };
+    ): Promise<void>
+  }
 
-  filters: {};
+  filters: {}
 
   estimateGas: {
-    priceInfoMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    priceInfoMap(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
     latestPriceAndTriggeredPriceInfo(
       token: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    latestPrice(token: string, overrides?: CallOverrides): Promise<BigNumber>;
+    latestPrice(token: string, overrides?: CallOverrides): Promise<BigNumber>
 
     feedPrice(
       token: string,
@@ -264,25 +249,19 @@ export class NEST36PriceOracleConstMock extends BaseContract {
       triggeredAvgPrice: BigNumberish,
       triggeredSigmaSQ: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-  };
+    ): Promise<BigNumber>
+  }
 
   populateTransaction: {
-    priceInfoMap(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    priceInfoMap(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     latestPriceAndTriggeredPriceInfo(
       token: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    latestPrice(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    latestPrice(token: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     feedPrice(
       token: string,
@@ -291,6 +270,6 @@ export class NEST36PriceOracleConstMock extends BaseContract {
       triggeredAvgPrice: BigNumberish,
       triggeredSigmaSQ: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-  };
+    ): Promise<PopulatedTransaction>
+  }
 }

@@ -2,258 +2,249 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
+import { Contract, Signer, utils } from 'ethers'
+import { Provider } from '@ethersproject/providers'
 import type {
   NEST36PriceOracleAutoUpdateConstMock,
   NEST36PriceOracleAutoUpdateConstMockInterface,
-} from "../NEST36PriceOracleAutoUpdateConstMock";
+} from '../NEST36PriceOracleAutoUpdateConstMock'
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    name: "priceInfoMap",
+    name: 'priceInfoMap',
     outputs: [
       {
-        internalType: "uint256",
-        name: "latestPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "latestPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredAvgPrice",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredAvgPrice',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredSigmaSQ",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredSigmaSQ',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "defi",
-        type: "address",
+        internalType: 'address',
+        name: 'defi',
+        type: 'address',
       },
     ],
-    name: "activate",
+    name: 'activate',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
-        internalType: "address",
-        name: "payback",
-        type: "address",
+        internalType: 'address',
+        name: 'payback',
+        type: 'address',
       },
     ],
-    name: "latestPriceAndTriggeredPriceInfo",
+    name: 'latestPriceAndTriggeredPriceInfo',
     outputs: [
       {
-        internalType: "uint256",
-        name: "latestPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "latestPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredAvgPrice",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredAvgPrice',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredSigmaSQ",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredSigmaSQ',
+        type: 'uint256',
       },
     ],
-    stateMutability: "payable",
-    type: "function",
+    stateMutability: 'payable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
     ],
-    name: "latestPrice",
+    name: 'latestPrice',
     outputs: [
       {
-        internalType: "uint256",
-        name: "latestPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "latestPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredAvgPrice",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredAvgPrice',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredSigmaSQ",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredSigmaSQ',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "latestPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPrice",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPrice',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredAvgPrice",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredAvgPrice',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredSigmaSQ",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredSigmaSQ',
+        type: 'uint256',
       },
     ],
-    name: "feedPrice",
+    name: 'feedPrice',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
     ],
-    name: "checkPriceNow",
+    name: 'checkPriceNow',
     outputs: [
       {
-        internalType: "uint256",
-        name: "latestPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "latestPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredAvgPrice",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredAvgPrice',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredSigmaSQ",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredSigmaSQ',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
-];
+]
 
 export class NEST36PriceOracleAutoUpdateConstMock__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): NEST36PriceOracleAutoUpdateConstMockInterface {
-    return new utils.Interface(
-      _abi
-    ) as NEST36PriceOracleAutoUpdateConstMockInterface;
+    return new utils.Interface(_abi) as NEST36PriceOracleAutoUpdateConstMockInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): NEST36PriceOracleAutoUpdateConstMock {
-    return new Contract(
-      address,
-      _abi,
-      signerOrProvider
-    ) as NEST36PriceOracleAutoUpdateConstMock;
+  static connect(address: string, signerOrProvider: Signer | Provider): NEST36PriceOracleAutoUpdateConstMock {
+    return new Contract(address, _abi, signerOrProvider) as NEST36PriceOracleAutoUpdateConstMock
   }
 }

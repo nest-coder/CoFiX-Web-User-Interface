@@ -2,9 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type { WETH9, WETH9Interface } from "../WETH9";
+import { Contract, Signer, utils } from 'ethers'
+import { Provider } from '@ethersproject/providers'
+import type { WETH9, WETH9Interface } from '../WETH9'
 
 const _abi = [
   {
@@ -12,289 +12,289 @@ const _abi = [
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "src",
-        type: "address",
+        internalType: 'address',
+        name: 'src',
+        type: 'address',
       },
       {
         indexed: true,
-        internalType: "address",
-        name: "guy",
-        type: "address",
+        internalType: 'address',
+        name: 'guy',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "wad",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'wad',
+        type: 'uint256',
       },
     ],
-    name: "Approval",
-    type: "event",
+    name: 'Approval',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "dst",
-        type: "address",
+        internalType: 'address',
+        name: 'dst',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "wad",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'wad',
+        type: 'uint256',
       },
     ],
-    name: "Deposit",
-    type: "event",
+    name: 'Deposit',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "src",
-        type: "address",
+        internalType: 'address',
+        name: 'src',
+        type: 'address',
       },
       {
         indexed: true,
-        internalType: "address",
-        name: "dst",
-        type: "address",
+        internalType: 'address',
+        name: 'dst',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "wad",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'wad',
+        type: 'uint256',
       },
     ],
-    name: "Transfer",
-    type: "event",
+    name: 'Transfer',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "src",
-        type: "address",
+        internalType: 'address',
+        name: 'src',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "wad",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'wad',
+        type: 'uint256',
       },
     ],
-    name: "Withdrawal",
-    type: "event",
+    name: 'Withdrawal',
+    type: 'event',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    name: "allowance",
+    name: 'allowance',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    name: "balanceOf",
+    name: 'balanceOf',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "decimals",
+    name: 'decimals',
     outputs: [
       {
-        internalType: "uint8",
-        name: "",
-        type: "uint8",
+        internalType: 'uint8',
+        name: '',
+        type: 'uint8',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "name",
+    name: 'name',
     outputs: [
       {
-        internalType: "string",
-        name: "",
-        type: "string",
+        internalType: 'string',
+        name: '',
+        type: 'string',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "symbol",
+    name: 'symbol',
     outputs: [
       {
-        internalType: "string",
-        name: "",
-        type: "string",
+        internalType: 'string',
+        name: '',
+        type: 'string',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "deposit",
+    name: 'deposit',
     outputs: [],
-    stateMutability: "payable",
-    type: "function",
+    stateMutability: 'payable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "wad",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'wad',
+        type: 'uint256',
       },
     ],
-    name: "withdraw",
+    name: 'withdraw',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "totalSupply",
+    name: 'totalSupply',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "guy",
-        type: "address",
+        internalType: 'address',
+        name: 'guy',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "wad",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'wad',
+        type: 'uint256',
       },
     ],
-    name: "approve",
+    name: 'approve',
     outputs: [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
       },
     ],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "dst",
-        type: "address",
+        internalType: 'address',
+        name: 'dst',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "wad",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'wad',
+        type: 'uint256',
       },
     ],
-    name: "transfer",
+    name: 'transfer',
     outputs: [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
       },
     ],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "src",
-        type: "address",
+        internalType: 'address',
+        name: 'src',
+        type: 'address',
       },
       {
-        internalType: "address",
-        name: "dst",
-        type: "address",
+        internalType: 'address',
+        name: 'dst',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "wad",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'wad',
+        type: 'uint256',
       },
     ],
-    name: "transferFrom",
+    name: 'transferFrom',
     outputs: [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        internalType: 'bool',
+        name: '',
+        type: 'bool',
       },
     ],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
-];
+]
 
 export class WETH9__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): WETH9Interface {
-    return new utils.Interface(_abi) as WETH9Interface;
+    return new utils.Interface(_abi) as WETH9Interface
   }
   static connect(address: string, signerOrProvider: Signer | Provider): WETH9 {
-    return new Contract(address, _abi, signerOrProvider) as WETH9;
+    return new Contract(address, _abi, signerOrProvider) as WETH9
   }
 }

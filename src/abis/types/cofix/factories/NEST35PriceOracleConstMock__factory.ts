@@ -2,184 +2,174 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  NEST35PriceOracleConstMock,
-  NEST35PriceOracleConstMockInterface,
-} from "../NEST35PriceOracleConstMock";
+import { Contract, Signer, utils } from 'ethers'
+import { Provider } from '@ethersproject/providers'
+import type { NEST35PriceOracleConstMock, NEST35PriceOracleConstMockInterface } from '../NEST35PriceOracleConstMock'
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    name: "priceInfoMap",
+    name: 'priceInfoMap',
     outputs: [
       {
-        internalType: "uint256",
-        name: "ethAmount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'ethAmount',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "erc20Amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'erc20Amount',
+        type: 'uint256',
       },
       {
-        internalType: "uint128",
-        name: "avgPrice",
-        type: "uint128",
+        internalType: 'uint128',
+        name: 'avgPrice',
+        type: 'uint128',
       },
       {
-        internalType: "int128",
-        name: "vola",
-        type: "int128",
+        internalType: 'int128',
+        name: 'vola',
+        type: 'int128',
       },
       {
-        internalType: "uint256",
-        name: "lastUpdateBlock",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'lastUpdateBlock',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
-        internalType: "address",
-        name: "payback",
-        type: "address",
+        internalType: 'address',
+        name: 'payback',
+        type: 'address',
       },
     ],
-    name: "queryPriceAvgVola",
+    name: 'queryPriceAvgVola',
     outputs: [
       {
-        internalType: "uint256",
-        name: "ethAmount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'ethAmount',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "tokenAmount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'tokenAmount',
+        type: 'uint256',
       },
       {
-        internalType: "uint128",
-        name: "avgPrice",
-        type: "uint128",
+        internalType: 'uint128',
+        name: 'avgPrice',
+        type: 'uint128',
       },
       {
-        internalType: "int128",
-        name: "vola",
-        type: "int128",
+        internalType: 'int128',
+        name: 'vola',
+        type: 'int128',
       },
       {
-        internalType: "uint256",
-        name: "bn",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'bn',
+        type: 'uint256',
       },
     ],
-    stateMutability: "payable",
-    type: "function",
+    stateMutability: 'payable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
     ],
-    name: "latestPrice",
+    name: 'latestPrice',
     outputs: [
       {
-        internalType: "uint256",
-        name: "ethAmount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'ethAmount',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "tokenAmount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'tokenAmount',
+        type: 'uint256',
       },
       {
-        internalType: "uint128",
-        name: "avgPrice",
-        type: "uint128",
+        internalType: 'uint128',
+        name: 'avgPrice',
+        type: 'uint128',
       },
       {
-        internalType: "int128",
-        name: "vola",
-        type: "int128",
+        internalType: 'int128',
+        name: 'vola',
+        type: 'int128',
       },
       {
-        internalType: "uint256",
-        name: "bn",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'bn',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "ethAmount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'ethAmount',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "erc20Amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'erc20Amount',
+        type: 'uint256',
       },
       {
-        internalType: "uint128",
-        name: "avgPrice",
-        type: "uint128",
+        internalType: 'uint128',
+        name: 'avgPrice',
+        type: 'uint128',
       },
       {
-        internalType: "int128",
-        name: "vola",
-        type: "int128",
+        internalType: 'int128',
+        name: 'vola',
+        type: 'int128',
       },
     ],
-    name: "feedPrice",
+    name: 'feedPrice',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
-];
+]
 
 export class NEST35PriceOracleConstMock__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): NEST35PriceOracleConstMockInterface {
-    return new utils.Interface(_abi) as NEST35PriceOracleConstMockInterface;
+    return new utils.Interface(_abi) as NEST35PriceOracleConstMockInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): NEST35PriceOracleConstMock {
-    return new Contract(
-      address,
-      _abi,
-      signerOrProvider
-    ) as NEST35PriceOracleConstMock;
+  static connect(address: string, signerOrProvider: Signer | Provider): NEST35PriceOracleConstMock {
+    return new Contract(address, _abi, signerOrProvider) as NEST35PriceOracleConstMock
   }
 }

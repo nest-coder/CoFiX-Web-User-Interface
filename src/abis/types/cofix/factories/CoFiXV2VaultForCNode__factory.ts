@@ -2,317 +2,307 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  CoFiXV2VaultForCNode,
-  CoFiXV2VaultForCNodeInterface,
-} from "../CoFiXV2VaultForCNode";
+import { Contract, Signer, utils } from 'ethers'
+import { Provider } from '@ethersproject/providers'
+import type { CoFiXV2VaultForCNode, CoFiXV2VaultForCNodeInterface } from '../CoFiXV2VaultForCNode'
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "cofi",
-        type: "address",
+        internalType: 'address',
+        name: 'cofi',
+        type: 'address',
       },
       {
-        internalType: "address",
-        name: "_factory",
-        type: "address",
+        internalType: 'address',
+        name: '_factory',
+        type: 'address',
       },
     ],
-    stateMutability: "nonpayable",
-    type: "constructor",
+    stateMutability: 'nonpayable',
+    type: 'constructor',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "NewCNodePool",
-    type: "event",
+    name: 'NewCNodePool',
+    type: 'event',
   },
   {
     inputs: [],
-    name: "RATE_BASE",
+    name: 'RATE_BASE',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "cnodePool",
+    name: 'cnodePool',
     outputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "cofiToken",
+    name: 'cofiToken',
     outputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "decayPeriod",
+    name: 'decayPeriod',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "decayRate",
+    name: 'decayRate',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "factory",
+    name: 'factory',
     outputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "genesisBlock",
+    name: 'genesisBlock',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "governance",
+    name: 'governance',
     outputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "initCoFiRate",
+    name: 'initCoFiRate',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "setGenesisBlock",
+    name: 'setGenesisBlock',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "setGovernance",
+    name: 'setGovernance',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "setCNodePool",
+    name: 'setCNodePool',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_new",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '_new',
+        type: 'uint256',
       },
     ],
-    name: "setInitCoFiRate",
+    name: 'setInitCoFiRate',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_new",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '_new',
+        type: 'uint256',
       },
     ],
-    name: "setDecayPeriod",
+    name: 'setDecayPeriod',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_new",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '_new',
+        type: 'uint256',
       },
     ],
-    name: "setDecayRate",
+    name: 'setDecayRate',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "getPendingRewardOfCNode",
+    name: 'getPendingRewardOfCNode',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "to",
-        type: "address",
+        internalType: 'address',
+        name: 'to',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "distributeReward",
+    name: 'distributeReward',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "currentPeriod",
+    name: 'currentPeriod',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "currentCoFiRate",
+    name: 'currentCoFiRate',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "getCoFiStakingPool",
+    name: 'getCoFiStakingPool',
     outputs: [
       {
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
-];
+]
 
 export class CoFiXV2VaultForCNode__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): CoFiXV2VaultForCNodeInterface {
-    return new utils.Interface(_abi) as CoFiXV2VaultForCNodeInterface;
+    return new utils.Interface(_abi) as CoFiXV2VaultForCNodeInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): CoFiXV2VaultForCNode {
-    return new Contract(
-      address,
-      _abi,
-      signerOrProvider
-    ) as CoFiXV2VaultForCNode;
+  static connect(address: string, signerOrProvider: Signer | Provider): CoFiXV2VaultForCNode {
+    return new Contract(address, _abi, signerOrProvider) as CoFiXV2VaultForCNode
   }
 }

@@ -13,244 +13,181 @@ import {
   ContractTransaction,
   Overrides,
   CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import { TypedEventFilter, TypedEvent, TypedListener } from './commons'
 
 interface CoFiXKTableInterface extends ethers.utils.Interface {
   functions: {
-    "governance()": FunctionFragment;
-    "k0Table(uint256,uint256)": FunctionFragment;
-    "setK0(uint256,uint256,int128)": FunctionFragment;
-    "setK0InBatch(uint256[],uint256[],int128[])": FunctionFragment;
-    "getK0(uint256,uint256)": FunctionFragment;
-  };
+    'governance()': FunctionFragment
+    'k0Table(uint256,uint256)': FunctionFragment
+    'setK0(uint256,uint256,int128)': FunctionFragment
+    'setK0InBatch(uint256[],uint256[],int128[])': FunctionFragment
+    'getK0(uint256,uint256)': FunctionFragment
+  }
 
-  encodeFunctionData(
-    functionFragment: "governance",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "k0Table",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setK0",
-    values: [BigNumberish, BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setK0InBatch",
-    values: [BigNumberish[], BigNumberish[], BigNumberish[]]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getK0",
-    values: [BigNumberish, BigNumberish]
-  ): string;
+  encodeFunctionData(functionFragment: 'governance', values?: undefined): string
+  encodeFunctionData(functionFragment: 'k0Table', values: [BigNumberish, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'setK0', values: [BigNumberish, BigNumberish, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'setK0InBatch', values: [BigNumberish[], BigNumberish[], BigNumberish[]]): string
+  encodeFunctionData(functionFragment: 'getK0', values: [BigNumberish, BigNumberish]): string
 
-  decodeFunctionResult(functionFragment: "governance", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "k0Table", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "setK0", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "setK0InBatch",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "getK0", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'governance', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'k0Table', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setK0', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setK0InBatch', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getK0', data: BytesLike): Result
 
-  events: {};
+  events: {}
 }
 
 export class CoFiXKTable extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: CoFiXKTableInterface;
+  interface: CoFiXKTableInterface
 
   functions: {
-    governance(overrides?: CallOverrides): Promise<[string]>;
+    governance(overrides?: CallOverrides): Promise<[string]>
 
-    k0Table(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    k0Table(arg0: BigNumberish, arg1: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>
 
     setK0(
       tIdx: BigNumberish,
       sigmaIdx: BigNumberish,
       k0: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setK0InBatch(
       tIdxs: BigNumberish[],
       sigmaIdxs: BigNumberish[],
       k0s: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    getK0(
-      tIdx: BigNumberish,
-      sigmaIdx: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
-  };
+    getK0(tIdx: BigNumberish, sigmaIdx: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>
+  }
 
-  governance(overrides?: CallOverrides): Promise<string>;
+  governance(overrides?: CallOverrides): Promise<string>
 
-  k0Table(
-    arg0: BigNumberish,
-    arg1: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  k0Table(arg0: BigNumberish, arg1: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
   setK0(
     tIdx: BigNumberish,
     sigmaIdx: BigNumberish,
     k0: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setK0InBatch(
     tIdxs: BigNumberish[],
     sigmaIdxs: BigNumberish[],
     k0s: BigNumberish[],
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  getK0(
-    tIdx: BigNumberish,
-    sigmaIdx: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  getK0(tIdx: BigNumberish, sigmaIdx: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
   callStatic: {
-    governance(overrides?: CallOverrides): Promise<string>;
+    governance(overrides?: CallOverrides): Promise<string>
 
-    k0Table(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    k0Table(arg0: BigNumberish, arg1: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    setK0(
-      tIdx: BigNumberish,
-      sigmaIdx: BigNumberish,
-      k0: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setK0(tIdx: BigNumberish, sigmaIdx: BigNumberish, k0: BigNumberish, overrides?: CallOverrides): Promise<void>
 
     setK0InBatch(
       tIdxs: BigNumberish[],
       sigmaIdxs: BigNumberish[],
       k0s: BigNumberish[],
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
-    getK0(
-      tIdx: BigNumberish,
-      sigmaIdx: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-  };
+    getK0(tIdx: BigNumberish, sigmaIdx: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
+  }
 
-  filters: {};
+  filters: {}
 
   estimateGas: {
-    governance(overrides?: CallOverrides): Promise<BigNumber>;
+    governance(overrides?: CallOverrides): Promise<BigNumber>
 
-    k0Table(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    k0Table(arg0: BigNumberish, arg1: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
     setK0(
       tIdx: BigNumberish,
       sigmaIdx: BigNumberish,
       k0: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     setK0InBatch(
       tIdxs: BigNumberish[],
       sigmaIdxs: BigNumberish[],
       k0s: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    getK0(
-      tIdx: BigNumberish,
-      sigmaIdx: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-  };
+    getK0(tIdx: BigNumberish, sigmaIdx: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   populateTransaction: {
-    governance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    governance(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    k0Table(
-      arg0: BigNumberish,
-      arg1: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    k0Table(arg0: BigNumberish, arg1: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     setK0(
       tIdx: BigNumberish,
       sigmaIdx: BigNumberish,
       k0: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setK0InBatch(
       tIdxs: BigNumberish[],
       sigmaIdxs: BigNumberish[],
       k0s: BigNumberish[],
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    getK0(
-      tIdx: BigNumberish,
-      sigmaIdx: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-  };
+    getK0(tIdx: BigNumberish, sigmaIdx: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
+  }
 }

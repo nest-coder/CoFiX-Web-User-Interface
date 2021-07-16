@@ -14,347 +14,255 @@ import {
   Overrides,
   PayableOverrides,
   CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import { TypedEventFilter, TypedEvent, TypedListener } from './commons'
 
 interface INestQueryInterface extends ethers.utils.Interface {
   functions: {
-    "activate(address)": FunctionFragment;
-    "deactivate(address)": FunctionFragment;
-    "query(address,address)": FunctionFragment;
-    "queryPriceAvgVola(address,address)": FunctionFragment;
-    "updateAndCheckPriceNow(address)": FunctionFragment;
-    "queryPriceList(address,uint8,address)": FunctionFragment;
-    "priceList(address,uint8)": FunctionFragment;
-    "latestPrice(address)": FunctionFragment;
-    "loadContracts()": FunctionFragment;
-    "loadGovernance()": FunctionFragment;
-  };
+    'activate(address)': FunctionFragment
+    'deactivate(address)': FunctionFragment
+    'query(address,address)': FunctionFragment
+    'queryPriceAvgVola(address,address)': FunctionFragment
+    'updateAndCheckPriceNow(address)': FunctionFragment
+    'queryPriceList(address,uint8,address)': FunctionFragment
+    'priceList(address,uint8)': FunctionFragment
+    'latestPrice(address)': FunctionFragment
+    'loadContracts()': FunctionFragment
+    'loadGovernance()': FunctionFragment
+  }
 
-  encodeFunctionData(functionFragment: "activate", values: [string]): string;
-  encodeFunctionData(functionFragment: "deactivate", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "query",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "queryPriceAvgVola",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "updateAndCheckPriceNow",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "queryPriceList",
-    values: [string, BigNumberish, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "priceList",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "latestPrice", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "loadContracts",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "loadGovernance",
-    values?: undefined
-  ): string;
+  encodeFunctionData(functionFragment: 'activate', values: [string]): string
+  encodeFunctionData(functionFragment: 'deactivate', values: [string]): string
+  encodeFunctionData(functionFragment: 'query', values: [string, string]): string
+  encodeFunctionData(functionFragment: 'queryPriceAvgVola', values: [string, string]): string
+  encodeFunctionData(functionFragment: 'updateAndCheckPriceNow', values: [string]): string
+  encodeFunctionData(functionFragment: 'queryPriceList', values: [string, BigNumberish, string]): string
+  encodeFunctionData(functionFragment: 'priceList', values: [string, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'latestPrice', values: [string]): string
+  encodeFunctionData(functionFragment: 'loadContracts', values?: undefined): string
+  encodeFunctionData(functionFragment: 'loadGovernance', values?: undefined): string
 
-  decodeFunctionResult(functionFragment: "activate", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "deactivate", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "query", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "queryPriceAvgVola",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "updateAndCheckPriceNow",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "queryPriceList",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "priceList", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "latestPrice",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "loadContracts",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "loadGovernance",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'activate', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'deactivate', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'query', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'queryPriceAvgVola', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'updateAndCheckPriceNow', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'queryPriceList', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'priceList', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'latestPrice', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'loadContracts', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'loadGovernance', data: BytesLike): Result
 
   events: {
-    "ClientActivated(address,uint256,uint256)": EventFragment;
-    "FlagSet(address,uint256)": EventFragment;
-    "ParamsSetup(address,uint256,uint256)": EventFragment;
-    "PriceAvgVolaQueried(address,address,uint256,uint128,int128)": EventFragment;
-    "PriceListQueried(address,address,uint256,uint8)": EventFragment;
-    "PriceQueried(address,address,uint256,uint256,uint256)": EventFragment;
-  };
+    'ClientActivated(address,uint256,uint256)': EventFragment
+    'FlagSet(address,uint256)': EventFragment
+    'ParamsSetup(address,uint256,uint256)': EventFragment
+    'PriceAvgVolaQueried(address,address,uint256,uint128,int128)': EventFragment
+    'PriceListQueried(address,address,uint256,uint8)': EventFragment
+    'PriceQueried(address,address,uint256,uint256,uint256)': EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "ClientActivated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "FlagSet"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ParamsSetup"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "PriceAvgVolaQueried"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "PriceListQueried"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "PriceQueried"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'ClientActivated'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'FlagSet'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'ParamsSetup'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'PriceAvgVolaQueried'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'PriceListQueried'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'PriceQueried'): EventFragment
 }
 
 export class INestQuery extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: INestQueryInterface;
+  interface: INestQueryInterface
 
   functions: {
-    activate(
-      defi: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    activate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-    deactivate(
-      defi: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    deactivate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
     query(
       token: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     queryPriceAvgVola(
       token: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     updateAndCheckPriceNow(
       tokenAddress: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     queryPriceList(
       token: string,
       num: BigNumberish,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    priceList(
-      token: string,
-      num: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber[]]>;
+    priceList(token: string, num: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber[]]>
 
     latestPrice(
       token: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        ethAmount: BigNumber;
-        tokenAmount: BigNumber;
-        avgPrice: BigNumber;
-        vola: BigNumber;
-        bn: BigNumber;
+        ethAmount: BigNumber
+        tokenAmount: BigNumber
+        avgPrice: BigNumber
+        vola: BigNumber
+        bn: BigNumber
       }
-    >;
+    >
 
-    loadContracts(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    loadContracts(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-    loadGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-  };
+    loadGovernance(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
+  }
 
-  activate(
-    defi: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  activate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-  deactivate(
-    defi: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  deactivate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
   query(
     token: string,
     payback: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   queryPriceAvgVola(
     token: string,
     payback: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   updateAndCheckPriceNow(
     tokenAddress: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   queryPriceList(
     token: string,
     num: BigNumberish,
     payback: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  priceList(
-    token: string,
-    num: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber[]>;
+  priceList(token: string, num: BigNumberish, overrides?: CallOverrides): Promise<BigNumber[]>
 
   latestPrice(
     token: string,
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-      ethAmount: BigNumber;
-      tokenAmount: BigNumber;
-      avgPrice: BigNumber;
-      vola: BigNumber;
-      bn: BigNumber;
+      ethAmount: BigNumber
+      tokenAmount: BigNumber
+      avgPrice: BigNumber
+      vola: BigNumber
+      bn: BigNumber
     }
-  >;
+  >
 
-  loadContracts(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  loadContracts(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-  loadGovernance(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  loadGovernance(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
   callStatic: {
-    activate(defi: string, overrides?: CallOverrides): Promise<void>;
+    activate(defi: string, overrides?: CallOverrides): Promise<void>
 
-    deactivate(defi: string, overrides?: CallOverrides): Promise<void>;
+    deactivate(defi: string, overrides?: CallOverrides): Promise<void>
 
-    query(
-      token: string,
-      payback: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber, BigNumber]>;
+    query(token: string, payback: string, overrides?: CallOverrides): Promise<[BigNumber, BigNumber, BigNumber]>
 
     queryPriceAvgVola(
       token: string,
       payback: string,
       overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber, BigNumber]>;
+    ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber, BigNumber]>
 
-    updateAndCheckPriceNow(
-      tokenAddress: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber, BigNumber]>;
+    updateAndCheckPriceNow(tokenAddress: string, overrides?: CallOverrides): Promise<[BigNumber, BigNumber, BigNumber]>
 
-    queryPriceList(
-      token: string,
-      num: BigNumberish,
-      payback: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber[]>;
+    queryPriceList(token: string, num: BigNumberish, payback: string, overrides?: CallOverrides): Promise<BigNumber[]>
 
-    priceList(
-      token: string,
-      num: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber[]>;
+    priceList(token: string, num: BigNumberish, overrides?: CallOverrides): Promise<BigNumber[]>
 
     latestPrice(
       token: string,
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        ethAmount: BigNumber;
-        tokenAmount: BigNumber;
-        avgPrice: BigNumber;
-        vola: BigNumber;
-        bn: BigNumber;
+        ethAmount: BigNumber
+        tokenAmount: BigNumber
+        avgPrice: BigNumber
+        vola: BigNumber
+        bn: BigNumber
       }
-    >;
+    >
 
-    loadContracts(overrides?: CallOverrides): Promise<void>;
+    loadContracts(overrides?: CallOverrides): Promise<void>
 
-    loadGovernance(overrides?: CallOverrides): Promise<void>;
-  };
+    loadGovernance(overrides?: CallOverrides): Promise<void>
+  }
 
   filters: {
     ClientActivated(
       undefined?: null,
       undefined?: null,
       undefined?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { arg0: string; arg1: BigNumber; arg2: BigNumber }
-    >;
+    ): TypedEventFilter<[string, BigNumber, BigNumber], { arg0: string; arg1: BigNumber; arg2: BigNumber }>
 
-    FlagSet(
-      gov?: null,
-      flag?: null
-    ): TypedEventFilter<[string, BigNumber], { gov: string; flag: BigNumber }>;
+    FlagSet(gov?: null, flag?: null): TypedEventFilter<[string, BigNumber], { gov: string; flag: BigNumber }>
 
     ParamsSetup(
       gov?: null,
       oldParams?: null,
       newParams?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { gov: string; oldParams: BigNumber; newParams: BigNumber }
-    >;
+    ): TypedEventFilter<[string, BigNumber, BigNumber], { gov: string; oldParams: BigNumber; newParams: BigNumber }>
 
     PriceAvgVolaQueried(
       client?: null,
@@ -365,13 +273,13 @@ export class INestQuery extends BaseContract {
     ): TypedEventFilter<
       [string, string, BigNumber, BigNumber, BigNumber],
       {
-        client: string;
-        token: string;
-        bn: BigNumber;
-        avgPrice: BigNumber;
-        vola: BigNumber;
+        client: string
+        token: string
+        bn: BigNumber
+        avgPrice: BigNumber
+        vola: BigNumber
       }
-    >;
+    >
 
     PriceListQueried(
       client?: null,
@@ -381,7 +289,7 @@ export class INestQuery extends BaseContract {
     ): TypedEventFilter<
       [string, string, BigNumber, number],
       { client: string; token: string; bn: BigNumber; num: number }
-    >;
+    >
 
     PriceQueried(
       client?: null,
@@ -392,119 +300,88 @@ export class INestQuery extends BaseContract {
     ): TypedEventFilter<
       [string, string, BigNumber, BigNumber, BigNumber],
       {
-        client: string;
-        token: string;
-        ethAmount: BigNumber;
-        tokenAmount: BigNumber;
-        bn: BigNumber;
+        client: string
+        token: string
+        ethAmount: BigNumber
+        tokenAmount: BigNumber
+        bn: BigNumber
       }
-    >;
-  };
+    >
+  }
 
   estimateGas: {
-    activate(
-      defi: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    activate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    deactivate(
-      defi: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    deactivate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
     query(
       token: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     queryPriceAvgVola(
       token: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     updateAndCheckPriceNow(
       tokenAddress: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     queryPriceList(
       token: string,
       num: BigNumberish,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    priceList(
-      token: string,
-      num: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    priceList(token: string, num: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    latestPrice(token: string, overrides?: CallOverrides): Promise<BigNumber>;
+    latestPrice(token: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    loadContracts(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    loadContracts(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    loadGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-  };
+    loadGovernance(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
+  }
 
   populateTransaction: {
-    activate(
-      defi: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    activate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
 
-    deactivate(
-      defi: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    deactivate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
 
     query(
       token: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     queryPriceAvgVola(
       token: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     updateAndCheckPriceNow(
       tokenAddress: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     queryPriceList(
       token: string,
       num: BigNumberish,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    priceList(
-      token: string,
-      num: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    priceList(token: string, num: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    latestPrice(
-      token: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    latestPrice(token: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    loadContracts(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    loadContracts(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
 
-    loadGovernance(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-  };
+    loadGovernance(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
+  }
 }

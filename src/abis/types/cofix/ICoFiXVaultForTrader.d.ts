@@ -13,310 +13,194 @@ import {
   ContractTransaction,
   Overrides,
   CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import { TypedEventFilter, TypedEvent, TypedListener } from './commons'
 
 interface ICoFiXVaultForTraderInterface extends ethers.utils.Interface {
   functions: {
-    "setGovernance(address)": FunctionFragment;
-    "setExpectedYieldRatio(uint256)": FunctionFragment;
-    "setLRatio(uint256)": FunctionFragment;
-    "setTheta(uint256)": FunctionFragment;
-    "allowRouter(address)": FunctionFragment;
-    "disallowRouter(address)": FunctionFragment;
-    "calcCoFiRate(uint256,uint256,uint256)": FunctionFragment;
-    "currentCoFiRate(address,uint256)": FunctionFragment;
-    "currentThreshold(address,uint256,uint256)": FunctionFragment;
-    "stdMiningRateAndAmount(address,uint256,uint256)": FunctionFragment;
-    "calcDensity(uint256)": FunctionFragment;
-    "calcLambda(uint256,uint256)": FunctionFragment;
-    "actualMiningAmountAndDensity(address,uint256,uint256,uint256,uint256)": FunctionFragment;
-    "distributeReward(address,uint256,uint256,uint256,uint256,address)": FunctionFragment;
-    "clearPendingRewardOfCNode()": FunctionFragment;
-    "clearPendingRewardOfLP(address)": FunctionFragment;
-    "getPendingRewardOfCNode()": FunctionFragment;
-    "getPendingRewardOfLP(address)": FunctionFragment;
-    "getCoFiRateCache(address)": FunctionFragment;
-  };
+    'setGovernance(address)': FunctionFragment
+    'setExpectedYieldRatio(uint256)': FunctionFragment
+    'setLRatio(uint256)': FunctionFragment
+    'setTheta(uint256)': FunctionFragment
+    'allowRouter(address)': FunctionFragment
+    'disallowRouter(address)': FunctionFragment
+    'calcCoFiRate(uint256,uint256,uint256)': FunctionFragment
+    'currentCoFiRate(address,uint256)': FunctionFragment
+    'currentThreshold(address,uint256,uint256)': FunctionFragment
+    'stdMiningRateAndAmount(address,uint256,uint256)': FunctionFragment
+    'calcDensity(uint256)': FunctionFragment
+    'calcLambda(uint256,uint256)': FunctionFragment
+    'actualMiningAmountAndDensity(address,uint256,uint256,uint256,uint256)': FunctionFragment
+    'distributeReward(address,uint256,uint256,uint256,uint256,address)': FunctionFragment
+    'clearPendingRewardOfCNode()': FunctionFragment
+    'clearPendingRewardOfLP(address)': FunctionFragment
+    'getPendingRewardOfCNode()': FunctionFragment
+    'getPendingRewardOfLP(address)': FunctionFragment
+    'getCoFiRateCache(address)': FunctionFragment
+  }
 
+  encodeFunctionData(functionFragment: 'setGovernance', values: [string]): string
+  encodeFunctionData(functionFragment: 'setExpectedYieldRatio', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'setLRatio', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'setTheta', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'allowRouter', values: [string]): string
+  encodeFunctionData(functionFragment: 'disallowRouter', values: [string]): string
+  encodeFunctionData(functionFragment: 'calcCoFiRate', values: [BigNumberish, BigNumberish, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'currentCoFiRate', values: [string, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'currentThreshold', values: [string, BigNumberish, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'stdMiningRateAndAmount', values: [string, BigNumberish, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'calcDensity', values: [BigNumberish]): string
+  encodeFunctionData(functionFragment: 'calcLambda', values: [BigNumberish, BigNumberish]): string
   encodeFunctionData(
-    functionFragment: "setGovernance",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setExpectedYieldRatio",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setLRatio",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setTheta",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "allowRouter", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "disallowRouter",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "calcCoFiRate",
-    values: [BigNumberish, BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "currentCoFiRate",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "currentThreshold",
-    values: [string, BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "stdMiningRateAndAmount",
-    values: [string, BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "calcDensity",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "calcLambda",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "actualMiningAmountAndDensity",
+    functionFragment: 'actualMiningAmountAndDensity',
     values: [string, BigNumberish, BigNumberish, BigNumberish, BigNumberish]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "distributeReward",
-    values: [
-      string,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      string
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "clearPendingRewardOfCNode",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "clearPendingRewardOfLP",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getPendingRewardOfCNode",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getPendingRewardOfLP",
-    values: [string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getCoFiRateCache",
-    values: [string]
-  ): string;
+    functionFragment: 'distributeReward',
+    values: [string, BigNumberish, BigNumberish, BigNumberish, BigNumberish, string]
+  ): string
+  encodeFunctionData(functionFragment: 'clearPendingRewardOfCNode', values?: undefined): string
+  encodeFunctionData(functionFragment: 'clearPendingRewardOfLP', values: [string]): string
+  encodeFunctionData(functionFragment: 'getPendingRewardOfCNode', values?: undefined): string
+  encodeFunctionData(functionFragment: 'getPendingRewardOfLP', values: [string]): string
+  encodeFunctionData(functionFragment: 'getCoFiRateCache', values: [string]): string
 
-  decodeFunctionResult(
-    functionFragment: "setGovernance",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setExpectedYieldRatio",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "setLRatio", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "setTheta", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "allowRouter",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "disallowRouter",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "calcCoFiRate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "currentCoFiRate",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "currentThreshold",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "stdMiningRateAndAmount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "calcDensity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "calcLambda", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "actualMiningAmountAndDensity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "distributeReward",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "clearPendingRewardOfCNode",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "clearPendingRewardOfLP",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getPendingRewardOfCNode",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getPendingRewardOfLP",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getCoFiRateCache",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'setGovernance', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setExpectedYieldRatio', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setLRatio', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'setTheta', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'allowRouter', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'disallowRouter', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcCoFiRate', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'currentCoFiRate', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'currentThreshold', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'stdMiningRateAndAmount', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcDensity', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcLambda', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'actualMiningAmountAndDensity', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'distributeReward', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'clearPendingRewardOfCNode', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'clearPendingRewardOfLP', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getPendingRewardOfCNode', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getPendingRewardOfLP', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getCoFiRateCache', data: BytesLike): Result
 
   events: {
-    "ClearPendingRewardOfCNode(uint256)": EventFragment;
-    "ClearPendingRewardOfLP(uint256)": EventFragment;
-    "RouterAllowed(address)": EventFragment;
-    "RouterDisallowed(address)": EventFragment;
-  };
+    'ClearPendingRewardOfCNode(uint256)': EventFragment
+    'ClearPendingRewardOfLP(uint256)': EventFragment
+    'RouterAllowed(address)': EventFragment
+    'RouterDisallowed(address)': EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "ClearPendingRewardOfCNode"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ClearPendingRewardOfLP"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RouterAllowed"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "RouterDisallowed"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'ClearPendingRewardOfCNode'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'ClearPendingRewardOfLP'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RouterAllowed'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'RouterDisallowed'): EventFragment
 }
 
 export class ICoFiXVaultForTrader extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: ICoFiXVaultForTraderInterface;
+  interface: ICoFiXVaultForTraderInterface
 
   functions: {
     setGovernance(
       gov: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setExpectedYieldRatio(
       r: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setLRatio(
       lRatio: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     setTheta(
       theta: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     allowRouter(
       router: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     disallowRouter(
       router: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     calcCoFiRate(
       bt_phi: BigNumberish,
       xt: BigNumberish,
       np: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { at: BigNumber }>;
+    ): Promise<[BigNumber] & { at: BigNumber }>
 
-    currentCoFiRate(
-      pair: string,
-      np: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    currentCoFiRate(pair: string, np: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>
 
     currentThreshold(
       pair: string,
       np: BigNumberish,
       cofiRate: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    ): Promise<[BigNumber]>
 
     stdMiningRateAndAmount(
       pair: string,
       np: BigNumberish,
       thetaFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { cofiRate: BigNumber; stdAmount: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { cofiRate: BigNumber; stdAmount: BigNumber }>
 
-    calcDensity(
-      _stdAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    calcDensity(_stdAmount: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>
 
-    calcLambda(
-      x: BigNumberish,
-      y: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    calcLambda(x: BigNumberish, y: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber]>
 
     actualMiningAmountAndDensity(
       pair: string,
@@ -327,11 +211,11 @@ export class ICoFiXVaultForTrader extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
-        amount: BigNumber;
-        density: BigNumber;
-        cofiRate: BigNumber;
+        amount: BigNumber
+        density: BigNumber
+        cofiRate: BigNumber
       }
-    >;
+    >
 
     distributeReward(
       pair: string,
@@ -341,101 +225,70 @@ export class ICoFiXVaultForTrader extends BaseContract {
       np: BigNumberish,
       rewardTo: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    clearPendingRewardOfCNode(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    clearPendingRewardOfCNode(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
     clearPendingRewardOfLP(
       pair: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    getPendingRewardOfCNode(overrides?: CallOverrides): Promise<[BigNumber]>;
+    getPendingRewardOfCNode(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    getPendingRewardOfLP(
-      pair: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    getPendingRewardOfLP(pair: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     getCoFiRateCache(
       pair: string,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { cofiRate: BigNumber; updatedBlock: BigNumber }
-    >;
-  };
+    ): Promise<[BigNumber, BigNumber] & { cofiRate: BigNumber; updatedBlock: BigNumber }>
+  }
 
-  setGovernance(
-    gov: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  setGovernance(gov: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
   setExpectedYieldRatio(
     r: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setLRatio(
     lRatio: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   setTheta(
     theta: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  allowRouter(
-    router: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  allowRouter(router: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
   disallowRouter(
     router: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  calcCoFiRate(
-    bt_phi: BigNumberish,
-    xt: BigNumberish,
-    np: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  calcCoFiRate(bt_phi: BigNumberish, xt: BigNumberish, np: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-  currentCoFiRate(
-    pair: string,
-    np: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  currentCoFiRate(pair: string, np: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
   currentThreshold(
     pair: string,
     np: BigNumberish,
     cofiRate: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  ): Promise<BigNumber>
 
   stdMiningRateAndAmount(
     pair: string,
     np: BigNumberish,
     thetaFee: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber] & { cofiRate: BigNumber; stdAmount: BigNumber }
-  >;
+  ): Promise<[BigNumber, BigNumber] & { cofiRate: BigNumber; stdAmount: BigNumber }>
 
-  calcDensity(
-    _stdAmount: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  calcDensity(_stdAmount: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-  calcLambda(
-    x: BigNumberish,
-    y: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  calcLambda(x: BigNumberish, y: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
   actualMiningAmountAndDensity(
     pair: string,
@@ -446,11 +299,11 @@ export class ICoFiXVaultForTrader extends BaseContract {
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
-      amount: BigNumber;
-      density: BigNumber;
-      cofiRate: BigNumber;
+      amount: BigNumber
+      density: BigNumber
+      cofiRate: BigNumber
     }
-  >;
+  >
 
   distributeReward(
     pair: string,
@@ -460,86 +313,63 @@ export class ICoFiXVaultForTrader extends BaseContract {
     np: BigNumberish,
     rewardTo: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  clearPendingRewardOfCNode(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  clearPendingRewardOfCNode(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
   clearPendingRewardOfLP(
     pair: string,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  getPendingRewardOfCNode(overrides?: CallOverrides): Promise<BigNumber>;
+  getPendingRewardOfCNode(overrides?: CallOverrides): Promise<BigNumber>
 
-  getPendingRewardOfLP(
-    pair: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  getPendingRewardOfLP(pair: string, overrides?: CallOverrides): Promise<BigNumber>
 
   getCoFiRateCache(
     pair: string,
     overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber] & { cofiRate: BigNumber; updatedBlock: BigNumber }
-  >;
+  ): Promise<[BigNumber, BigNumber] & { cofiRate: BigNumber; updatedBlock: BigNumber }>
 
   callStatic: {
-    setGovernance(gov: string, overrides?: CallOverrides): Promise<void>;
+    setGovernance(gov: string, overrides?: CallOverrides): Promise<void>
 
-    setExpectedYieldRatio(
-      r: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    setExpectedYieldRatio(r: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    setLRatio(lRatio: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    setLRatio(lRatio: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    setTheta(theta: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    setTheta(theta: BigNumberish, overrides?: CallOverrides): Promise<void>
 
-    allowRouter(router: string, overrides?: CallOverrides): Promise<void>;
+    allowRouter(router: string, overrides?: CallOverrides): Promise<void>
 
-    disallowRouter(router: string, overrides?: CallOverrides): Promise<void>;
+    disallowRouter(router: string, overrides?: CallOverrides): Promise<void>
 
     calcCoFiRate(
       bt_phi: BigNumberish,
       xt: BigNumberish,
       np: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    currentCoFiRate(
-      pair: string,
-      np: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    currentCoFiRate(pair: string, np: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
     currentThreshold(
       pair: string,
       np: BigNumberish,
       cofiRate: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     stdMiningRateAndAmount(
       pair: string,
       np: BigNumberish,
       thetaFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { cofiRate: BigNumber; stdAmount: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { cofiRate: BigNumber; stdAmount: BigNumber }>
 
-    calcDensity(
-      _stdAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    calcDensity(_stdAmount: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    calcLambda(
-      x: BigNumberish,
-      y: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    calcLambda(x: BigNumberish, y: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
     actualMiningAmountAndDensity(
       pair: string,
@@ -550,11 +380,11 @@ export class ICoFiXVaultForTrader extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
-        amount: BigNumber;
-        density: BigNumber;
-        cofiRate: BigNumber;
+        amount: BigNumber
+        density: BigNumber
+        cofiRate: BigNumber
       }
-    >;
+    >
 
     distributeReward(
       pair: string,
@@ -564,116 +394,74 @@ export class ICoFiXVaultForTrader extends BaseContract {
       np: BigNumberish,
       rewardTo: string,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
-    clearPendingRewardOfCNode(overrides?: CallOverrides): Promise<void>;
+    clearPendingRewardOfCNode(overrides?: CallOverrides): Promise<void>
 
-    clearPendingRewardOfLP(
-      pair: string,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    clearPendingRewardOfLP(pair: string, overrides?: CallOverrides): Promise<void>
 
-    getPendingRewardOfCNode(overrides?: CallOverrides): Promise<BigNumber>;
+    getPendingRewardOfCNode(overrides?: CallOverrides): Promise<BigNumber>
 
-    getPendingRewardOfLP(
-      pair: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getPendingRewardOfLP(pair: string, overrides?: CallOverrides): Promise<BigNumber>
 
     getCoFiRateCache(
       pair: string,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { cofiRate: BigNumber; updatedBlock: BigNumber }
-    >;
-  };
+    ): Promise<[BigNumber, BigNumber] & { cofiRate: BigNumber; updatedBlock: BigNumber }>
+  }
 
   filters: {
-    ClearPendingRewardOfCNode(
-      pendingAmount?: null
-    ): TypedEventFilter<[BigNumber], { pendingAmount: BigNumber }>;
+    ClearPendingRewardOfCNode(pendingAmount?: null): TypedEventFilter<[BigNumber], { pendingAmount: BigNumber }>
 
-    ClearPendingRewardOfLP(
-      pendingAmount?: null
-    ): TypedEventFilter<[BigNumber], { pendingAmount: BigNumber }>;
+    ClearPendingRewardOfLP(pendingAmount?: null): TypedEventFilter<[BigNumber], { pendingAmount: BigNumber }>
 
-    RouterAllowed(
-      router?: null
-    ): TypedEventFilter<[string], { router: string }>;
+    RouterAllowed(router?: null): TypedEventFilter<[string], { router: string }>
 
-    RouterDisallowed(
-      router?: null
-    ): TypedEventFilter<[string], { router: string }>;
-  };
+    RouterDisallowed(router?: null): TypedEventFilter<[string], { router: string }>
+  }
 
   estimateGas: {
-    setGovernance(
-      gov: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    setGovernance(gov: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
     setExpectedYieldRatio(
       r: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    setLRatio(
-      lRatio: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    setLRatio(lRatio: BigNumberish, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    setTheta(
-      theta: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    setTheta(theta: BigNumberish, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    allowRouter(
-      router: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    allowRouter(router: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    disallowRouter(
-      router: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    disallowRouter(router: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
     calcCoFiRate(
       bt_phi: BigNumberish,
       xt: BigNumberish,
       np: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    currentCoFiRate(
-      pair: string,
-      np: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    currentCoFiRate(pair: string, np: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
     currentThreshold(
       pair: string,
       np: BigNumberish,
       cofiRate: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     stdMiningRateAndAmount(
       pair: string,
       np: BigNumberish,
       thetaFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    calcDensity(
-      _stdAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    calcDensity(_stdAmount: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    calcLambda(
-      x: BigNumberish,
-      y: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    calcLambda(x: BigNumberish, y: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
     actualMiningAmountAndDensity(
       pair: string,
@@ -682,7 +470,7 @@ export class ICoFiXVaultForTrader extends BaseContract {
       y: BigNumberish,
       np: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     distributeReward(
       pair: string,
@@ -692,98 +480,79 @@ export class ICoFiXVaultForTrader extends BaseContract {
       np: BigNumberish,
       rewardTo: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    clearPendingRewardOfCNode(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    clearPendingRewardOfCNode(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
     clearPendingRewardOfLP(
       pair: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    getPendingRewardOfCNode(overrides?: CallOverrides): Promise<BigNumber>;
+    getPendingRewardOfCNode(overrides?: CallOverrides): Promise<BigNumber>
 
-    getPendingRewardOfLP(
-      pair: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getPendingRewardOfLP(pair: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    getCoFiRateCache(
-      pair: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-  };
+    getCoFiRateCache(pair: string, overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   populateTransaction: {
     setGovernance(
       gov: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setExpectedYieldRatio(
       r: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setLRatio(
       lRatio: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     setTheta(
       theta: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     allowRouter(
       router: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     disallowRouter(
       router: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     calcCoFiRate(
       bt_phi: BigNumberish,
       xt: BigNumberish,
       np: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    currentCoFiRate(
-      pair: string,
-      np: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    currentCoFiRate(pair: string, np: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     currentThreshold(
       pair: string,
       np: BigNumberish,
       cofiRate: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     stdMiningRateAndAmount(
       pair: string,
       np: BigNumberish,
       thetaFee: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    calcDensity(
-      _stdAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    calcDensity(_stdAmount: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    calcLambda(
-      x: BigNumberish,
-      y: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    calcLambda(x: BigNumberish, y: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     actualMiningAmountAndDensity(
       pair: string,
@@ -792,7 +561,7 @@ export class ICoFiXVaultForTrader extends BaseContract {
       y: BigNumberish,
       np: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     distributeReward(
       pair: string,
@@ -802,29 +571,21 @@ export class ICoFiXVaultForTrader extends BaseContract {
       np: BigNumberish,
       rewardTo: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     clearPendingRewardOfCNode(
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     clearPendingRewardOfLP(
       pair: string,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    getPendingRewardOfCNode(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getPendingRewardOfCNode(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    getPendingRewardOfLP(
-      pair: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getPendingRewardOfLP(pair: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    getCoFiRateCache(
-      pair: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-  };
+    getCoFiRateCache(pair: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
+  }
 }

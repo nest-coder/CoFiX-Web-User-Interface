@@ -13,233 +13,142 @@ import {
   ContractTransaction,
   PayableOverrides,
   CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import { TypedEventFilter, TypedEvent, TypedListener } from './commons'
 
 interface CoFiXV2RouterInterface extends ethers.utils.Interface {
   functions: {
-    "WETH()": FunctionFragment;
-    "factory()": FunctionFragment;
-    "uniFactory()": FunctionFragment;
-    "addLiquidity(address,uint256,uint256,uint256,address,uint256)": FunctionFragment;
-    "addLiquidityAndStake(address,uint256,uint256,uint256,address,uint256)": FunctionFragment;
-    "removeLiquidityGetTokenAndETH(address,uint256,uint256,address,uint256)": FunctionFragment;
-    "swapExactETHForTokens(address,uint256,uint256,address,address,uint256)": FunctionFragment;
-    "swapExactTokensForTokens(address,address,uint256,uint256,address,address,uint256)": FunctionFragment;
-    "swapExactTokensForETH(address,uint256,uint256,address,address,uint256)": FunctionFragment;
-    "hybridSwapExactTokensForTokens(uint256,uint256,address[],uint8[],address,address,uint256)": FunctionFragment;
-    "hybridSwapExactETHForTokens(uint256,uint256,address[],uint8[],address,address,uint256)": FunctionFragment;
-    "hybridSwapExactTokensForETH(uint256,uint256,address[],uint8[],address,address,uint256)": FunctionFragment;
-    "isCoFiXNativeSupported(address,address)": FunctionFragment;
-    "getPairForDEX(address,address,uint8)": FunctionFragment;
-    "hybridPair(address,address)": FunctionFragment;
-  };
+    'WETH()': FunctionFragment
+    'factory()': FunctionFragment
+    'uniFactory()': FunctionFragment
+    'addLiquidity(address,uint256,uint256,uint256,address,uint256)': FunctionFragment
+    'addLiquidityAndStake(address,uint256,uint256,uint256,address,uint256)': FunctionFragment
+    'removeLiquidityGetTokenAndETH(address,uint256,uint256,address,uint256)': FunctionFragment
+    'swapExactETHForTokens(address,uint256,uint256,address,address,uint256)': FunctionFragment
+    'swapExactTokensForTokens(address,address,uint256,uint256,address,address,uint256)': FunctionFragment
+    'swapExactTokensForETH(address,uint256,uint256,address,address,uint256)': FunctionFragment
+    'hybridSwapExactTokensForTokens(uint256,uint256,address[],uint8[],address,address,uint256)': FunctionFragment
+    'hybridSwapExactETHForTokens(uint256,uint256,address[],uint8[],address,address,uint256)': FunctionFragment
+    'hybridSwapExactTokensForETH(uint256,uint256,address[],uint8[],address,address,uint256)': FunctionFragment
+    'isCoFiXNativeSupported(address,address)': FunctionFragment
+    'getPairForDEX(address,address,uint8)': FunctionFragment
+    'hybridPair(address,address)': FunctionFragment
+  }
 
-  encodeFunctionData(functionFragment: "WETH", values?: undefined): string;
-  encodeFunctionData(functionFragment: "factory", values?: undefined): string;
+  encodeFunctionData(functionFragment: 'WETH', values?: undefined): string
+  encodeFunctionData(functionFragment: 'factory', values?: undefined): string
+  encodeFunctionData(functionFragment: 'uniFactory', values?: undefined): string
   encodeFunctionData(
-    functionFragment: "uniFactory",
-    values?: undefined
-  ): string;
+    functionFragment: 'addLiquidity',
+    values: [string, BigNumberish, BigNumberish, BigNumberish, string, BigNumberish]
+  ): string
   encodeFunctionData(
-    functionFragment: "addLiquidity",
-    values: [
-      string,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      string,
-      BigNumberish
-    ]
-  ): string;
+    functionFragment: 'addLiquidityAndStake',
+    values: [string, BigNumberish, BigNumberish, BigNumberish, string, BigNumberish]
+  ): string
   encodeFunctionData(
-    functionFragment: "addLiquidityAndStake",
-    values: [
-      string,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      string,
-      BigNumberish
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "removeLiquidityGetTokenAndETH",
+    functionFragment: 'removeLiquidityGetTokenAndETH',
     values: [string, BigNumberish, BigNumberish, string, BigNumberish]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "swapExactETHForTokens",
+    functionFragment: 'swapExactETHForTokens',
     values: [string, BigNumberish, BigNumberish, string, string, BigNumberish]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "swapExactTokensForTokens",
-    values: [
-      string,
-      string,
-      BigNumberish,
-      BigNumberish,
-      string,
-      string,
-      BigNumberish
-    ]
-  ): string;
+    functionFragment: 'swapExactTokensForTokens',
+    values: [string, string, BigNumberish, BigNumberish, string, string, BigNumberish]
+  ): string
   encodeFunctionData(
-    functionFragment: "swapExactTokensForETH",
+    functionFragment: 'swapExactTokensForETH',
     values: [string, BigNumberish, BigNumberish, string, string, BigNumberish]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "hybridSwapExactTokensForTokens",
-    values: [
-      BigNumberish,
-      BigNumberish,
-      string[],
-      BigNumberish[],
-      string,
-      string,
-      BigNumberish
-    ]
-  ): string;
+    functionFragment: 'hybridSwapExactTokensForTokens',
+    values: [BigNumberish, BigNumberish, string[], BigNumberish[], string, string, BigNumberish]
+  ): string
   encodeFunctionData(
-    functionFragment: "hybridSwapExactETHForTokens",
-    values: [
-      BigNumberish,
-      BigNumberish,
-      string[],
-      BigNumberish[],
-      string,
-      string,
-      BigNumberish
-    ]
-  ): string;
+    functionFragment: 'hybridSwapExactETHForTokens',
+    values: [BigNumberish, BigNumberish, string[], BigNumberish[], string, string, BigNumberish]
+  ): string
   encodeFunctionData(
-    functionFragment: "hybridSwapExactTokensForETH",
-    values: [
-      BigNumberish,
-      BigNumberish,
-      string[],
-      BigNumberish[],
-      string,
-      string,
-      BigNumberish
-    ]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "isCoFiXNativeSupported",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getPairForDEX",
-    values: [string, string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "hybridPair",
-    values: [string, string]
-  ): string;
+    functionFragment: 'hybridSwapExactTokensForETH',
+    values: [BigNumberish, BigNumberish, string[], BigNumberish[], string, string, BigNumberish]
+  ): string
+  encodeFunctionData(functionFragment: 'isCoFiXNativeSupported', values: [string, string]): string
+  encodeFunctionData(functionFragment: 'getPairForDEX', values: [string, string, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'hybridPair', values: [string, string]): string
 
-  decodeFunctionResult(functionFragment: "WETH", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "factory", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "uniFactory", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "addLiquidity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "addLiquidityAndStake",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "removeLiquidityGetTokenAndETH",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "swapExactETHForTokens",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "swapExactTokensForTokens",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "swapExactTokensForETH",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "hybridSwapExactTokensForTokens",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "hybridSwapExactETHForTokens",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "hybridSwapExactTokensForETH",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "isCoFiXNativeSupported",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getPairForDEX",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "hybridPair", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: 'WETH', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'factory', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'uniFactory', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'addLiquidity', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'addLiquidityAndStake', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'removeLiquidityGetTokenAndETH', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'swapExactETHForTokens', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'swapExactTokensForTokens', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'swapExactTokensForETH', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'hybridSwapExactTokensForTokens', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'hybridSwapExactETHForTokens', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'hybridSwapExactTokensForETH', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'isCoFiXNativeSupported', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getPairForDEX', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'hybridPair', data: BytesLike): Result
 
-  events: {};
+  events: {}
 }
 
 export class CoFiXV2Router extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: CoFiXV2RouterInterface;
+  interface: CoFiXV2RouterInterface
 
   functions: {
-    WETH(overrides?: CallOverrides): Promise<[string]>;
+    WETH(overrides?: CallOverrides): Promise<[string]>
 
-    factory(overrides?: CallOverrides): Promise<[string]>;
+    factory(overrides?: CallOverrides): Promise<[string]>
 
-    uniFactory(overrides?: CallOverrides): Promise<[string]>;
+    uniFactory(overrides?: CallOverrides): Promise<[string]>
 
     addLiquidity(
       token: string,
@@ -249,7 +158,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     addLiquidityAndStake(
       token: string,
@@ -259,7 +168,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     removeLiquidityGetTokenAndETH(
       token: string,
@@ -268,7 +177,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     swapExactETHForTokens(
       token: string,
@@ -278,7 +187,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     swapExactTokensForTokens(
       tokenIn: string,
@@ -289,7 +198,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     swapExactTokensForETH(
       token: string,
@@ -299,7 +208,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     hybridSwapExactTokensForTokens(
       amountIn: BigNumberish,
@@ -310,7 +219,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     hybridSwapExactETHForTokens(
       amountIn: BigNumberish,
@@ -321,7 +230,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     hybridSwapExactTokensForETH(
       amountIn: BigNumberish,
@@ -332,33 +241,33 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     isCoFiXNativeSupported(
       input: string,
       output: string,
       overrides?: CallOverrides
-    ): Promise<[boolean, string] & { supported: boolean; pair: string }>;
+    ): Promise<[boolean, string] & { supported: boolean; pair: string }>
 
     getPairForDEX(
       input: string,
       output: string,
       dex: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[string] & { pair: string }>;
+    ): Promise<[string] & { pair: string }>
 
     hybridPair(
       input: string,
       output: string,
       overrides?: CallOverrides
-    ): Promise<[boolean, string] & { useCoFiX: boolean; pair: string }>;
-  };
+    ): Promise<[boolean, string] & { useCoFiX: boolean; pair: string }>
+  }
 
-  WETH(overrides?: CallOverrides): Promise<string>;
+  WETH(overrides?: CallOverrides): Promise<string>
 
-  factory(overrides?: CallOverrides): Promise<string>;
+  factory(overrides?: CallOverrides): Promise<string>
 
-  uniFactory(overrides?: CallOverrides): Promise<string>;
+  uniFactory(overrides?: CallOverrides): Promise<string>
 
   addLiquidity(
     token: string,
@@ -368,7 +277,7 @@ export class CoFiXV2Router extends BaseContract {
     to: string,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   addLiquidityAndStake(
     token: string,
@@ -378,7 +287,7 @@ export class CoFiXV2Router extends BaseContract {
     to: string,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   removeLiquidityGetTokenAndETH(
     token: string,
@@ -387,7 +296,7 @@ export class CoFiXV2Router extends BaseContract {
     to: string,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   swapExactETHForTokens(
     token: string,
@@ -397,7 +306,7 @@ export class CoFiXV2Router extends BaseContract {
     rewardTo: string,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   swapExactTokensForTokens(
     tokenIn: string,
@@ -408,7 +317,7 @@ export class CoFiXV2Router extends BaseContract {
     rewardTo: string,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   swapExactTokensForETH(
     token: string,
@@ -418,7 +327,7 @@ export class CoFiXV2Router extends BaseContract {
     rewardTo: string,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   hybridSwapExactTokensForTokens(
     amountIn: BigNumberish,
@@ -429,7 +338,7 @@ export class CoFiXV2Router extends BaseContract {
     rewardTo: string,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   hybridSwapExactETHForTokens(
     amountIn: BigNumberish,
@@ -440,7 +349,7 @@ export class CoFiXV2Router extends BaseContract {
     rewardTo: string,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   hybridSwapExactTokensForETH(
     amountIn: BigNumberish,
@@ -451,33 +360,28 @@ export class CoFiXV2Router extends BaseContract {
     rewardTo: string,
     deadline: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   isCoFiXNativeSupported(
     input: string,
     output: string,
     overrides?: CallOverrides
-  ): Promise<[boolean, string] & { supported: boolean; pair: string }>;
+  ): Promise<[boolean, string] & { supported: boolean; pair: string }>
 
-  getPairForDEX(
-    input: string,
-    output: string,
-    dex: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<string>;
+  getPairForDEX(input: string, output: string, dex: BigNumberish, overrides?: CallOverrides): Promise<string>
 
   hybridPair(
     input: string,
     output: string,
     overrides?: CallOverrides
-  ): Promise<[boolean, string] & { useCoFiX: boolean; pair: string }>;
+  ): Promise<[boolean, string] & { useCoFiX: boolean; pair: string }>
 
   callStatic: {
-    WETH(overrides?: CallOverrides): Promise<string>;
+    WETH(overrides?: CallOverrides): Promise<string>
 
-    factory(overrides?: CallOverrides): Promise<string>;
+    factory(overrides?: CallOverrides): Promise<string>
 
-    uniFactory(overrides?: CallOverrides): Promise<string>;
+    uniFactory(overrides?: CallOverrides): Promise<string>
 
     addLiquidity(
       token: string,
@@ -487,7 +391,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     addLiquidityAndStake(
       token: string,
@@ -497,7 +401,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     removeLiquidityGetTokenAndETH(
       token: string,
@@ -506,9 +410,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amountToken: BigNumber; amountETH: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { amountToken: BigNumber; amountETH: BigNumber }>
 
     swapExactETHForTokens(
       token: string,
@@ -518,9 +420,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { _amountIn: BigNumber; _amountOut: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { _amountIn: BigNumber; _amountOut: BigNumber }>
 
     swapExactTokensForTokens(
       tokenIn: string,
@@ -531,9 +431,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { _amountIn: BigNumber; _amountOut: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { _amountIn: BigNumber; _amountOut: BigNumber }>
 
     swapExactTokensForETH(
       token: string,
@@ -543,9 +441,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { _amountIn: BigNumber; _amountOut: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { _amountIn: BigNumber; _amountOut: BigNumber }>
 
     hybridSwapExactTokensForTokens(
       amountIn: BigNumberish,
@@ -556,7 +452,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber[]>;
+    ): Promise<BigNumber[]>
 
     hybridSwapExactETHForTokens(
       amountIn: BigNumberish,
@@ -567,7 +463,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber[]>;
+    ): Promise<BigNumber[]>
 
     hybridSwapExactTokensForETH(
       amountIn: BigNumberish,
@@ -578,36 +474,31 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber[]>;
+    ): Promise<BigNumber[]>
 
     isCoFiXNativeSupported(
       input: string,
       output: string,
       overrides?: CallOverrides
-    ): Promise<[boolean, string] & { supported: boolean; pair: string }>;
+    ): Promise<[boolean, string] & { supported: boolean; pair: string }>
 
-    getPairForDEX(
-      input: string,
-      output: string,
-      dex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<string>;
+    getPairForDEX(input: string, output: string, dex: BigNumberish, overrides?: CallOverrides): Promise<string>
 
     hybridPair(
       input: string,
       output: string,
       overrides?: CallOverrides
-    ): Promise<[boolean, string] & { useCoFiX: boolean; pair: string }>;
-  };
+    ): Promise<[boolean, string] & { useCoFiX: boolean; pair: string }>
+  }
 
-  filters: {};
+  filters: {}
 
   estimateGas: {
-    WETH(overrides?: CallOverrides): Promise<BigNumber>;
+    WETH(overrides?: CallOverrides): Promise<BigNumber>
 
-    factory(overrides?: CallOverrides): Promise<BigNumber>;
+    factory(overrides?: CallOverrides): Promise<BigNumber>
 
-    uniFactory(overrides?: CallOverrides): Promise<BigNumber>;
+    uniFactory(overrides?: CallOverrides): Promise<BigNumber>
 
     addLiquidity(
       token: string,
@@ -617,7 +508,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     addLiquidityAndStake(
       token: string,
@@ -627,7 +518,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     removeLiquidityGetTokenAndETH(
       token: string,
@@ -636,7 +527,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     swapExactETHForTokens(
       token: string,
@@ -646,7 +537,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     swapExactTokensForTokens(
       tokenIn: string,
@@ -657,7 +548,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     swapExactTokensForETH(
       token: string,
@@ -667,7 +558,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     hybridSwapExactTokensForTokens(
       amountIn: BigNumberish,
@@ -678,7 +569,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     hybridSwapExactETHForTokens(
       amountIn: BigNumberish,
@@ -689,7 +580,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     hybridSwapExactTokensForETH(
       amountIn: BigNumberish,
@@ -700,34 +591,21 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    isCoFiXNativeSupported(
-      input: string,
-      output: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    isCoFiXNativeSupported(input: string, output: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    getPairForDEX(
-      input: string,
-      output: string,
-      dex: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getPairForDEX(input: string, output: string, dex: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
-    hybridPair(
-      input: string,
-      output: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-  };
+    hybridPair(input: string, output: string, overrides?: CallOverrides): Promise<BigNumber>
+  }
 
   populateTransaction: {
-    WETH(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    WETH(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    factory(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    factory(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    uniFactory(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    uniFactory(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     addLiquidity(
       token: string,
@@ -737,7 +615,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     addLiquidityAndStake(
       token: string,
@@ -747,7 +625,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     removeLiquidityGetTokenAndETH(
       token: string,
@@ -756,7 +634,7 @@ export class CoFiXV2Router extends BaseContract {
       to: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     swapExactETHForTokens(
       token: string,
@@ -766,7 +644,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     swapExactTokensForTokens(
       tokenIn: string,
@@ -777,7 +655,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     swapExactTokensForETH(
       token: string,
@@ -787,7 +665,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     hybridSwapExactTokensForTokens(
       amountIn: BigNumberish,
@@ -798,7 +676,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     hybridSwapExactETHForTokens(
       amountIn: BigNumberish,
@@ -809,7 +687,7 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     hybridSwapExactTokensForETH(
       amountIn: BigNumberish,
@@ -820,25 +698,17 @@ export class CoFiXV2Router extends BaseContract {
       rewardTo: string,
       deadline: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    isCoFiXNativeSupported(
-      input: string,
-      output: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    isCoFiXNativeSupported(input: string, output: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     getPairForDEX(
       input: string,
       output: string,
       dex: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    hybridPair(
-      input: string,
-      output: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-  };
+    hybridPair(input: string, output: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
+  }
 }

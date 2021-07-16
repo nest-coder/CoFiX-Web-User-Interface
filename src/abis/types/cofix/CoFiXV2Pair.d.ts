@@ -14,519 +14,375 @@ import {
   Overrides,
   PayableOverrides,
   CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import { TypedEventFilter, TypedEvent, TypedListener } from './commons'
 
 interface CoFiXV2PairInterface extends ethers.utils.Interface {
   functions: {
-    "DOMAIN_SEPARATOR()": FunctionFragment;
-    "K_BASE()": FunctionFragment;
-    "MINIMUM_LIQUIDITY()": FunctionFragment;
-    "NAVPS_BASE()": FunctionFragment;
-    "PERMIT_TYPEHASH()": FunctionFragment;
-    "THETA_BASE()": FunctionFragment;
-    "allowance(address,address)": FunctionFragment;
-    "approve(address,uint256)": FunctionFragment;
-    "balanceOf(address)": FunctionFragment;
-    "decimals()": FunctionFragment;
-    "factory()": FunctionFragment;
-    "initToken0Amount()": FunctionFragment;
-    "initToken1Amount()": FunctionFragment;
-    "name()": FunctionFragment;
-    "nameForDomain()": FunctionFragment;
-    "nonces(address)": FunctionFragment;
-    "permit(address,address,uint256,uint256,uint8,bytes32,bytes32)": FunctionFragment;
-    "symbol()": FunctionFragment;
-    "token0()": FunctionFragment;
-    "token1()": FunctionFragment;
-    "totalSupply()": FunctionFragment;
-    "transfer(address,uint256)": FunctionFragment;
-    "transferFrom(address,address,uint256)": FunctionFragment;
-    "initialize(address,address,string,string,uint256,uint256)": FunctionFragment;
-    "getInitialAssetRatio()": FunctionFragment;
-    "getReserves()": FunctionFragment;
-    "mint(address,uint256,uint256)": FunctionFragment;
-    "burn(address,address)": FunctionFragment;
-    "swapWithExact(address,address)": FunctionFragment;
-    "skim(address)": FunctionFragment;
-    "sync()": FunctionFragment;
-    "calcNAVPerShareForMint(uint256,uint256,tuple)": FunctionFragment;
-    "calcNAVPerShareForBurn(uint256,uint256,tuple)": FunctionFragment;
-    "calcNAVPerShare(uint256,uint256,uint256,uint256)": FunctionFragment;
-    "calcLiquidity(uint256,uint256)": FunctionFragment;
-    "getNAVPerShareForMint(tuple)": FunctionFragment;
-    "getNAVPerShareForBurn(tuple)": FunctionFragment;
-    "getNAVPerShare(uint256,uint256)": FunctionFragment;
-    "getLiquidity(uint256,tuple)": FunctionFragment;
-    "calcOutTokenAndETHForBurn(uint256,tuple)": FunctionFragment;
-    "calcOutToken0(uint256,tuple)": FunctionFragment;
-    "calcOutToken1(uint256,tuple)": FunctionFragment;
-    "calcInNeededToken0(uint256,tuple)": FunctionFragment;
-    "calcInNeededToken1(uint256,tuple)": FunctionFragment;
-  };
+    'DOMAIN_SEPARATOR()': FunctionFragment
+    'K_BASE()': FunctionFragment
+    'MINIMUM_LIQUIDITY()': FunctionFragment
+    'NAVPS_BASE()': FunctionFragment
+    'PERMIT_TYPEHASH()': FunctionFragment
+    'THETA_BASE()': FunctionFragment
+    'allowance(address,address)': FunctionFragment
+    'approve(address,uint256)': FunctionFragment
+    'balanceOf(address)': FunctionFragment
+    'decimals()': FunctionFragment
+    'factory()': FunctionFragment
+    'initToken0Amount()': FunctionFragment
+    'initToken1Amount()': FunctionFragment
+    'name()': FunctionFragment
+    'nameForDomain()': FunctionFragment
+    'nonces(address)': FunctionFragment
+    'permit(address,address,uint256,uint256,uint8,bytes32,bytes32)': FunctionFragment
+    'symbol()': FunctionFragment
+    'token0()': FunctionFragment
+    'token1()': FunctionFragment
+    'totalSupply()': FunctionFragment
+    'transfer(address,uint256)': FunctionFragment
+    'transferFrom(address,address,uint256)': FunctionFragment
+    'initialize(address,address,string,string,uint256,uint256)': FunctionFragment
+    'getInitialAssetRatio()': FunctionFragment
+    'getReserves()': FunctionFragment
+    'mint(address,uint256,uint256)': FunctionFragment
+    'burn(address,address)': FunctionFragment
+    'swapWithExact(address,address)': FunctionFragment
+    'skim(address)': FunctionFragment
+    'sync()': FunctionFragment
+    'calcNAVPerShareForMint(uint256,uint256,tuple)': FunctionFragment
+    'calcNAVPerShareForBurn(uint256,uint256,tuple)': FunctionFragment
+    'calcNAVPerShare(uint256,uint256,uint256,uint256)': FunctionFragment
+    'calcLiquidity(uint256,uint256)': FunctionFragment
+    'getNAVPerShareForMint(tuple)': FunctionFragment
+    'getNAVPerShareForBurn(tuple)': FunctionFragment
+    'getNAVPerShare(uint256,uint256)': FunctionFragment
+    'getLiquidity(uint256,tuple)': FunctionFragment
+    'calcOutTokenAndETHForBurn(uint256,tuple)': FunctionFragment
+    'calcOutToken0(uint256,tuple)': FunctionFragment
+    'calcOutToken1(uint256,tuple)': FunctionFragment
+    'calcInNeededToken0(uint256,tuple)': FunctionFragment
+    'calcInNeededToken1(uint256,tuple)': FunctionFragment
+  }
 
+  encodeFunctionData(functionFragment: 'DOMAIN_SEPARATOR', values?: undefined): string
+  encodeFunctionData(functionFragment: 'K_BASE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'MINIMUM_LIQUIDITY', values?: undefined): string
+  encodeFunctionData(functionFragment: 'NAVPS_BASE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'PERMIT_TYPEHASH', values?: undefined): string
+  encodeFunctionData(functionFragment: 'THETA_BASE', values?: undefined): string
+  encodeFunctionData(functionFragment: 'allowance', values: [string, string]): string
+  encodeFunctionData(functionFragment: 'approve', values: [string, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'balanceOf', values: [string]): string
+  encodeFunctionData(functionFragment: 'decimals', values?: undefined): string
+  encodeFunctionData(functionFragment: 'factory', values?: undefined): string
+  encodeFunctionData(functionFragment: 'initToken0Amount', values?: undefined): string
+  encodeFunctionData(functionFragment: 'initToken1Amount', values?: undefined): string
+  encodeFunctionData(functionFragment: 'name', values?: undefined): string
+  encodeFunctionData(functionFragment: 'nameForDomain', values?: undefined): string
+  encodeFunctionData(functionFragment: 'nonces', values: [string]): string
   encodeFunctionData(
-    functionFragment: "DOMAIN_SEPARATOR",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "K_BASE", values?: undefined): string;
+    functionFragment: 'permit',
+    values: [string, string, BigNumberish, BigNumberish, BigNumberish, BytesLike, BytesLike]
+  ): string
+  encodeFunctionData(functionFragment: 'symbol', values?: undefined): string
+  encodeFunctionData(functionFragment: 'token0', values?: undefined): string
+  encodeFunctionData(functionFragment: 'token1', values?: undefined): string
+  encodeFunctionData(functionFragment: 'totalSupply', values?: undefined): string
+  encodeFunctionData(functionFragment: 'transfer', values: [string, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'transferFrom', values: [string, string, BigNumberish]): string
   encodeFunctionData(
-    functionFragment: "MINIMUM_LIQUIDITY",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "NAVPS_BASE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "PERMIT_TYPEHASH",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "THETA_BASE",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "allowance",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "approve",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
-  encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
-  encodeFunctionData(functionFragment: "factory", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "initToken0Amount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "initToken1Amount",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "name", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "nameForDomain",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "nonces", values: [string]): string;
-  encodeFunctionData(
-    functionFragment: "permit",
-    values: [
-      string,
-      string,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike
-    ]
-  ): string;
-  encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
-  encodeFunctionData(functionFragment: "token0", values?: undefined): string;
-  encodeFunctionData(functionFragment: "token1", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "totalSupply",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transfer",
-    values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "transferFrom",
-    values: [string, string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "initialize",
+    functionFragment: 'initialize',
     values: [string, string, string, string, BigNumberish, BigNumberish]
-  ): string;
+  ): string
+  encodeFunctionData(functionFragment: 'getInitialAssetRatio', values?: undefined): string
+  encodeFunctionData(functionFragment: 'getReserves', values?: undefined): string
+  encodeFunctionData(functionFragment: 'mint', values: [string, BigNumberish, BigNumberish]): string
+  encodeFunctionData(functionFragment: 'burn', values: [string, string]): string
+  encodeFunctionData(functionFragment: 'swapWithExact', values: [string, string]): string
+  encodeFunctionData(functionFragment: 'skim', values: [string]): string
+  encodeFunctionData(functionFragment: 'sync', values?: undefined): string
   encodeFunctionData(
-    functionFragment: "getInitialAssetRatio",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getReserves",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "mint",
-    values: [string, BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "burn",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "swapWithExact",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(functionFragment: "skim", values: [string]): string;
-  encodeFunctionData(functionFragment: "sync", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "calcNAVPerShareForMint",
+    functionFragment: 'calcNAVPerShareForMint',
     values: [
       BigNumberish,
       BigNumberish,
       {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       }
     ]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "calcNAVPerShareForBurn",
+    functionFragment: 'calcNAVPerShareForBurn',
     values: [
       BigNumberish,
       BigNumberish,
       {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       }
     ]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "calcNAVPerShare",
+    functionFragment: 'calcNAVPerShare',
     values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish]
-  ): string;
+  ): string
+  encodeFunctionData(functionFragment: 'calcLiquidity', values: [BigNumberish, BigNumberish]): string
   encodeFunctionData(
-    functionFragment: "calcLiquidity",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getNAVPerShareForMint",
+    functionFragment: 'getNAVPerShareForMint',
     values: [
       {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       }
     ]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "getNAVPerShareForBurn",
+    functionFragment: 'getNAVPerShareForBurn',
     values: [
       {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       }
     ]
-  ): string;
+  ): string
+  encodeFunctionData(functionFragment: 'getNAVPerShare', values: [BigNumberish, BigNumberish]): string
   encodeFunctionData(
-    functionFragment: "getNAVPerShare",
-    values: [BigNumberish, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "getLiquidity",
+    functionFragment: 'getLiquidity',
     values: [
       BigNumberish,
       {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       }
     ]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "calcOutTokenAndETHForBurn",
+    functionFragment: 'calcOutTokenAndETHForBurn',
     values: [
       BigNumberish,
       {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       }
     ]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "calcOutToken0",
+    functionFragment: 'calcOutToken0',
     values: [
       BigNumberish,
       {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       }
     ]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "calcOutToken1",
+    functionFragment: 'calcOutToken1',
     values: [
       BigNumberish,
       {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       }
     ]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "calcInNeededToken0",
+    functionFragment: 'calcInNeededToken0',
     values: [
       BigNumberish,
       {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       }
     ]
-  ): string;
+  ): string
   encodeFunctionData(
-    functionFragment: "calcInNeededToken1",
+    functionFragment: 'calcInNeededToken1',
     values: [
       BigNumberish,
       {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       }
     ]
-  ): string;
+  ): string
 
-  decodeFunctionResult(
-    functionFragment: "DOMAIN_SEPARATOR",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "K_BASE", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "MINIMUM_LIQUIDITY",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "NAVPS_BASE", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "PERMIT_TYPEHASH",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "THETA_BASE", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "factory", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "initToken0Amount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "initToken1Amount",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "nameForDomain",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "nonces", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "permit", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "token0", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "token1", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "totalSupply",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "transferFrom",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "getInitialAssetRatio",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getReserves",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "swapWithExact",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(functionFragment: "skim", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "sync", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "calcNAVPerShareForMint",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "calcNAVPerShareForBurn",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "calcNAVPerShare",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "calcLiquidity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getNAVPerShareForMint",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getNAVPerShareForBurn",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getNAVPerShare",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "getLiquidity",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "calcOutTokenAndETHForBurn",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "calcOutToken0",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "calcOutToken1",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "calcInNeededToken0",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "calcInNeededToken1",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'DOMAIN_SEPARATOR', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'K_BASE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'MINIMUM_LIQUIDITY', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'NAVPS_BASE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'PERMIT_TYPEHASH', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'THETA_BASE', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'allowance', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'approve', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'balanceOf', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'decimals', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'factory', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'initToken0Amount', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'initToken1Amount', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'name', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'nameForDomain', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'nonces', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'permit', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'symbol', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'token0', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'token1', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'totalSupply', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transfer', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'transferFrom', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'initialize', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getInitialAssetRatio', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getReserves', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'mint', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'burn', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'swapWithExact', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'skim', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'sync', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcNAVPerShareForMint', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcNAVPerShareForBurn', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcNAVPerShare', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcLiquidity', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getNAVPerShareForMint', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getNAVPerShareForBurn', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getNAVPerShare', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'getLiquidity', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcOutTokenAndETHForBurn', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcOutToken0', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcOutToken1', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcInNeededToken0', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'calcInNeededToken1', data: BytesLike): Result
 
   events: {
-    "Approval(address,address,uint256)": EventFragment;
-    "Burn(address,address,uint256,address)": EventFragment;
-    "Mint(address,uint256,uint256)": EventFragment;
-    "Swap(address,uint256,uint256,address,address)": EventFragment;
-    "Sync(uint112,uint112)": EventFragment;
-    "Transfer(address,address,uint256)": EventFragment;
-  };
+    'Approval(address,address,uint256)': EventFragment
+    'Burn(address,address,uint256,address)': EventFragment
+    'Mint(address,uint256,uint256)': EventFragment
+    'Swap(address,uint256,uint256,address,address)': EventFragment
+    'Sync(uint112,uint112)': EventFragment
+    'Transfer(address,address,uint256)': EventFragment
+  }
 
-  getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Burn"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Mint"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Swap"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Sync"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'Approval'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Burn'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Mint'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Swap'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Sync'): EventFragment
+  getEvent(nameOrSignatureOrTopic: 'Transfer'): EventFragment
 }
 
 export class CoFiXV2Pair extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: CoFiXV2PairInterface;
+  interface: CoFiXV2PairInterface
 
   functions: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<[string]>;
+    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<[string]>
 
-    K_BASE(overrides?: CallOverrides): Promise<[BigNumber]>;
+    K_BASE(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<[BigNumber]>;
+    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    NAVPS_BASE(overrides?: CallOverrides): Promise<[BigNumber]>;
+    NAVPS_BASE(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<[string]>;
+    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<[string]>
 
-    THETA_BASE(overrides?: CallOverrides): Promise<[BigNumber]>;
+    THETA_BASE(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    allowance(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
+    allowance(arg0: string, arg1: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     approve(
       spender: string,
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    balanceOf(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    balanceOf(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
-    decimals(overrides?: CallOverrides): Promise<[number]>;
+    decimals(overrides?: CallOverrides): Promise<[number]>
 
-    factory(overrides?: CallOverrides): Promise<[string]>;
+    factory(overrides?: CallOverrides): Promise<[string]>
 
-    initToken0Amount(overrides?: CallOverrides): Promise<[BigNumber]>;
+    initToken0Amount(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    initToken1Amount(overrides?: CallOverrides): Promise<[BigNumber]>;
+    initToken1Amount(overrides?: CallOverrides): Promise<[BigNumber]>
 
-    name(overrides?: CallOverrides): Promise<[string]>;
+    name(overrides?: CallOverrides): Promise<[string]>
 
-    nameForDomain(overrides?: CallOverrides): Promise<[string]>;
+    nameForDomain(overrides?: CallOverrides): Promise<[string]>
 
-    nonces(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    nonces(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>
 
     permit(
       owner: string,
@@ -537,28 +393,28 @@ export class CoFiXV2Pair extends BaseContract {
       r: BytesLike,
       s: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    symbol(overrides?: CallOverrides): Promise<[string]>;
+    symbol(overrides?: CallOverrides): Promise<[string]>
 
-    token0(overrides?: CallOverrides): Promise<[string]>;
+    token0(overrides?: CallOverrides): Promise<[string]>
 
-    token1(overrides?: CallOverrides): Promise<[string]>;
+    token1(overrides?: CallOverrides): Promise<[string]>
 
-    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>
 
     transfer(
       to: string,
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     transferFrom(
       from: string,
       to: string,
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     initialize(
       _token0: string,
@@ -568,76 +424,67 @@ export class CoFiXV2Pair extends BaseContract {
       _initToken0Amount: BigNumberish,
       _initToken1Amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    getInitialAssetRatio(
-      overrides?: CallOverrides
-    ): Promise<
+    getInitialAssetRatio(overrides?: CallOverrides): Promise<
       [BigNumber, BigNumber] & {
-        _initToken0Amount: BigNumber;
-        _initToken1Amount: BigNumber;
+        _initToken0Amount: BigNumber
+        _initToken1Amount: BigNumber
       }
-    >;
+    >
 
     getReserves(
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { _reserve0: BigNumber; _reserve1: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { _reserve0: BigNumber; _reserve1: BigNumber }>
 
     mint(
       to: string,
       amountETH: BigNumberish,
       amountToken: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     burn(
       tokenTo: string,
       ethTo: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     swapWithExact(
       outToken: string,
       to: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
-    skim(
-      to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    skim(to: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-    sync(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    sync(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
     calcNAVPerShareForMint(
       balance0: BigNumberish,
       balance1: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { navps: BigNumber }>;
+    ): Promise<[BigNumber] & { navps: BigNumber }>
 
     calcNAVPerShareForBurn(
       balance0: BigNumberish,
       balance1: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { navps: BigNumber }>;
+    ): Promise<[BigNumber] & { navps: BigNumber }>
 
     calcNAVPerShare(
       balance0: BigNumberish,
@@ -645,168 +492,156 @@ export class CoFiXV2Pair extends BaseContract {
       ethAmount: BigNumberish,
       erc20Amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { navps: BigNumber }>;
+    ): Promise<[BigNumber] & { navps: BigNumber }>
 
     calcLiquidity(
       amount0: BigNumberish,
       navps: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { liquidity: BigNumber }>;
+    ): Promise<[BigNumber] & { liquidity: BigNumber }>
 
     getNAVPerShareForMint(
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { navps: BigNumber }>;
+    ): Promise<[BigNumber] & { navps: BigNumber }>
 
     getNAVPerShareForBurn(
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { navps: BigNumber }>;
+    ): Promise<[BigNumber] & { navps: BigNumber }>
 
     getNAVPerShare(
       ethAmount: BigNumberish,
       erc20Amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { navps: BigNumber }>;
+    ): Promise<[BigNumber] & { navps: BigNumber }>
 
     getLiquidity(
       amount0: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { liquidity: BigNumber }>;
+    ): Promise<[BigNumber] & { liquidity: BigNumber }>
 
     calcOutTokenAndETHForBurn(
       liquidity: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
-        amountTokenOut: BigNumber;
-        amountEthOut: BigNumber;
-        fee: BigNumber;
+        amountTokenOut: BigNumber
+        amountEthOut: BigNumber
+        fee: BigNumber
       }
-    >;
+    >
 
     calcOutToken0(
       amountIn: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }>
 
     calcOutToken1(
       amountIn: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }>
 
     calcInNeededToken0(
       amountOut: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }>
 
     calcInNeededToken1(
       amountOut: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }
-    >;
-  };
+    ): Promise<[BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }>
+  }
 
-  DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
+  DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>
 
-  K_BASE(overrides?: CallOverrides): Promise<BigNumber>;
+  K_BASE(overrides?: CallOverrides): Promise<BigNumber>
 
-  MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<BigNumber>;
+  MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<BigNumber>
 
-  NAVPS_BASE(overrides?: CallOverrides): Promise<BigNumber>;
+  NAVPS_BASE(overrides?: CallOverrides): Promise<BigNumber>
 
-  PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<string>;
+  PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<string>
 
-  THETA_BASE(overrides?: CallOverrides): Promise<BigNumber>;
+  THETA_BASE(overrides?: CallOverrides): Promise<BigNumber>
 
-  allowance(
-    arg0: string,
-    arg1: string,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  allowance(arg0: string, arg1: string, overrides?: CallOverrides): Promise<BigNumber>
 
   approve(
     spender: string,
     value: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+  balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
-  decimals(overrides?: CallOverrides): Promise<number>;
+  decimals(overrides?: CallOverrides): Promise<number>
 
-  factory(overrides?: CallOverrides): Promise<string>;
+  factory(overrides?: CallOverrides): Promise<string>
 
-  initToken0Amount(overrides?: CallOverrides): Promise<BigNumber>;
+  initToken0Amount(overrides?: CallOverrides): Promise<BigNumber>
 
-  initToken1Amount(overrides?: CallOverrides): Promise<BigNumber>;
+  initToken1Amount(overrides?: CallOverrides): Promise<BigNumber>
 
-  name(overrides?: CallOverrides): Promise<string>;
+  name(overrides?: CallOverrides): Promise<string>
 
-  nameForDomain(overrides?: CallOverrides): Promise<string>;
+  nameForDomain(overrides?: CallOverrides): Promise<string>
 
-  nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+  nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
   permit(
     owner: string,
@@ -817,28 +652,28 @@ export class CoFiXV2Pair extends BaseContract {
     r: BytesLike,
     s: BytesLike,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  symbol(overrides?: CallOverrides): Promise<string>;
+  symbol(overrides?: CallOverrides): Promise<string>
 
-  token0(overrides?: CallOverrides): Promise<string>;
+  token0(overrides?: CallOverrides): Promise<string>
 
-  token1(overrides?: CallOverrides): Promise<string>;
+  token1(overrides?: CallOverrides): Promise<string>
 
-  totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
+  totalSupply(overrides?: CallOverrides): Promise<BigNumber>
 
   transfer(
     to: string,
     value: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   transferFrom(
     from: string,
     to: string,
     value: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   initialize(
     _token0: string,
@@ -848,76 +683,67 @@ export class CoFiXV2Pair extends BaseContract {
     _initToken0Amount: BigNumberish,
     _initToken1Amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  getInitialAssetRatio(
-    overrides?: CallOverrides
-  ): Promise<
+  getInitialAssetRatio(overrides?: CallOverrides): Promise<
     [BigNumber, BigNumber] & {
-      _initToken0Amount: BigNumber;
-      _initToken1Amount: BigNumber;
+      _initToken0Amount: BigNumber
+      _initToken1Amount: BigNumber
     }
-  >;
+  >
 
   getReserves(
     overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber] & { _reserve0: BigNumber; _reserve1: BigNumber }
-  >;
+  ): Promise<[BigNumber, BigNumber] & { _reserve0: BigNumber; _reserve1: BigNumber }>
 
   mint(
     to: string,
     amountETH: BigNumberish,
     amountToken: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   burn(
     tokenTo: string,
     ethTo: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   swapWithExact(
     outToken: string,
     to: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
-  skim(
-    to: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  skim(to: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
-  sync(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  sync(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
 
   calcNAVPerShareForMint(
     balance0: BigNumberish,
     balance1: BigNumberish,
     _op: {
-      ethAmount: BigNumberish;
-      erc20Amount: BigNumberish;
-      blockNum: BigNumberish;
-      K: BigNumberish;
-      theta: BigNumberish;
+      ethAmount: BigNumberish
+      erc20Amount: BigNumberish
+      blockNum: BigNumberish
+      K: BigNumberish
+      theta: BigNumberish
     },
     overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  ): Promise<BigNumber>
 
   calcNAVPerShareForBurn(
     balance0: BigNumberish,
     balance1: BigNumberish,
     _op: {
-      ethAmount: BigNumberish;
-      erc20Amount: BigNumberish;
-      blockNum: BigNumberish;
-      K: BigNumberish;
-      theta: BigNumberish;
+      ethAmount: BigNumberish
+      erc20Amount: BigNumberish
+      blockNum: BigNumberish
+      K: BigNumberish
+      theta: BigNumberish
     },
     overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  ): Promise<BigNumber>
 
   calcNAVPerShare(
     balance0: BigNumberish,
@@ -925,164 +751,144 @@ export class CoFiXV2Pair extends BaseContract {
     ethAmount: BigNumberish,
     erc20Amount: BigNumberish,
     overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  ): Promise<BigNumber>
 
-  calcLiquidity(
-    amount0: BigNumberish,
-    navps: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  calcLiquidity(amount0: BigNumberish, navps: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
   getNAVPerShareForMint(
     _op: {
-      ethAmount: BigNumberish;
-      erc20Amount: BigNumberish;
-      blockNum: BigNumberish;
-      K: BigNumberish;
-      theta: BigNumberish;
+      ethAmount: BigNumberish
+      erc20Amount: BigNumberish
+      blockNum: BigNumberish
+      K: BigNumberish
+      theta: BigNumberish
     },
     overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  ): Promise<BigNumber>
 
   getNAVPerShareForBurn(
     _op: {
-      ethAmount: BigNumberish;
-      erc20Amount: BigNumberish;
-      blockNum: BigNumberish;
-      K: BigNumberish;
-      theta: BigNumberish;
+      ethAmount: BigNumberish
+      erc20Amount: BigNumberish
+      blockNum: BigNumberish
+      K: BigNumberish
+      theta: BigNumberish
     },
     overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  ): Promise<BigNumber>
 
-  getNAVPerShare(
-    ethAmount: BigNumberish,
-    erc20Amount: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  getNAVPerShare(ethAmount: BigNumberish, erc20Amount: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
   getLiquidity(
     amount0: BigNumberish,
     _op: {
-      ethAmount: BigNumberish;
-      erc20Amount: BigNumberish;
-      blockNum: BigNumberish;
-      K: BigNumberish;
-      theta: BigNumberish;
+      ethAmount: BigNumberish
+      erc20Amount: BigNumberish
+      blockNum: BigNumberish
+      K: BigNumberish
+      theta: BigNumberish
     },
     overrides?: CallOverrides
-  ): Promise<BigNumber>;
+  ): Promise<BigNumber>
 
   calcOutTokenAndETHForBurn(
     liquidity: BigNumberish,
     _op: {
-      ethAmount: BigNumberish;
-      erc20Amount: BigNumberish;
-      blockNum: BigNumberish;
-      K: BigNumberish;
-      theta: BigNumberish;
+      ethAmount: BigNumberish
+      erc20Amount: BigNumberish
+      blockNum: BigNumberish
+      K: BigNumberish
+      theta: BigNumberish
     },
     overrides?: CallOverrides
   ): Promise<
     [BigNumber, BigNumber, BigNumber] & {
-      amountTokenOut: BigNumber;
-      amountEthOut: BigNumber;
-      fee: BigNumber;
+      amountTokenOut: BigNumber
+      amountEthOut: BigNumber
+      fee: BigNumber
     }
-  >;
+  >
 
   calcOutToken0(
     amountIn: BigNumberish,
     _op: {
-      ethAmount: BigNumberish;
-      erc20Amount: BigNumberish;
-      blockNum: BigNumberish;
-      K: BigNumberish;
-      theta: BigNumberish;
+      ethAmount: BigNumberish
+      erc20Amount: BigNumberish
+      blockNum: BigNumberish
+      K: BigNumberish
+      theta: BigNumberish
     },
     overrides?: CallOverrides
-  ): Promise<[BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }>;
+  ): Promise<[BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }>
 
   calcOutToken1(
     amountIn: BigNumberish,
     _op: {
-      ethAmount: BigNumberish;
-      erc20Amount: BigNumberish;
-      blockNum: BigNumberish;
-      K: BigNumberish;
-      theta: BigNumberish;
+      ethAmount: BigNumberish
+      erc20Amount: BigNumberish
+      blockNum: BigNumberish
+      K: BigNumberish
+      theta: BigNumberish
     },
     overrides?: CallOverrides
-  ): Promise<[BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }>;
+  ): Promise<[BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }>
 
   calcInNeededToken0(
     amountOut: BigNumberish,
     _op: {
-      ethAmount: BigNumberish;
-      erc20Amount: BigNumberish;
-      blockNum: BigNumberish;
-      K: BigNumberish;
-      theta: BigNumberish;
+      ethAmount: BigNumberish
+      erc20Amount: BigNumberish
+      blockNum: BigNumberish
+      K: BigNumberish
+      theta: BigNumberish
     },
     overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }
-  >;
+  ): Promise<[BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }>
 
   calcInNeededToken1(
     amountOut: BigNumberish,
     _op: {
-      ethAmount: BigNumberish;
-      erc20Amount: BigNumberish;
-      blockNum: BigNumberish;
-      K: BigNumberish;
-      theta: BigNumberish;
+      ethAmount: BigNumberish
+      erc20Amount: BigNumberish
+      blockNum: BigNumberish
+      K: BigNumberish
+      theta: BigNumberish
     },
     overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }
-  >;
+  ): Promise<[BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }>
 
   callStatic: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>;
+    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<string>
 
-    K_BASE(overrides?: CallOverrides): Promise<BigNumber>;
+    K_BASE(overrides?: CallOverrides): Promise<BigNumber>
 
-    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<BigNumber>;
+    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<BigNumber>
 
-    NAVPS_BASE(overrides?: CallOverrides): Promise<BigNumber>;
+    NAVPS_BASE(overrides?: CallOverrides): Promise<BigNumber>
 
-    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<string>;
+    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<string>
 
-    THETA_BASE(overrides?: CallOverrides): Promise<BigNumber>;
+    THETA_BASE(overrides?: CallOverrides): Promise<BigNumber>
 
-    allowance(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    allowance(arg0: string, arg1: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    approve(
-      spender: string,
-      value: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    approve(spender: string, value: BigNumberish, overrides?: CallOverrides): Promise<boolean>
 
-    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    decimals(overrides?: CallOverrides): Promise<number>;
+    decimals(overrides?: CallOverrides): Promise<number>
 
-    factory(overrides?: CallOverrides): Promise<string>;
+    factory(overrides?: CallOverrides): Promise<string>
 
-    initToken0Amount(overrides?: CallOverrides): Promise<BigNumber>;
+    initToken0Amount(overrides?: CallOverrides): Promise<BigNumber>
 
-    initToken1Amount(overrides?: CallOverrides): Promise<BigNumber>;
+    initToken1Amount(overrides?: CallOverrides): Promise<BigNumber>
 
-    name(overrides?: CallOverrides): Promise<string>;
+    name(overrides?: CallOverrides): Promise<string>
 
-    nameForDomain(overrides?: CallOverrides): Promise<string>;
+    nameForDomain(overrides?: CallOverrides): Promise<string>
 
-    nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
     permit(
       owner: string,
@@ -1093,28 +899,19 @@ export class CoFiXV2Pair extends BaseContract {
       r: BytesLike,
       s: BytesLike,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
-    symbol(overrides?: CallOverrides): Promise<string>;
+    symbol(overrides?: CallOverrides): Promise<string>
 
-    token0(overrides?: CallOverrides): Promise<string>;
+    token0(overrides?: CallOverrides): Promise<string>
 
-    token1(overrides?: CallOverrides): Promise<string>;
+    token1(overrides?: CallOverrides): Promise<string>
 
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
 
-    transfer(
-      to: string,
-      value: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    transfer(to: string, value: BigNumberish, overrides?: CallOverrides): Promise<boolean>
 
-    transferFrom(
-      from: string,
-      to: string,
-      value: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<boolean>;
+    transferFrom(from: string, to: string, value: BigNumberish, overrides?: CallOverrides): Promise<boolean>
 
     initialize(
       _token0: string,
@@ -1124,22 +921,18 @@ export class CoFiXV2Pair extends BaseContract {
       _initToken0Amount: BigNumberish,
       _initToken1Amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<void>;
+    ): Promise<void>
 
-    getInitialAssetRatio(
-      overrides?: CallOverrides
-    ): Promise<
+    getInitialAssetRatio(overrides?: CallOverrides): Promise<
       [BigNumber, BigNumber] & {
-        _initToken0Amount: BigNumber;
-        _initToken1Amount: BigNumber;
+        _initToken0Amount: BigNumber
+        _initToken1Amount: BigNumber
       }
-    >;
+    >
 
     getReserves(
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { _reserve0: BigNumber; _reserve1: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { _reserve0: BigNumber; _reserve1: BigNumber }>
 
     mint(
       to: string,
@@ -1148,10 +941,10 @@ export class CoFiXV2Pair extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber] & {
-        liquidity: BigNumber;
-        oracleFeeChange: BigNumber;
+        liquidity: BigNumber
+        oracleFeeChange: BigNumber
       }
-    >;
+    >
 
     burn(
       tokenTo: string,
@@ -1159,59 +952,54 @@ export class CoFiXV2Pair extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
-        amountTokenOut: BigNumber;
-        amountEthOut: BigNumber;
-        oracleFeeChange: BigNumber;
+        amountTokenOut: BigNumber
+        amountEthOut: BigNumber
+        oracleFeeChange: BigNumber
       }
-    >;
+    >
 
     swapWithExact(
       outToken: string,
       to: string,
       overrides?: CallOverrides
     ): Promise<
-      [
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber]
-      ] & {
-        amountIn: BigNumber;
-        amountOut: BigNumber;
-        oracleFeeChange: BigNumber;
-        tradeInfo: [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber];
+      [BigNumber, BigNumber, BigNumber, [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber]] & {
+        amountIn: BigNumber
+        amountOut: BigNumber
+        oracleFeeChange: BigNumber
+        tradeInfo: [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber]
       }
-    >;
+    >
 
-    skim(to: string, overrides?: CallOverrides): Promise<void>;
+    skim(to: string, overrides?: CallOverrides): Promise<void>
 
-    sync(overrides?: CallOverrides): Promise<void>;
+    sync(overrides?: CallOverrides): Promise<void>
 
     calcNAVPerShareForMint(
       balance0: BigNumberish,
       balance1: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     calcNAVPerShareForBurn(
       balance0: BigNumberish,
       balance1: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     calcNAVPerShare(
       balance0: BigNumberish,
@@ -1219,138 +1007,119 @@ export class CoFiXV2Pair extends BaseContract {
       ethAmount: BigNumberish,
       erc20Amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    calcLiquidity(
-      amount0: BigNumberish,
-      navps: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    calcLiquidity(amount0: BigNumberish, navps: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
     getNAVPerShareForMint(
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     getNAVPerShareForBurn(
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    getNAVPerShare(
-      ethAmount: BigNumberish,
-      erc20Amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getNAVPerShare(ethAmount: BigNumberish, erc20Amount: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
     getLiquidity(
       amount0: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     calcOutTokenAndETHForBurn(
       liquidity: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber] & {
-        amountTokenOut: BigNumber;
-        amountEthOut: BigNumber;
-        fee: BigNumber;
+        amountTokenOut: BigNumber
+        amountEthOut: BigNumber
+        fee: BigNumber
       }
-    >;
+    >
 
     calcOutToken0(
       amountIn: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }>
 
     calcOutToken1(
       amountIn: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { amountOut: BigNumber; fee: BigNumber }>
 
     calcInNeededToken0(
       amountOut: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }>
 
     calcInNeededToken1(
       amountOut: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }
-    >;
-  };
+    ): Promise<[BigNumber, BigNumber] & { amountInNeeded: BigNumber; fee: BigNumber }>
+  }
 
   filters: {
     Approval(
       owner?: string | null,
       spender?: string | null,
       value?: null
-    ): TypedEventFilter<
-      [string, string, BigNumber],
-      { owner: string; spender: string; value: BigNumber }
-    >;
+    ): TypedEventFilter<[string, string, BigNumber], { owner: string; spender: string; value: BigNumber }>
 
     Burn(
       sender?: string | null,
@@ -1360,16 +1129,13 @@ export class CoFiXV2Pair extends BaseContract {
     ): TypedEventFilter<
       [string, string, BigNumber, string],
       { sender: string; outToken: string; outAmount: BigNumber; to: string }
-    >;
+    >
 
     Mint(
       sender?: string | null,
       amount0?: null,
       amount1?: null
-    ): TypedEventFilter<
-      [string, BigNumber, BigNumber],
-      { sender: string; amount0: BigNumber; amount1: BigNumber }
-    >;
+    ): TypedEventFilter<[string, BigNumber, BigNumber], { sender: string; amount0: BigNumber; amount1: BigNumber }>
 
     Swap(
       sender?: string | null,
@@ -1380,72 +1146,62 @@ export class CoFiXV2Pair extends BaseContract {
     ): TypedEventFilter<
       [string, BigNumber, BigNumber, string, string],
       {
-        sender: string;
-        amountIn: BigNumber;
-        amountOut: BigNumber;
-        outToken: string;
-        to: string;
+        sender: string
+        amountIn: BigNumber
+        amountOut: BigNumber
+        outToken: string
+        to: string
       }
-    >;
+    >
 
     Sync(
       reserve0?: null,
       reserve1?: null
-    ): TypedEventFilter<
-      [BigNumber, BigNumber],
-      { reserve0: BigNumber; reserve1: BigNumber }
-    >;
+    ): TypedEventFilter<[BigNumber, BigNumber], { reserve0: BigNumber; reserve1: BigNumber }>
 
     Transfer(
       from?: string | null,
       to?: string | null,
       value?: null
-    ): TypedEventFilter<
-      [string, string, BigNumber],
-      { from: string; to: string; value: BigNumber }
-    >;
-  };
+    ): TypedEventFilter<[string, string, BigNumber], { from: string; to: string; value: BigNumber }>
+  }
 
   estimateGas: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<BigNumber>;
+    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<BigNumber>
 
-    K_BASE(overrides?: CallOverrides): Promise<BigNumber>;
+    K_BASE(overrides?: CallOverrides): Promise<BigNumber>
 
-    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<BigNumber>;
+    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<BigNumber>
 
-    NAVPS_BASE(overrides?: CallOverrides): Promise<BigNumber>;
+    NAVPS_BASE(overrides?: CallOverrides): Promise<BigNumber>
 
-    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<BigNumber>;
+    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<BigNumber>
 
-    THETA_BASE(overrides?: CallOverrides): Promise<BigNumber>;
+    THETA_BASE(overrides?: CallOverrides): Promise<BigNumber>
 
-    allowance(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    allowance(arg0: string, arg1: string, overrides?: CallOverrides): Promise<BigNumber>
 
     approve(
       spender: string,
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    balanceOf(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
-    decimals(overrides?: CallOverrides): Promise<BigNumber>;
+    decimals(overrides?: CallOverrides): Promise<BigNumber>
 
-    factory(overrides?: CallOverrides): Promise<BigNumber>;
+    factory(overrides?: CallOverrides): Promise<BigNumber>
 
-    initToken0Amount(overrides?: CallOverrides): Promise<BigNumber>;
+    initToken0Amount(overrides?: CallOverrides): Promise<BigNumber>
 
-    initToken1Amount(overrides?: CallOverrides): Promise<BigNumber>;
+    initToken1Amount(overrides?: CallOverrides): Promise<BigNumber>
 
-    name(overrides?: CallOverrides): Promise<BigNumber>;
+    name(overrides?: CallOverrides): Promise<BigNumber>
 
-    nameForDomain(overrides?: CallOverrides): Promise<BigNumber>;
+    nameForDomain(overrides?: CallOverrides): Promise<BigNumber>
 
-    nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>
 
     permit(
       owner: string,
@@ -1456,28 +1212,28 @@ export class CoFiXV2Pair extends BaseContract {
       r: BytesLike,
       s: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    symbol(overrides?: CallOverrides): Promise<BigNumber>;
+    symbol(overrides?: CallOverrides): Promise<BigNumber>
 
-    token0(overrides?: CallOverrides): Promise<BigNumber>;
+    token0(overrides?: CallOverrides): Promise<BigNumber>
 
-    token1(overrides?: CallOverrides): Promise<BigNumber>;
+    token1(overrides?: CallOverrides): Promise<BigNumber>
 
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>
 
     transfer(
       to: string,
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     transferFrom(
       from: string,
       to: string,
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     initialize(
       _token0: string,
@@ -1487,65 +1243,60 @@ export class CoFiXV2Pair extends BaseContract {
       _initToken0Amount: BigNumberish,
       _initToken1Amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    getInitialAssetRatio(overrides?: CallOverrides): Promise<BigNumber>;
+    getInitialAssetRatio(overrides?: CallOverrides): Promise<BigNumber>
 
-    getReserves(overrides?: CallOverrides): Promise<BigNumber>;
+    getReserves(overrides?: CallOverrides): Promise<BigNumber>
 
     mint(
       to: string,
       amountETH: BigNumberish,
       amountToken: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     burn(
       tokenTo: string,
       ethTo: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     swapWithExact(
       outToken: string,
       to: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    skim(
-      to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    skim(to: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
-    sync(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    sync(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
 
     calcNAVPerShareForMint(
       balance0: BigNumberish,
       balance1: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     calcNAVPerShareForBurn(
       balance0: BigNumberish,
       balance1: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     calcNAVPerShare(
       balance0: BigNumberish,
@@ -1553,161 +1304,143 @@ export class CoFiXV2Pair extends BaseContract {
       ethAmount: BigNumberish,
       erc20Amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    calcLiquidity(
-      amount0: BigNumberish,
-      navps: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    calcLiquidity(amount0: BigNumberish, navps: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
     getNAVPerShareForMint(
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     getNAVPerShareForBurn(
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
-    getNAVPerShare(
-      ethAmount: BigNumberish,
-      erc20Amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    getNAVPerShare(ethAmount: BigNumberish, erc20Amount: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
 
     getLiquidity(
       amount0: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     calcOutTokenAndETHForBurn(
       liquidity: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     calcOutToken0(
       amountIn: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     calcOutToken1(
       amountIn: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     calcInNeededToken0(
       amountOut: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     calcInNeededToken1(
       amountOut: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<BigNumber>;
-  };
+    ): Promise<BigNumber>
+  }
 
   populateTransaction: {
-    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    DOMAIN_SEPARATOR(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    K_BASE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    K_BASE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    MINIMUM_LIQUIDITY(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    NAVPS_BASE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    NAVPS_BASE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    PERMIT_TYPEHASH(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    THETA_BASE(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    THETA_BASE(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    allowance(
-      arg0: string,
-      arg1: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    allowance(arg0: string, arg1: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     approve(
       spender: string,
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    balanceOf(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    balanceOf(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    factory(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    factory(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    initToken0Amount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    initToken0Amount(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    initToken1Amount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    initToken1Amount(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    name(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    nameForDomain(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    nameForDomain(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    nonces(
-      arg0: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    nonces(arg0: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     permit(
       owner: string,
@@ -1718,28 +1451,28 @@ export class CoFiXV2Pair extends BaseContract {
       r: BytesLike,
       s: BytesLike,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    token0(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    token0(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    token1(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    token1(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     transfer(
       to: string,
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     transferFrom(
       from: string,
       to: string,
       value: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     initialize(
       _token0: string,
@@ -1749,67 +1482,60 @@ export class CoFiXV2Pair extends BaseContract {
       _initToken0Amount: BigNumberish,
       _initToken1Amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    getInitialAssetRatio(
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    getInitialAssetRatio(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
-    getReserves(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getReserves(overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     mint(
       to: string,
       amountETH: BigNumberish,
       amountToken: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     burn(
       tokenTo: string,
       ethTo: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     swapWithExact(
       outToken: string,
       to: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    skim(
-      to: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    skim(to: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
 
-    sync(
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    sync(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
 
     calcNAVPerShareForMint(
       balance0: BigNumberish,
       balance1: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     calcNAVPerShareForBurn(
       balance0: BigNumberish,
       balance1: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     calcNAVPerShare(
       balance0: BigNumberish,
@@ -1817,112 +1543,108 @@ export class CoFiXV2Pair extends BaseContract {
       ethAmount: BigNumberish,
       erc20Amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
-    calcLiquidity(
-      amount0: BigNumberish,
-      navps: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    calcLiquidity(amount0: BigNumberish, navps: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
 
     getNAVPerShareForMint(
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     getNAVPerShareForBurn(
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     getNAVPerShare(
       ethAmount: BigNumberish,
       erc20Amount: BigNumberish,
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     getLiquidity(
       amount0: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     calcOutTokenAndETHForBurn(
       liquidity: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     calcOutToken0(
       amountIn: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     calcOutToken1(
       amountIn: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     calcInNeededToken0(
       amountOut: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     calcInNeededToken1(
       amountOut: BigNumberish,
       _op: {
-        ethAmount: BigNumberish;
-        erc20Amount: BigNumberish;
-        blockNum: BigNumberish;
-        K: BigNumberish;
-        theta: BigNumberish;
+        ethAmount: BigNumberish
+        erc20Amount: BigNumberish
+        blockNum: BigNumberish
+        K: BigNumberish
+        theta: BigNumberish
       },
       overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-  };
+    ): Promise<PopulatedTransaction>
+  }
 }

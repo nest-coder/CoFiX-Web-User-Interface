@@ -13,116 +13,102 @@ import {
   ContractTransaction,
   PayableOverrides,
   CallOverrides,
-} from "ethers";
-import { BytesLike } from "@ethersproject/bytes";
-import { Listener, Provider } from "@ethersproject/providers";
-import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
-import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
+} from 'ethers'
+import { BytesLike } from '@ethersproject/bytes'
+import { Listener, Provider } from '@ethersproject/providers'
+import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
+import { TypedEventFilter, TypedEvent, TypedListener } from './commons'
 
 interface INestPriceFacadeInterface extends ethers.utils.Interface {
   functions: {
-    "latestPrice(address,address)": FunctionFragment;
-    "latestPriceAndTriggeredPriceInfo(address,address)": FunctionFragment;
-  };
+    'latestPrice(address,address)': FunctionFragment
+    'latestPriceAndTriggeredPriceInfo(address,address)': FunctionFragment
+  }
 
-  encodeFunctionData(
-    functionFragment: "latestPrice",
-    values: [string, string]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "latestPriceAndTriggeredPriceInfo",
-    values: [string, string]
-  ): string;
+  encodeFunctionData(functionFragment: 'latestPrice', values: [string, string]): string
+  encodeFunctionData(functionFragment: 'latestPriceAndTriggeredPriceInfo', values: [string, string]): string
 
-  decodeFunctionResult(
-    functionFragment: "latestPrice",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "latestPriceAndTriggeredPriceInfo",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: 'latestPrice', data: BytesLike): Result
+  decodeFunctionResult(functionFragment: 'latestPriceAndTriggeredPriceInfo', data: BytesLike): Result
 
-  events: {};
+  events: {}
 }
 
 export class INestPriceFacade extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this;
-  attach(addressOrName: string): this;
-  deployed(): Promise<this>;
+  connect(signerOrProvider: Signer | Provider | string): this
+  attach(addressOrName: string): this
+  deployed(): Promise<this>
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this;
+  ): this
 
-  listeners(eventName?: string): Array<Listener>;
-  off(eventName: string, listener: Listener): this;
-  on(eventName: string, listener: Listener): this;
-  once(eventName: string, listener: Listener): this;
-  removeListener(eventName: string, listener: Listener): this;
-  removeAllListeners(eventName?: string): this;
+  listeners(eventName?: string): Array<Listener>
+  off(eventName: string, listener: Listener): this
+  on(eventName: string, listener: Listener): this
+  once(eventName: string, listener: Listener): this
+  removeListener(eventName: string, listener: Listener): this
+  removeAllListeners(eventName?: string): this
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
 
-  interface: INestPriceFacadeInterface;
+  interface: INestPriceFacadeInterface
 
   functions: {
     latestPrice(
       tokenAddress: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
+    ): Promise<ContractTransaction>
 
     latestPriceAndTriggeredPriceInfo(
       tokenAddress: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-  };
+    ): Promise<ContractTransaction>
+  }
 
   latestPrice(
     tokenAddress: string,
     payback: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   latestPriceAndTriggeredPriceInfo(
     tokenAddress: string,
     payback: string,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
+  ): Promise<ContractTransaction>
 
   callStatic: {
     latestPrice(
       tokenAddress: string,
       payback: string,
       overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & { blockNumber: BigNumber; price: BigNumber }
-    >;
+    ): Promise<[BigNumber, BigNumber] & { blockNumber: BigNumber; price: BigNumber }>
 
     latestPriceAndTriggeredPriceInfo(
       tokenAddress: string,
@@ -130,43 +116,43 @@ export class INestPriceFacade extends BaseContract {
       overrides?: CallOverrides
     ): Promise<
       [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        latestPriceBlockNumber: BigNumber;
-        latestPriceValue: BigNumber;
-        triggeredPriceBlockNumber: BigNumber;
-        triggeredPriceValue: BigNumber;
-        triggeredAvgPrice: BigNumber;
-        triggeredSigmaSQ: BigNumber;
+        latestPriceBlockNumber: BigNumber
+        latestPriceValue: BigNumber
+        triggeredPriceBlockNumber: BigNumber
+        triggeredPriceValue: BigNumber
+        triggeredAvgPrice: BigNumber
+        triggeredSigmaSQ: BigNumber
       }
-    >;
-  };
+    >
+  }
 
-  filters: {};
+  filters: {}
 
   estimateGas: {
     latestPrice(
       tokenAddress: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
+    ): Promise<BigNumber>
 
     latestPriceAndTriggeredPriceInfo(
       tokenAddress: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-  };
+    ): Promise<BigNumber>
+  }
 
   populateTransaction: {
     latestPrice(
       tokenAddress: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
+    ): Promise<PopulatedTransaction>
 
     latestPriceAndTriggeredPriceInfo(
       tokenAddress: string,
       payback: string,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-  };
+    ): Promise<PopulatedTransaction>
+  }
 }

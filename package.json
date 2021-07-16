@@ -27,12 +27,27 @@
     "postbuild": "react-snap",
     "test": "craco test",
     "eject": "craco eject",
+    "type-check": "tsc --pretty --noEmit",
+    "format": "prettier --write src",
+    "lint": "eslint src --ext ts --ext tsx --ext js",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "i18n:extract": "lingui extract --clean",
     "i18n:compile": "lingui compile --typescript",
     "abi:generate": "npm run abi:generate-nest && npm run abi:generate-cofix",
     "abi:generate-nest": "typechain --target ethers-v5 --out-dir src/abis/types/nest './src/abis/json/nest/**/*.json'",
     "abi:generate-cofix": "typechain --target ethers-v5 --out-dir src/abis/types/cofix './src/abis/json/cofix/**/*.json'"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn run type-check"
+    }
+  },
+  "lint-staged": {
+    "*.@(ts|tsx)": [
+      "yarn lint",
+      "yarn format"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -68,6 +83,8 @@
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.7",
     "dynamic-cdn-webpack-plugin": "^5.0.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.0.1",
     "module-to-cdn": "^3.1.5",
     "react-scripts": "^4.0.3",
     "react-snap": "^1.23.0",

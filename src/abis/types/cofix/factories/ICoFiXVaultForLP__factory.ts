@@ -2,12 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  ICoFiXVaultForLP,
-  ICoFiXVaultForLPInterface,
-} from "../ICoFiXVaultForLP";
+import { Contract, Signer, utils } from 'ethers'
+import { Provider } from '@ethersproject/providers'
+import type { ICoFiXVaultForLP, ICoFiXVaultForLPInterface } from '../ICoFiXVaultForLP'
 
 const _abi = [
   {
@@ -15,378 +12,375 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'index',
+        type: 'uint256',
       },
     ],
-    name: "NewPoolAdded",
-    type: "event",
+    name: 'NewPoolAdded',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
     ],
-    name: "PoolDisabled",
-    type: "event",
+    name: 'PoolDisabled',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
     ],
-    name: "PoolEnabled",
-    type: "event",
+    name: 'PoolEnabled',
+    type: 'event',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "setGovernance",
+    name: 'setGovernance',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_new",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '_new',
+        type: 'uint256',
       },
     ],
-    name: "setInitCoFiRate",
+    name: 'setInitCoFiRate',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_new",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '_new',
+        type: 'uint256',
       },
     ],
-    name: "setDecayPeriod",
+    name: 'setDecayPeriod',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "_new",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '_new',
+        type: 'uint256',
       },
     ],
-    name: "setDecayRate",
+    name: 'setDecayRate',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
     ],
-    name: "addPool",
+    name: 'addPool',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
     ],
-    name: "enablePool",
+    name: 'enablePool',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
     ],
-    name: "disablePool",
+    name: 'disablePool',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "weight",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'weight',
+        type: 'uint256',
       },
     ],
-    name: "setPoolWeight",
+    name: 'setPoolWeight',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address[]",
-        name: "pools",
-        type: "address[]",
+        internalType: 'address[]',
+        name: 'pools',
+        type: 'address[]',
       },
       {
-        internalType: "uint256[]",
-        name: "weights",
-        type: "uint256[]",
+        internalType: 'uint256[]',
+        name: 'weights',
+        type: 'uint256[]',
       },
     ],
-    name: "batchSetPoolWeight",
+    name: 'batchSetPoolWeight',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "to",
-        type: "address",
+        internalType: 'address',
+        name: 'to',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "distributeReward",
+    name: 'distributeReward',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "pair",
-        type: "address",
+        internalType: 'address',
+        name: 'pair',
+        type: 'address',
       },
     ],
-    name: "getPendingRewardOfLP",
+    name: 'getPendingRewardOfLP',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "currentPeriod",
+    name: 'currentPeriod',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "currentCoFiRate",
+    name: 'currentCoFiRate',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
     ],
-    name: "currentPoolRate",
+    name: 'currentPoolRate',
     outputs: [
       {
-        internalType: "uint256",
-        name: "poolRate",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'poolRate',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "pair",
-        type: "address",
+        internalType: 'address',
+        name: 'pair',
+        type: 'address',
       },
     ],
-    name: "currentPoolRateByPair",
+    name: 'currentPoolRateByPair',
     outputs: [
       {
-        internalType: "uint256",
-        name: "poolRate",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'poolRate',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "pair",
-        type: "address",
+        internalType: 'address',
+        name: 'pair',
+        type: 'address',
       },
     ],
-    name: "stakingPoolForPair",
+    name: 'stakingPoolForPair',
     outputs: [
       {
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
     ],
-    name: "getPoolInfo",
+    name: 'getPoolInfo',
     outputs: [
       {
-        internalType: "enum ICoFiXVaultForLP.POOL_STATE",
-        name: "state",
-        type: "uint8",
+        internalType: 'enum ICoFiXVaultForLP.POOL_STATE',
+        name: 'state',
+        type: 'uint8',
       },
       {
-        internalType: "uint256",
-        name: "weight",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'weight',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "pair",
-        type: "address",
+        internalType: 'address',
+        name: 'pair',
+        type: 'address',
       },
     ],
-    name: "getPoolInfoByPair",
+    name: 'getPoolInfoByPair',
     outputs: [
       {
-        internalType: "enum ICoFiXVaultForLP.POOL_STATE",
-        name: "state",
-        type: "uint8",
+        internalType: 'enum ICoFiXVaultForLP.POOL_STATE',
+        name: 'state',
+        type: 'uint8',
       },
       {
-        internalType: "uint256",
-        name: "weight",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'weight',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "getEnabledPoolCnt",
+    name: 'getEnabledPoolCnt',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "getCoFiStakingPool",
+    name: 'getCoFiStakingPool',
     outputs: [
       {
-        internalType: "address",
-        name: "pool",
-        type: "address",
+        internalType: 'address',
+        name: 'pool',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
-];
+]
 
 export class ICoFiXVaultForLP__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ICoFiXVaultForLPInterface {
-    return new utils.Interface(_abi) as ICoFiXVaultForLPInterface;
+    return new utils.Interface(_abi) as ICoFiXVaultForLPInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ICoFiXVaultForLP {
-    return new Contract(address, _abi, signerOrProvider) as ICoFiXVaultForLP;
+  static connect(address: string, signerOrProvider: Signer | Provider): ICoFiXVaultForLP {
+    return new Contract(address, _abi, signerOrProvider) as ICoFiXVaultForLP
   }
 }

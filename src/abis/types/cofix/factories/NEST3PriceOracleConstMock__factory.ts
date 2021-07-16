@@ -2,158 +2,148 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  NEST3PriceOracleConstMock,
-  NEST3PriceOracleConstMockInterface,
-} from "../NEST3PriceOracleConstMock";
+import { Contract, Signer, utils } from 'ethers'
+import { Provider } from '@ethersproject/providers'
+import type { NEST3PriceOracleConstMock, NEST3PriceOracleConstMockInterface } from '../NEST3PriceOracleConstMock'
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    name: "priceInfoMap",
+    name: 'priceInfoMap',
     outputs: [
       {
-        internalType: "uint256",
-        name: "ethAmount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'ethAmount',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "erc20Amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'erc20Amount',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "lastUpdateBlock",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'lastUpdateBlock',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "num",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'num',
+        type: 'uint256',
       },
     ],
-    name: "updateAndCheckPriceList",
+    name: 'updateAndCheckPriceList',
     outputs: [
       {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
+        internalType: 'uint256[]',
+        name: '',
+        type: 'uint256[]',
       },
     ],
-    stateMutability: "payable",
-    type: "function",
+    stateMutability: 'payable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "num",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'num',
+        type: 'uint256',
       },
     ],
-    name: "checkPriceList",
+    name: 'checkPriceList',
     outputs: [
       {
-        internalType: "uint256[]",
-        name: "",
-        type: "uint256[]",
+        internalType: 'uint256[]',
+        name: '',
+        type: 'uint256[]',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
     ],
-    name: "checkPriceNow",
+    name: 'checkPriceNow',
     outputs: [
       {
-        internalType: "uint256",
-        name: "ethAmount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'ethAmount',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "erc20Amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'erc20Amount',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "blockNum",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'blockNum',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "ethAmount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'ethAmount',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "erc20Amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'erc20Amount',
+        type: 'uint256',
       },
     ],
-    name: "feedPrice",
+    name: 'feedPrice',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
-];
+]
 
 export class NEST3PriceOracleConstMock__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): NEST3PriceOracleConstMockInterface {
-    return new utils.Interface(_abi) as NEST3PriceOracleConstMockInterface;
+    return new utils.Interface(_abi) as NEST3PriceOracleConstMockInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): NEST3PriceOracleConstMock {
-    return new Contract(
-      address,
-      _abi,
-      signerOrProvider
-    ) as NEST3PriceOracleConstMock;
+  static connect(address: string, signerOrProvider: Signer | Provider): NEST3PriceOracleConstMock {
+    return new Contract(address, _abi, signerOrProvider) as NEST3PriceOracleConstMock
   }
 }

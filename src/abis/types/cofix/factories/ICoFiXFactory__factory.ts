@@ -2,9 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type { ICoFiXFactory, ICoFiXFactoryInterface } from "../ICoFiXFactory";
+import { Contract, Signer, utils } from 'ethers'
+import { Provider } from '@ethersproject/providers'
+import type { ICoFiXFactory, ICoFiXFactoryInterface } from '../ICoFiXFactory'
 
 const _abi = [
   {
@@ -12,421 +12,418 @@ const _abi = [
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "NewController",
-    type: "event",
+    name: 'NewController',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "NewFeeReceiver",
-    type: "event",
+    name: 'NewFeeReceiver',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "address",
-        name: "feeVault",
-        type: "address",
+        internalType: 'address',
+        name: 'feeVault',
+        type: 'address',
       },
     ],
-    name: "NewFeeVaultForLP",
-    type: "event",
+    name: 'NewFeeVaultForLP',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "NewGovernance",
-    type: "event",
+    name: 'NewGovernance',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "NewVaultForCNode",
-    type: "event",
+    name: 'NewVaultForCNode',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "NewVaultForLP",
-    type: "event",
+    name: 'NewVaultForLP',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: false,
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "NewVaultForTrader",
-    type: "event",
+    name: 'NewVaultForTrader',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "address",
-        name: "pair",
-        type: "address",
+        internalType: 'address',
+        name: 'pair',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    name: "PairCreated",
-    type: "event",
+    name: 'PairCreated',
+    type: 'event',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
     ],
-    name: "createPair",
+    name: 'createPair',
     outputs: [
       {
-        internalType: "address",
-        name: "pair",
-        type: "address",
+        internalType: 'address',
+        name: 'pair',
+        type: 'address',
       },
     ],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
     ],
-    name: "getPair",
+    name: 'getPair',
     outputs: [
       {
-        internalType: "address",
-        name: "pair",
-        type: "address",
+        internalType: 'address',
+        name: 'pair',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    name: "allPairs",
+    name: 'allPairs',
     outputs: [
       {
-        internalType: "address",
-        name: "pair",
-        type: "address",
+        internalType: 'address',
+        name: 'pair',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "allPairsLength",
+    name: 'allPairsLength',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
     ],
-    name: "getTradeMiningStatus",
+    name: 'getTradeMiningStatus',
     outputs: [
       {
-        internalType: "bool",
-        name: "status",
-        type: "bool",
+        internalType: 'bool',
+        name: 'status',
+        type: 'bool',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
-        internalType: "bool",
-        name: "status",
-        type: "bool",
+        internalType: 'bool',
+        name: 'status',
+        type: 'bool',
       },
     ],
-    name: "setTradeMiningStatus",
+    name: 'setTradeMiningStatus',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
     ],
-    name: "getFeeVaultForLP",
+    name: 'getFeeVaultForLP',
     outputs: [
       {
-        internalType: "address",
-        name: "feeVault",
-        type: "address",
+        internalType: 'address',
+        name: 'feeVault',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
-        internalType: "address",
-        name: "feeVault",
-        type: "address",
+        internalType: 'address',
+        name: 'feeVault',
+        type: 'address',
       },
     ],
-    name: "setFeeVaultForLP",
+    name: 'setFeeVaultForLP',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "setGovernance",
+    name: 'setGovernance',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "setController",
+    name: 'setController',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "setFeeReceiver",
+    name: 'setFeeReceiver',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "setVaultForLP",
+    name: 'setVaultForLP',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "setVaultForTrader",
+    name: 'setVaultForTrader',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "_new",
-        type: "address",
+        internalType: 'address',
+        name: '_new',
+        type: 'address',
       },
     ],
-    name: "setVaultForCNode",
+    name: 'setVaultForCNode',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "getController",
+    name: 'getController',
     outputs: [
       {
-        internalType: "address",
-        name: "controller",
-        type: "address",
+        internalType: 'address',
+        name: 'controller',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "getFeeReceiver",
+    name: 'getFeeReceiver',
     outputs: [
       {
-        internalType: "address",
-        name: "feeReceiver",
-        type: "address",
+        internalType: 'address',
+        name: 'feeReceiver',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "getVaultForLP",
+    name: 'getVaultForLP',
     outputs: [
       {
-        internalType: "address",
-        name: "vaultForLP",
-        type: "address",
+        internalType: 'address',
+        name: 'vaultForLP',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "getVaultForTrader",
+    name: 'getVaultForTrader',
     outputs: [
       {
-        internalType: "address",
-        name: "vaultForTrader",
-        type: "address",
+        internalType: 'address',
+        name: 'vaultForTrader',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "getVaultForCNode",
+    name: 'getVaultForCNode',
     outputs: [
       {
-        internalType: "address",
-        name: "vaultForCNode",
-        type: "address",
+        internalType: 'address',
+        name: 'vaultForCNode',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
-];
+]
 
 export class ICoFiXFactory__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ICoFiXFactoryInterface {
-    return new utils.Interface(_abi) as ICoFiXFactoryInterface;
+    return new utils.Interface(_abi) as ICoFiXFactoryInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ICoFiXFactory {
-    return new Contract(address, _abi, signerOrProvider) as ICoFiXFactory;
+  static connect(address: string, signerOrProvider: Signer | Provider): ICoFiXFactory {
+    return new Contract(address, _abi, signerOrProvider) as ICoFiXFactory
   }
 }

@@ -2,174 +2,164 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Signer, utils, Contract, ContractFactory, Overrides } from "ethers";
-import { Provider, TransactionRequest } from "@ethersproject/providers";
-import type {
-  NestPriceFacade,
-  NestPriceFacadeInterface,
-} from "../NestPriceFacade";
+import { Signer, utils, Contract, ContractFactory, Overrides } from 'ethers'
+import { Provider, TransactionRequest } from '@ethersproject/providers'
+import type { NestPriceFacade, NestPriceFacadeInterface } from '../NestPriceFacade'
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "tokenAddress",
-        type: "address",
+        internalType: 'address',
+        name: 'tokenAddress',
+        type: 'address',
       },
       {
-        internalType: "address",
-        name: "payback",
-        type: "address",
+        internalType: 'address',
+        name: 'payback',
+        type: 'address',
       },
     ],
-    name: "latestPrice",
+    name: 'latestPrice',
     outputs: [
       {
-        internalType: "uint256",
-        name: "blockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'blockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "price",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'price',
+        type: 'uint256',
       },
     ],
-    stateMutability: "payable",
-    type: "function",
+    stateMutability: 'payable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "tokenAddress",
-        type: "address",
+        internalType: 'address',
+        name: 'tokenAddress',
+        type: 'address',
       },
       {
-        internalType: "address",
-        name: "payback",
-        type: "address",
+        internalType: 'address',
+        name: 'payback',
+        type: 'address',
       },
     ],
-    name: "latestPriceAndTriggeredPriceInfo",
+    name: 'latestPriceAndTriggeredPriceInfo',
     outputs: [
       {
-        internalType: "uint256",
-        name: "latestPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "latestPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredAvgPrice",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredAvgPrice',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredSigmaSQ",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredSigmaSQ',
+        type: 'uint256',
       },
     ],
-    stateMutability: "payable",
-    type: "function",
+    stateMutability: 'payable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "tokenAddress",
-        type: "address",
+        internalType: 'address',
+        name: 'tokenAddress',
+        type: 'address',
       },
     ],
-    name: "latestPriceView",
+    name: 'latestPriceView',
     outputs: [
       {
-        internalType: "uint256",
-        name: "blockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'blockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "price",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'price',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "token",
-        type: "address",
+        internalType: 'address',
+        name: 'token',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "price",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'price',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "dbn",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'dbn',
+        type: 'uint256',
       },
     ],
-    name: "setPrice",
+    name: 'setPrice',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
-];
+]
 
 const _bytecode =
-  "0x608060405234801561001057600080fd5b50610584806100206000396000f3fe60806040526004361061003f5760003560e01c80633011e16a146100445780637c2d656b146100a7578063b8a9e36e146100d4578063fe0103e2146100f4575b600080fd5b34801561005057600080fd5b506100a561005f36600461045d565b604080518082018252928352602080840192835273ffffffffffffffffffffffffffffffffffffffff909416600090815293849052909220905181559051600190910155565b005b6100ba6100b536600461042a565b610134565b604080519283526020830191909152015b60405180910390f35b3480156100e057600080fd5b506100ba6100ef366004610408565b610228565b61010761010236600461042a565b6102a3565b604080519687526020870195909552938501929092526060840152608083015260a082015260c0016100cb565b600080662386f26fc1000034111561019f5773ffffffffffffffffffffffffffffffffffffffff83166108fc610171662386f26fc1000034610508565b6040518115909202916000818181858888f19350505050158015610199573d6000803e3d6000fd5b50610214565b34662386f26fc1000014610214576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601a60248201527f436f466958436f6e74726f6c6c65723a204572726f722066656500000000000060448201526064015b60405180910390fd5b61021d84610228565b915091509250929050565b73ffffffffffffffffffffffffffffffffffffffff81166000908152602081815260408083208151808301909252805480835260019091015492820192909252829161028857506040805180820190915263a0eebb008152600160208201525b60208101516102979043610508565b90519094909350915050565b600080600080600080662386f26fc100003411156103145773ffffffffffffffffffffffffffffffffffffffff87166108fc6102e6662386f26fc1000034610508565b6040518115909202916000818181858888f1935050505015801561030e573d6000803e3d6000fd5b50610384565b34662386f26fc1000014610384576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601a60248201527f436f466958436f6e74726f6c6c65723a204572726f7220666565000000000000604482015260640161020b565b6000806103908a610228565b909250905061039f8243610508565b816103aa8443610508565b8360646103b882605f6104cb565b6103c29190610490565b939e929d50909b509950909750640286eacc329650945050505050565b803573ffffffffffffffffffffffffffffffffffffffff8116811461040357600080fd5b919050565b60006020828403121561041a57600080fd5b610423826103df565b9392505050565b6000806040838503121561043d57600080fd5b610446836103df565b9150610454602084016103df565b90509250929050565b60008060006060848603121561047257600080fd5b61047b846103df565b95602085013595506040909401359392505050565b6000826104c6577f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b500490565b6000817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04831182151516156105035761050361051f565b500290565b60008282101561051a5761051a61051f565b500390565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fdfea2646970667358221220997bb058571dd551bd7985b2acc12c89b93d3fbf130e2d9269f557ae4b1532e364736f6c63430008060033";
+  '0x608060405234801561001057600080fd5b50610584806100206000396000f3fe60806040526004361061003f5760003560e01c80633011e16a146100445780637c2d656b146100a7578063b8a9e36e146100d4578063fe0103e2146100f4575b600080fd5b34801561005057600080fd5b506100a561005f36600461045d565b604080518082018252928352602080840192835273ffffffffffffffffffffffffffffffffffffffff909416600090815293849052909220905181559051600190910155565b005b6100ba6100b536600461042a565b610134565b604080519283526020830191909152015b60405180910390f35b3480156100e057600080fd5b506100ba6100ef366004610408565b610228565b61010761010236600461042a565b6102a3565b604080519687526020870195909552938501929092526060840152608083015260a082015260c0016100cb565b600080662386f26fc1000034111561019f5773ffffffffffffffffffffffffffffffffffffffff83166108fc610171662386f26fc1000034610508565b6040518115909202916000818181858888f19350505050158015610199573d6000803e3d6000fd5b50610214565b34662386f26fc1000014610214576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601a60248201527f436f466958436f6e74726f6c6c65723a204572726f722066656500000000000060448201526064015b60405180910390fd5b61021d84610228565b915091509250929050565b73ffffffffffffffffffffffffffffffffffffffff81166000908152602081815260408083208151808301909252805480835260019091015492820192909252829161028857506040805180820190915263a0eebb008152600160208201525b60208101516102979043610508565b90519094909350915050565b600080600080600080662386f26fc100003411156103145773ffffffffffffffffffffffffffffffffffffffff87166108fc6102e6662386f26fc1000034610508565b6040518115909202916000818181858888f1935050505015801561030e573d6000803e3d6000fd5b50610384565b34662386f26fc1000014610384576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152601a60248201527f436f466958436f6e74726f6c6c65723a204572726f7220666565000000000000604482015260640161020b565b6000806103908a610228565b909250905061039f8243610508565b816103aa8443610508565b8360646103b882605f6104cb565b6103c29190610490565b939e929d50909b509950909750640286eacc329650945050505050565b803573ffffffffffffffffffffffffffffffffffffffff8116811461040357600080fd5b919050565b60006020828403121561041a57600080fd5b610423826103df565b9392505050565b6000806040838503121561043d57600080fd5b610446836103df565b9150610454602084016103df565b90509250929050565b60008060006060848603121561047257600080fd5b61047b846103df565b95602085013595506040909401359392505050565b6000826104c6577f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b500490565b6000817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff04831182151516156105035761050361051f565b500290565b60008282101561051a5761051a61051f565b500390565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fdfea2646970667358221220997bb058571dd551bd7985b2acc12c89b93d3fbf130e2d9269f557ae4b1532e364736f6c63430008060033'
 
 export class NestPriceFacade__factory extends ContractFactory {
   constructor(signer?: Signer) {
-    super(_abi, _bytecode, signer);
+    super(_abi, _bytecode, signer)
   }
 
-  deploy(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<NestPriceFacade> {
-    return super.deploy(overrides || {}) as Promise<NestPriceFacade>;
+  deploy(overrides?: Overrides & { from?: string | Promise<string> }): Promise<NestPriceFacade> {
+    return super.deploy(overrides || {}) as Promise<NestPriceFacade>
   }
-  getDeployTransaction(
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): TransactionRequest {
-    return super.getDeployTransaction(overrides || {});
+  getDeployTransaction(overrides?: Overrides & { from?: string | Promise<string> }): TransactionRequest {
+    return super.getDeployTransaction(overrides || {})
   }
   attach(address: string): NestPriceFacade {
-    return super.attach(address) as NestPriceFacade;
+    return super.attach(address) as NestPriceFacade
   }
   connect(signer: Signer): NestPriceFacade__factory {
-    return super.connect(signer) as NestPriceFacade__factory;
+    return super.connect(signer) as NestPriceFacade__factory
   }
-  static readonly bytecode = _bytecode;
-  static readonly abi = _abi;
+  static readonly bytecode = _bytecode
+  static readonly abi = _abi
   static createInterface(): NestPriceFacadeInterface {
-    return new utils.Interface(_abi) as NestPriceFacadeInterface;
+    return new utils.Interface(_abi) as NestPriceFacadeInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): NestPriceFacade {
-    return new Contract(address, _abi, signerOrProvider) as NestPriceFacade;
+  static connect(address: string, signerOrProvider: Signer | Provider): NestPriceFacade {
+    return new Contract(address, _abi, signerOrProvider) as NestPriceFacade
   }
 }

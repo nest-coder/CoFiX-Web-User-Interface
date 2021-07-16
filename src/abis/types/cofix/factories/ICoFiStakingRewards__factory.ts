@@ -2,12 +2,9 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  ICoFiStakingRewards,
-  ICoFiStakingRewardsInterface,
-} from "../ICoFiStakingRewards";
+import { Contract, Signer, utils } from 'ethers'
+import { Provider } from '@ethersproject/providers'
+import type { ICoFiStakingRewards, ICoFiStakingRewardsInterface } from '../ICoFiStakingRewards'
 
 const _abi = [
   {
@@ -15,307 +12,304 @@ const _abi = [
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
+        internalType: 'address',
+        name: 'user',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "EmergencyWithdraw",
-    type: "event",
+    name: 'EmergencyWithdraw',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
+        internalType: 'address',
+        name: 'user',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "reward",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'reward',
+        type: 'uint256',
       },
     ],
-    name: "RewardPaid",
-    type: "event",
+    name: 'RewardPaid',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address",
+        internalType: 'address',
+        name: 'to',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "SavingWithdrawn",
-    type: "event",
+    name: 'SavingWithdrawn',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
+        internalType: 'address',
+        name: 'user',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "Staked",
-    type: "event",
+    name: 'Staked',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
+        internalType: 'address',
+        name: 'user',
+        type: 'address',
       },
       {
         indexed: true,
-        internalType: "address",
-        name: "other",
-        type: "address",
+        internalType: 'address',
+        name: 'other',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "StakedForOther",
-    type: "event",
+    name: 'StakedForOther',
+    type: 'event',
   },
   {
     anonymous: false,
     inputs: [
       {
         indexed: true,
-        internalType: "address",
-        name: "user",
-        type: "address",
+        internalType: 'address',
+        name: 'user',
+        type: 'address',
       },
       {
         indexed: false,
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "Withdrawn",
-    type: "event",
+    name: 'Withdrawn',
+    type: 'event',
   },
   {
     inputs: [],
-    name: "rewardPerToken",
+    name: 'rewardPerToken',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "account",
-        type: "address",
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
       },
     ],
-    name: "earned",
+    name: 'earned',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "accrued",
+    name: 'accrued',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "totalSupply",
+    name: 'totalSupply',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "account",
-        type: "address",
+        internalType: 'address',
+        name: 'account',
+        type: 'address',
       },
     ],
-    name: "balanceOf",
+    name: 'balanceOf',
     outputs: [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "stakingToken",
+    name: 'stakingToken',
     outputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "rewardsToken",
+    name: 'rewardsToken',
     outputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "stake",
+    name: 'stake',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "other",
-        type: "address",
+        internalType: 'address',
+        name: 'other',
+        type: 'address',
       },
       {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "stakeForOther",
+    name: 'stakeForOther',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'amount',
+        type: 'uint256',
       },
     ],
-    name: "withdraw",
+    name: 'withdraw',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "emergencyWithdraw",
+    name: 'emergencyWithdraw',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "getReward",
+    name: 'getReward',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "addETHReward",
+    name: 'addETHReward',
     outputs: [],
-    stateMutability: "payable",
-    type: "function",
+    stateMutability: 'payable',
+    type: 'function',
   },
   {
     inputs: [],
-    name: "exit",
+    name: 'exit',
     outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    stateMutability: 'nonpayable',
+    type: 'function',
   },
-];
+]
 
 export class ICoFiStakingRewards__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ICoFiStakingRewardsInterface {
-    return new utils.Interface(_abi) as ICoFiStakingRewardsInterface;
+    return new utils.Interface(_abi) as ICoFiStakingRewardsInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): ICoFiStakingRewards {
-    return new Contract(address, _abi, signerOrProvider) as ICoFiStakingRewards;
+  static connect(address: string, signerOrProvider: Signer | Provider): ICoFiStakingRewards {
+    return new Contract(address, _abi, signerOrProvider) as ICoFiStakingRewards
   }
 }

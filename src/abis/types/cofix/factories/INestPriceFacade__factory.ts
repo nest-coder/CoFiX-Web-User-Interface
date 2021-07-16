@@ -2,103 +2,97 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import { Provider } from "@ethersproject/providers";
-import type {
-  INestPriceFacade,
-  INestPriceFacadeInterface,
-} from "../INestPriceFacade";
+import { Contract, Signer, utils } from 'ethers'
+import { Provider } from '@ethersproject/providers'
+import type { INestPriceFacade, INestPriceFacadeInterface } from '../INestPriceFacade'
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "address",
-        name: "tokenAddress",
-        type: "address",
+        internalType: 'address',
+        name: 'tokenAddress',
+        type: 'address',
       },
       {
-        internalType: "address",
-        name: "payback",
-        type: "address",
+        internalType: 'address',
+        name: 'payback',
+        type: 'address',
       },
     ],
-    name: "latestPrice",
+    name: 'latestPrice',
     outputs: [
       {
-        internalType: "uint256",
-        name: "blockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'blockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "price",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'price',
+        type: 'uint256',
       },
     ],
-    stateMutability: "payable",
-    type: "function",
+    stateMutability: 'payable',
+    type: 'function',
   },
   {
     inputs: [
       {
-        internalType: "address",
-        name: "tokenAddress",
-        type: "address",
+        internalType: 'address',
+        name: 'tokenAddress',
+        type: 'address',
       },
       {
-        internalType: "address",
-        name: "payback",
-        type: "address",
+        internalType: 'address',
+        name: 'payback',
+        type: 'address',
       },
     ],
-    name: "latestPriceAndTriggeredPriceInfo",
+    name: 'latestPriceAndTriggeredPriceInfo',
     outputs: [
       {
-        internalType: "uint256",
-        name: "latestPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "latestPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'latestPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceBlockNumber",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceBlockNumber',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredPriceValue",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredPriceValue',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredAvgPrice",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredAvgPrice',
+        type: 'uint256',
       },
       {
-        internalType: "uint256",
-        name: "triggeredSigmaSQ",
-        type: "uint256",
+        internalType: 'uint256',
+        name: 'triggeredSigmaSQ',
+        type: 'uint256',
       },
     ],
-    stateMutability: "payable",
-    type: "function",
+    stateMutability: 'payable',
+    type: 'function',
   },
-];
+]
 
 export class INestPriceFacade__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): INestPriceFacadeInterface {
-    return new utils.Interface(_abi) as INestPriceFacadeInterface;
+    return new utils.Interface(_abi) as INestPriceFacadeInterface
   }
-  static connect(
-    address: string,
-    signerOrProvider: Signer | Provider
-  ): INestPriceFacade {
-    return new Contract(address, _abi, signerOrProvider) as INestPriceFacade;
+  static connect(address: string, signerOrProvider: Signer | Provider): INestPriceFacade {
+    return new Contract(address, _abi, signerOrProvider) as INestPriceFacade
   }
 }
