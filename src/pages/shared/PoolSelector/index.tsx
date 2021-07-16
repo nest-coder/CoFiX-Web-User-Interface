@@ -157,8 +157,10 @@ const PoolSelector: FC<Props> = ({ ...props }) => {
           <div className={`${classPrefix}-modal`}>
             {Array.from(new Set(Object.values(api.CoFixAnchorPools))).map((p) => {
               return (
-                <div key={p.title}>
-                  <h1>{p.title}</h1>
+                <div key={p.anchorToken}>
+                  <h1>
+                    <Trans id={p.title}></Trans>
+                  </h1>
 
                   <ul>
                     {Object.values(p.tokens).map((s) => {

@@ -1,4 +1,13 @@
-import { TokenCOFI, TokenDAI, TokenNEST, TokenPETH, TokenPUSD, TokenUSDT, TokenWETH } from 'src/components/Icon'
+import {
+  TokenCOFI,
+  TokenDAI,
+  TokenNEST,
+  TokenPETH,
+  TokenPUSD,
+  TokenUSDT,
+  TokenWETH,
+  TokenUSDC,
+} from 'src/components/Icon'
 import { TokenProps } from '../api/Token'
 
 export const USDT: TokenProps = {
@@ -64,4 +73,12 @@ export const DAI: TokenProps = {
   },
 }
 
-export const ERC20TokenWhitelist = [USDT, NEST, COFI, PETH, WETH, PUSD, DAI]
+export const USDC: TokenProps = {
+  symbol: 'USDC',
+  Icon: TokenUSDC,
+  addresses: {
+    4: '0xe86dD41fEb8594D083f9dC364e530c0B8D208feA',
+  },
+}
+
+export const ERC20TokenWhitelist = [USDT, NEST, COFI, PETH, WETH, PUSD, USDC]

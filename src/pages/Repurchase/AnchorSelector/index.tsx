@@ -61,7 +61,9 @@ const AnchorSelector: FC<Props> = (props) => {
               {Array.from(new Set(Object.values(api.CoFixAnchorPools))).map((p) => {
                 return (
                   <div key={p.title}>
-                    <h1>{p.title}</h1>
+                    <h1>
+                      <Trans id={p.title}></Trans>
+                    </h1>
 
                     <ul>
                       {Object.values(p.tokens).map((s) => {

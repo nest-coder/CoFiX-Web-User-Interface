@@ -7,7 +7,7 @@ export const ETH: CoFiXAnchorPoolProps = {
     4: '0xbbd6b432B280dea51f137F8234a5D0Ac36D17fdf',
   },
   anchorToken: 'ETH',
-  tokens: ['ETH', 'PETH', 'WETH'],
+  tokens: ['ETH', 'PETH'],
   cofiAmountPerBlock: 3,
 }
 
@@ -17,7 +17,7 @@ export const USD: CoFiXAnchorPoolProps = {
     4: '0x08B79267ff01393925081396b328B6d6f82a4250',
   },
   anchorToken: 'USDT',
-  tokens: ['USDT', 'PUSD', 'DAI'],
+  tokens: ['USDT', 'PUSD', 'USDC'],
   cofiAmountPerBlock: 3,
 }
 
