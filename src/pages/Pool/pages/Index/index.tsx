@@ -149,7 +149,7 @@ const Pool: FC = () => {
             </Card>
           )}
 
-          {poolInfo?.emptyLiquidity && (
+          {poolInfo?.emptyLiquidity || (
             <Button block gradient>
               <Link to={`/pool/remove-liquidity/${token0.symbol}/${token1.symbol}`}>
                 <Trans>Remove Liquidity</Trans>
@@ -267,7 +267,7 @@ const Pool: FC = () => {
             </Card>
           )}
 
-          {anchorPoolInfo?.emptyLiquidity && (
+          {anchorPoolInfo?.emptyLiquidity || (
             <Button block gradient>
               <Link to={`/pool/remove-liquidity/${token.symbol}`}>
                 <Trans>Remove Liquidity</Trans>
