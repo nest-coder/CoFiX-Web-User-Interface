@@ -21,15 +21,15 @@ const AnchorSelector: FC<Props> = (props) => {
   const modal = useRef<any>()
   const daoBalance = useDAOBalance()
 
-  if (!api) {
-    return <></>
-  }
-
   useEffect(() => {
     if (symbol !== props.symbol && props.onChange) {
       props.onChange(symbol)
     }
   }, [symbol])
+
+  if (!api) {
+    return <></>
+  }
 
   const classPrefix = `cofi-anchor-selector`
   return (
