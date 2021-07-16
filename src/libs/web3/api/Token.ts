@@ -2,7 +2,7 @@ import BigNumber from 'bignumber.js'
 import { BigNumberish } from 'ethers'
 import API from '.'
 import Contract, { ContractProps } from './Contract'
-import { toBigNumber } from '../util'
+import { formatNumber, toBigNumber } from '../util'
 import { TokenETH } from 'src/components/Icon'
 
 export type TokenProps = ContractProps & {
@@ -54,10 +54,7 @@ abstract class Token extends Contract {
   }
 
   format(n: BigNumber | BigNumberish) {
-    return toBigNumber(toBigNumber(n).toFixed(this.decimals))
-      .toFormat(this.formatPrecision || 4)
-      .replace(/(\.\d*?[1-9])0+$/, '$1')
-      .replace(/\.0+$/, '')
+    return formatNumber(n, this.decimals, this.formatPrecision)
   }
 
   async getETHValue() {

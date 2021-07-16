@@ -20,3 +20,14 @@ export const toBigNumber = (n: BigNumberish | BigNumber) => {
 
   return new BigNumber(NaN)
 }
+
+export const formatNumber = (n: BigNumber | BigNumberish, decimals = 18, formatPrecision = 4) => {
+  return toBigNumber(toBigNumber(n).toFixed(decimals))
+    .toFormat(formatPrecision)
+    .replace(/(\.\d*?[1-9])0+$/, '$1')
+    .replace(/\.0+$/, '')
+}
+
+export function deadline(seconds = 60 * 10) {
+  return Math.ceil(Date.now() / 1000) + seconds
+}

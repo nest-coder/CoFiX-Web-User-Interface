@@ -11,6 +11,7 @@ export type DAOInfo = {
   cofiAmount: BigNumber
   cofiCirculationAmount: BigNumber
   cofiETHAmount?: BigNumber
+  cofiUSDTAmount?: BigNumber
   quota: BigNumber
 }
 
@@ -41,16 +42,25 @@ class CoFiXDAO extends Contract {
       return
     }
 
-    const [ethBalance, usdtBalance, cofiBalance, cofiTotalSupply, cofiZeroBalance, cofiETHAmount, quota] =
-      await Promise.all([
-        this.api.Tokens.ETH.balanceOf(this.address),
-        this.api.Tokens.USDT.balanceOf(this.address),
-        this.api.Tokens.COFI.balanceOf(this.address),
-        this.api.Tokens.COFI.totalSupply(),
-        this.api.Tokens.COFI.balanceOf(ADDRESS_ZERO),
-        this.api.Tokens.COFI.getETHAmount(),
-        this.quotaOf(),
-      ])
+    const [
+      ethBalance,
+      usdtBalance,
+      cofiBalance,
+      cofiTotalSupply,
+      cofiZeroBalance,
+      cofiETHAmount,
+      cofiUSDTAmount,
+      quota,
+    ] = await Promise.all([
+      this.api.Tokens.ETH.balanceOf(this.address),
+      this.api.Tokens.USDT.balanceOf(this.address),
+      this.api.Tokens.COFI.balanceOf(this.address),
+      this.api.Tokens.COFI.totalSupply(),
+      this.api.Tokens.COFI.balanceOf(ADDRESS_ZERO),
+      this.api.Tokens.COFI.getETHAmount(),
+      this.api.Tokens.COFI.getUSDTAmount(),
+      this.quotaOf(),
+    ])
 
     const cofiCirculation = toBigNumber(cofiTotalSupply).minus(cofiBalance).minus(cofiZeroBalance)
 
@@ -59,7 +69,8 @@ class CoFiXDAO extends Contract {
       usdtAmount: this.api.Tokens.USDT.amount(usdtBalance),
       cofiAmount: this.api.Tokens.COFI.amount(cofiBalance),
       cofiCirculationAmount: this.api.Tokens.COFI.amount(cofiCirculation),
-      cofiETHAmount: cofiETHAmount,
+      cofiETHAmount,
+      cofiUSDTAmount,
       quota: this.api.Tokens.COFI.amount(quota),
     }
   }

@@ -3,8 +3,7 @@ import { ADDRESS_ZERO } from '../constants/constant'
 import useTransaction, { TansactionSwapContent, TransactionType } from './useTransaction'
 import useWeb3 from './useWeb3'
 import BigNumber from 'bignumber.js'
-import { deadline } from 'src/libs/time'
-import { toBigNumber } from '../util'
+import { toBigNumber, deadline } from '../util'
 import useSlippageTolerance from 'src/hooks/useSlippageTolerance'
 
 const useSwap = (content: TansactionSwapContent) => {

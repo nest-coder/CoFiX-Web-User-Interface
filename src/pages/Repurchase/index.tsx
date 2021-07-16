@@ -50,7 +50,7 @@ const Repurchase: FC = () => {
           <li>
             <RepurchaseCard
               title={t`Current locked in DAO (ETH-Anchor)`}
-              value={daoInfo ? daoInfo.ethAmount.toFixed(6) : '--'}
+              value={daoInfo ? api?.Tokens.ETH.format(daoInfo.ethAmount) : '--'}
               icon={<GrayTokenETH />}
               // icon={<TokenETH height={110} width={68} style={{ opacity: 0.08 }} />}
             />
@@ -58,21 +58,21 @@ const Repurchase: FC = () => {
           <li>
             <RepurchaseCard
               title={t`Current locked in DAO (USDT-Anchor)`}
-              value={daoInfo ? daoInfo.usdtAmount.toFixed(6) : '--'}
+              value={daoInfo ? api?.Tokens.USDT.format(daoInfo.usdtAmount) : '--'}
               icon={<GrayTokenUSDT />}
             />
           </li>
           <li>
             <RepurchaseCard
               title={t`Accumulated repurchase in DAO (COFI)`}
-              value={daoInfo ? daoInfo.cofiAmount.toFixed(6) : '--'}
+              value={daoInfo ? api?.Tokens.COFI.format(daoInfo.cofiAmount) : '--'}
               icon={<GrayTokenCOFI />}
             />
           </li>
           <li>
             <RepurchaseCard
               title={t`Current Circulation (COFI)`}
-              value={daoInfo ? daoInfo.cofiCirculationAmount.toFixed(6) : '--'}
+              value={daoInfo ? api?.Tokens.COFI.format(daoInfo.cofiCirculationAmount) : '--'}
               icon={<GrayTokenCOFI />}
             />
           </li>
@@ -109,16 +109,30 @@ const Repurchase: FC = () => {
             value={`${handleRepurchase.oracleFee ? handleRepurchase.oracleFee.formatAmount : '--'}  ETH`}
           />
           <Field name={t`Current available amount of repurchase`} value={daoInfo ? daoInfo.quota.toFixed(0) : `--`} />
-          <Field
-            name={t`Current Repurchase Price (COFI/ETH)`}
-            value={daoInfo ? `${daoInfo.cofiETHAmount?.toFixed(8)} ETH` : '-- ETH'}
-          />
+          {anchorPool?.anchorToken === 'ETH' ? (
+            <Field
+              name={t`Current Repurchase Price` + ` (COFI/ETH)`}
+              value={
+                daoInfo
+                  ? `${daoInfo.cofiETHAmount ? api?.Tokens.ETH.format(daoInfo.cofiETHAmount) : '--'} ETH`
+                  : '-- ETH'
+              }
+            />
+          ) : (
+            <Field
+              name={t`Current Repurchase Price` + ` (COFI/USDT)`}
+              value={
+                daoInfo
+                  ? `${daoInfo.cofiUSDTAmount ? api?.Tokens.USDT.format(daoInfo.cofiUSDTAmount) : '--'} USDT`
+                  : '-- ETH'
+              }
+            />
+          )}
           <Field name={t`ETH Balance in your wallet`} value={`${ethBalance ? ethBalance.formatAmount : '--'} ETH`} />
 
           <TransactionButtonGroup
             approve={{
               transactionType: TransactionType.Repurchase,
-
               token: ['COFI', 'COFI'],
             }}
             disabled={!amount}

@@ -12,8 +12,10 @@ import PoolSelector from 'src/pages/shared/PoolSelector'
 import { Empty } from 'src/components/Icon'
 import { AnchorPoolInfo } from 'src/libs/web3/api/CoFiXAnchorPool'
 import { PoolInfo } from 'src/libs/web3/api/CoFiXPair'
+import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 
 const Pool: FC = () => {
+  const { api } = useWeb3()
   const [pair, setPair] = useState(['ETH', 'USDT'])
   const [symbol, setSymbol] = useState('USDT')
   const poolInfo = usePoolInfo(pair[0], pair[1]) as PoolInfo
@@ -56,7 +58,7 @@ const Pool: FC = () => {
                     <span>
                       <Trans>TVL</Trans>
                     </span>
-                    <span>{poolInfo ? poolInfo.totalFunds.toFormat(2) : '--'}</span>
+                    <span>{poolInfo ? api?.Tokens.USDT.format(poolInfo.totalFunds) : '--'}</span>
                   </div>
                 </li>
                 <li>
@@ -184,7 +186,7 @@ const Pool: FC = () => {
                     <span>
                       <Trans>TVL</Trans>
                     </span>
-                    <span>{anchorPoolInfo ? anchorPoolInfo.totalFunds.toFormat(2) : '--'}</span>
+                    <span>{anchorPoolInfo ? api?.Tokens.USDT.format(anchorPoolInfo.totalFunds) : '--'}</span>
                   </div>
                 </li>
 

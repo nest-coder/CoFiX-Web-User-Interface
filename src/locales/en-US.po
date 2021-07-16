@@ -171,8 +171,9 @@ msgid "Current Circulation (COFI)"
 msgstr "Current Circulation (COFI)"
 
 #: src/pages/Repurchase/index.tsx
-msgid "Current Repurchase Price (COFI/ETH)"
-msgstr "Current Repurchase Price (COFI/ETH)"
+#: src/pages/Repurchase/index.tsx
+msgid "Current Repurchase Price"
+msgstr "Current Repurchase Price"
 
 #: src/pages/Repurchase/index.tsx
 msgid "Current available amount of repurchase"
