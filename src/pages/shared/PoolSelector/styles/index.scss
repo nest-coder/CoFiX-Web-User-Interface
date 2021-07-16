@@ -5,11 +5,10 @@
     background: #ffffff;
     box-shadow: $shadow-sm;
     border-radius: $border-radius;
-    max-width: calc(100% - #{$space-md * 2});
     margin: auto;
     cursor: pointer;
 
-    padding: $space-sm 2 * $space-sm;
+    padding: $space-sm;
     @include tablet {
       padding: $space-md 2 * $space-md;
       max-width: $content-width;

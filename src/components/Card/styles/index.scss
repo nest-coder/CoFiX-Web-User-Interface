@@ -23,7 +23,7 @@
   max-width: calc(100% - #{$space-md * 2});
   margin: auto;
 
-  padding: 2 * $space-sm;
+  padding: $space-sm;
   @include tablet {
     padding: 2 * $space-md;
     max-width: $content-width;

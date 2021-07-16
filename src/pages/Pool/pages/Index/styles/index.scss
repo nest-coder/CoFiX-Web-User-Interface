@@ -3,13 +3,17 @@
 
 .cofi-page-pool-index {
   &-pool {
+    padding: $space-md;
     background: #ffffff;
     box-shadow: $shadow-sm;
     border: 1px solid $light-gray-color;
     border-radius: $border-radius;
-    margin: auto;
+    margin: auto $space-md;
 
-    padding: 2 * $space-sm;
+    &:hover {
+      box-shadow: $shadow-lg;
+    }
+
     @include tablet {
       padding: 2 * $space-md;
     }
@@ -20,10 +24,6 @@
       @include tablet {
         margin-top: $space * 2;
       }
-    }
-
-    &:hover {
-      box-shadow: $shadow-lg;
     }
   }
 
@@ -83,7 +83,6 @@
 
     &-container {
       margin: 0 auto;
-      padding: $space;
       width: 100%;
       flex: 1 1 auto;
 
@@ -91,6 +90,17 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+
+      @include tablet {
+        padding: $space;
+      }
+
+      & + & {
+        margin-top: $space;
+        @include tablet {
+          margin-top: 0;
+        }
+      }
 
       .cofi-card {
         width: 100%;
@@ -164,10 +174,18 @@
       align-items: center;
       justify-content: space-between;
       white-space: nowrap;
-      margin-top: $space;
+      margin-top: $space-sm;
+      @include tablet {
+        margin-top: $space;
+      }
 
       & > svg {
-        margin-right: $space;
+        margin-right: $space-sm;
+        flex-shrink: 0;
+
+        @include tablet {
+          margin-right: $space;
+        }
       }
 
       & > div {
