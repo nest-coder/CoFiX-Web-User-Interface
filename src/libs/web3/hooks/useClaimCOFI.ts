@@ -52,7 +52,7 @@ const useClaimCOFI = (content: TransasctionClaimCOFIContent) => {
         return api.Contracts.CoFiXVaultForStaking.contract?.getReward(args.address)
       }
     )
-  }, [args])
+  }, [args, api, content])
 
   return { handler }
 }

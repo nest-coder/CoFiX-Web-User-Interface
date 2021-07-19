@@ -36,6 +36,7 @@ const Repurchase: FC = () => {
   const [symbol, setSymbol] = useState('ETH')
   const { balance: ethBalance } = useTokenBalance('ETH', account || '')
   const anchorPool = api?.CoFixAnchorPools[symbol]
+  const [insufficient, setInsufficient] = useState(false)
 
   const handleRepurchase = useRepurchase({
     amount,
@@ -53,6 +54,7 @@ const Repurchase: FC = () => {
               title={t`Current locked in DAO (ETH-Anchor)`}
               value={daoInfo ? api?.Tokens.ETH.format(daoInfo.ethAmount) : '--'}
               icon={<GrayTokenETH />}
+              loading={!daoInfo}
             />
           </li>
           <li>
@@ -60,6 +62,7 @@ const Repurchase: FC = () => {
               title={t`Current locked in DAO (USDT-Anchor)`}
               value={daoInfo ? api?.Tokens.USDT.format(daoInfo.usdtAmount) : '--'}
               icon={<GrayTokenUSDT />}
+              loading={!daoInfo}
             />
           </li>
           <li>
@@ -67,6 +70,7 @@ const Repurchase: FC = () => {
               title={t`Accumulated repurchase in DAO (COFI)`}
               value={daoInfo ? api?.Tokens.COFI.format(daoInfo.cofiAmount) : '--'}
               icon={<GrayTokenCOFI />}
+              loading={!daoInfo}
             />
           </li>
           <li>
@@ -74,6 +78,7 @@ const Repurchase: FC = () => {
               title={t`Current Circulation (COFI)`}
               value={daoInfo ? api?.Tokens.COFI.format(daoInfo.cofiCirculationAmount) : '--'}
               icon={<GrayTokenCOFI />}
+              loading={!daoInfo}
             />
           </li>
         </ul>
@@ -87,6 +92,8 @@ const Repurchase: FC = () => {
             selectable={false}
             value={amount}
             onChange={(v) => setAmount(v)}
+            checkInsufficientBalance
+            onInsufficientBalance={(i) => setInsufficient(i)}
           />
 
           <AnchorSelector symbol={symbol} onChange={(s) => setSymbol(s)} />
@@ -107,8 +114,13 @@ const Repurchase: FC = () => {
           <Field
             name={t`Oracle Call Fee`}
             value={`${handleRepurchase.oracleFee ? handleRepurchase.oracleFee.formatAmount : '--'}  ETH`}
+            loading={!handleRepurchase.oracleFee}
           />
-          <Field name={t`Current available amount of repurchase`} value={daoInfo ? daoInfo.quota.toFixed(0) : `--`} />
+          <Field
+            name={t`Current available amount of repurchase`}
+            value={daoInfo ? daoInfo.quota.toFixed(0) : `--`}
+            loading={!daoInfo}
+          />
           {anchorPool?.anchorToken === 'ETH' ? (
             <Field
               name={t`Current Repurchase Price` + ` (COFI/ETH)`}
@@ -117,6 +129,7 @@ const Repurchase: FC = () => {
                   ? `${daoInfo.cofiETHAmount ? api?.Tokens.ETH.format(daoInfo.cofiETHAmount) : '--'} ETH`
                   : '-- ETH'
               }
+              loading={!daoInfo}
             />
           ) : (
             <Field
@@ -126,16 +139,21 @@ const Repurchase: FC = () => {
                   ? `${daoInfo.cofiUSDTAmount ? api?.Tokens.USDT.format(daoInfo.cofiUSDTAmount) : '--'} USDT`
                   : '-- ETH'
               }
+              loading={!daoInfo}
             />
           )}
-          <Field name={t`ETH Balance in your wallet`} value={`${ethBalance ? ethBalance.formatAmount : '--'} ETH`} />
+          <Field
+            name={t`ETH Balance in your wallet`}
+            value={`${ethBalance ? ethBalance.formatAmount : '--'} ETH`}
+            loading={!ethBalance || ethBalance.value.lt(0)}
+          />
 
           <TransactionButtonGroup
             approve={{
               transactionType: TransactionType.Repurchase,
               token: ['COFI', 'COFI'],
             }}
-            disabled={!amount || toBigNumber(amount).lte(0)}
+            disabled={insufficient || !amount || toBigNumber(amount).lte(0)}
             onClick={handleRepurchase.handler}
           >
             <Trans>Repurchase</Trans>

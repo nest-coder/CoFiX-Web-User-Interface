@@ -8,6 +8,7 @@ const useRepurchase = (content: TransactionRepurchaseContent) => {
   const { api } = useWeb3()
   const { push } = useTransaction()
 
+  const [loading, setLoading] = useState(false)
   const [args, setArgs] = useState<{
     symbol: string
     amount: BigNumber
@@ -30,47 +31,52 @@ const useRepurchase = (content: TransactionRepurchaseContent) => {
 
   useEffect(() => {
     ;(async () => {
-      if (!api) {
-        return
-      }
-
-      const [ethAmount, usdtAmount] = await Promise.all([
-        api.Tokens.COFI.getETHAmount(),
-        api.Tokens.COFI.getUSDTAmount(),
-      ])
-
-      const amount = toBigNumber(content.amount)
-      const anchorPool = api.CoFixAnchorPools[content.symbol]
-
-      const oracleFee = anchorPool.anchorToken === 'ETH' ? toBigNumber(0.01) : toBigNumber(0.02)
-      const newArgs: Partial<typeof args> = {
-        symbol: content.symbol,
-        amount,
-        oracleFee: {
-          value: api.Tokens.ETH.parse(oracleFee),
-          amount: oracleFee,
-          formatAmount: api.Tokens.ETH.format(oracleFee),
-        },
-      }
-
-      if (!amount.isNaN()) {
-        const eth = ethAmount.multipliedBy(amount)
-        const usdt = usdtAmount.multipliedBy(amount)
-
-        newArgs.usdtAmount = {
-          value: api.Tokens.USDT.parse(usdt),
-          amount: usdt,
-          formatAmount: api.Tokens.USDT.format(usdt),
+      try {
+        setLoading(true)
+        if (!api) {
+          return
         }
-        newArgs.ethAmount = {
-          value: api.Tokens.ETH.parse(eth),
-          amount: usdt,
-          formatAmount: api.Tokens.ETH.format(eth),
-        }
-      }
 
-      if (JSON.stringify(newArgs) !== JSON.stringify(args)) {
-        setArgs(newArgs as typeof args)
+        const [ethAmount, usdtAmount] = await Promise.all([
+          api.Tokens.COFI.getETHAmount(),
+          api.Tokens.COFI.getUSDTAmount(),
+        ])
+
+        const amount = toBigNumber(content.amount)
+        const anchorPool = api.CoFixAnchorPools[content.symbol]
+
+        const oracleFee = anchorPool.anchorToken === 'ETH' ? toBigNumber(0.01) : toBigNumber(0.02)
+        const newArgs: Partial<typeof args> = {
+          symbol: content.symbol,
+          amount,
+          oracleFee: {
+            value: api.Tokens.ETH.parse(oracleFee),
+            amount: oracleFee,
+            formatAmount: api.Tokens.ETH.format(oracleFee),
+          },
+        }
+
+        if (!amount.isNaN()) {
+          const eth = ethAmount.multipliedBy(amount)
+          const usdt = usdtAmount.multipliedBy(amount)
+
+          newArgs.usdtAmount = {
+            value: api.Tokens.USDT.parse(usdt),
+            amount: usdt,
+            formatAmount: api.Tokens.USDT.format(usdt),
+          }
+          newArgs.ethAmount = {
+            value: api.Tokens.ETH.parse(eth),
+            amount: usdt,
+            formatAmount: api.Tokens.ETH.format(eth),
+          }
+        }
+
+        if (JSON.stringify(newArgs) !== JSON.stringify(args)) {
+          setArgs(newArgs as typeof args)
+        }
+      } finally {
+        setLoading(false)
       }
     })()
   }, [api, content.amount, content.symbol])
@@ -112,6 +118,7 @@ const useRepurchase = (content: TransactionRepurchaseContent) => {
     ...args,
 
     handler,
+    loading,
   }
 }
 

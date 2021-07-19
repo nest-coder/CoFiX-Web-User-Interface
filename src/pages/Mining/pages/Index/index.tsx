@@ -14,6 +14,20 @@ import useTokenUSDTAmount from 'src/hooks/useTokenUSDTAmount'
 import Field from 'src/components/Field'
 import useClaimCOFI from 'src/libs/web3/hooks/useClaimCOFI'
 import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
+import Skeleton from 'react-loading-skeleton'
+
+const Item: FC<{
+  title: string
+  content: string
+  loading: boolean
+}> = (props) => {
+  return (
+    <>
+      <span>{props.title}</span>
+      {props.loading ? <Skeleton width={200} /> : <span>{props.content}</span>}
+    </>
+  )
+}
 
 const Mining: FC = () => {
   const [pair, setPair] = useState(['ETH', 'USDT'])
@@ -24,6 +38,7 @@ const Mining: FC = () => {
   const handlePairClaimCOFI = useClaimCOFI({
     token0: pair[0],
     token1: pair[1],
+    amount: pairEarnedCOFI?.formatAmount,
   })
 
   const [symbol, setSymbol] = useState('USDT')
@@ -32,6 +47,7 @@ const Mining: FC = () => {
   const anchorEarnedCOFI = useEarnedCOFI(symbol)
   const handleAnchorClaimCOFI = useClaimCOFI({
     token0: symbol,
+    amount: anchorEarnedCOFI?.formatAmount,
   })
 
   const classPrefix = 'cofi-page-mining-index'
@@ -48,31 +64,35 @@ const Mining: FC = () => {
             <div className={`${classPrefix}-section`}>
               <ul className={`${classPrefix}-simple-ul`}>
                 <li>
-                  <span>
-                    <Trans>XToken In Mining Pool</Trans>
-                  </span>
-                  <span>{pairStakeInfo ? pairStakeInfo.xTokenInPool.formatAmount : '--'} XToken</span>
+                  <Item
+                    title={t`XToken In Mining Pool`}
+                    content={`${pairStakeInfo ? pairStakeInfo.xTokenInPool.formatAmount : '--'} XToken`}
+                    loading={!pairStakeInfo}
+                  />
                 </li>
 
                 <li>
-                  <span>
-                    <Trans>XToken Staked</Trans>
-                  </span>
-                  <span>{pairStakeInfo ? pairStakeInfo.stakedXToken.formatAmount : '--'} XToken</span>
+                  <Item
+                    title={t`XToken Staked`}
+                    content={`${pairStakeInfo ? pairStakeInfo.stakedXToken.formatAmount : '--'} XToken`}
+                    loading={!pairStakeInfo}
+                  />
                 </li>
 
                 <li>
-                  <span>
-                    <Trans>Percentage</Trans>
-                  </span>
-                  <span>{pairStakeInfo ? pairStakeInfo.stakedRatio : '--'}</span>
+                  <Item
+                    title={t`Percentage`}
+                    content={pairStakeInfo ? pairStakeInfo.stakedRatio : '--'}
+                    loading={!pairStakeInfo}
+                  />
                 </li>
 
                 <li>
-                  <span>
-                    <Trans>Estimated Daily Mined</Trans>
-                  </span>
-                  <span>{pairStakeInfo ? pairStakeInfo.dailyMined.toString() : '--'} COFI</span>
+                  <Item
+                    title={t`Estimated Daily Mined`}
+                    content={`${pairStakeInfo ? pairStakeInfo.dailyMined.toString() : '--'} COFI`}
+                    loading={!pairStakeInfo}
+                  />
                 </li>
               </ul>
             </div>
@@ -85,11 +105,13 @@ const Mining: FC = () => {
               </Link>
             </Button>
 
-            <Button block gradient>
-              <Link to={`/mining/withdraw-xtoken/${token0.symbol}/${token1.symbol}`}>
-                <Trans>Withdraw XToken</Trans>
-              </Link>
-            </Button>
+            {pairStakeInfo?.stakedXToken.value.gt(0) && (
+              <Button block gradient>
+                <Link to={`/mining/withdraw-xtoken/${token0.symbol}/${token1.symbol}`}>
+                  <Trans>Withdraw XToken</Trans>
+                </Link>
+              </Button>
+            )}
           </ButtonGroup>
         </div>
 
@@ -104,6 +126,7 @@ const Mining: FC = () => {
             editable={false}
             noExtra
             className={`${classPrefix}-token-input`}
+            loading={!pairEarnedCOFI}
           />
 
           <Field
@@ -111,9 +134,13 @@ const Mining: FC = () => {
             value={`
           ${cofiUSDTAmount ? cofiUSDTAmount.formatAmount : '--'} USD
           `}
+            loading={!cofiUSDTAmount?.formatAmount}
           />
 
-          <TransactionButtonGroup onClick={handlePairClaimCOFI.handler}>
+          <TransactionButtonGroup
+            onClick={handlePairClaimCOFI.handler}
+            disabled={!pairEarnedCOFI || pairEarnedCOFI.value.lte(0)}
+          >
             <Trans>Claim COFI</Trans>
           </TransactionButtonGroup>
         </div>
@@ -133,31 +160,35 @@ const Mining: FC = () => {
             <div className={`${classPrefix}-section`}>
               <ul className={`${classPrefix}-simple-ul`}>
                 <li>
-                  <span>
-                    <Trans>XToken In Mining Pool</Trans>
-                  </span>
-                  <span>{anchorStakeInfo ? anchorStakeInfo.xTokenInPool.formatAmount : '--'} XToken</span>
+                  <Item
+                    title={t`XToken In Mining Pool`}
+                    content={`${anchorStakeInfo ? anchorStakeInfo.xTokenInPool.formatAmount : '--'} XToken`}
+                    loading={!anchorStakeInfo}
+                  />
                 </li>
 
                 <li>
-                  <span>
-                    <Trans>XToken Staked</Trans>
-                  </span>
-                  <span>{anchorStakeInfo ? anchorStakeInfo.stakedXToken.formatAmount : '--'} XToken</span>
+                  <Item
+                    title={t`XToken Staked`}
+                    content={`${anchorStakeInfo ? anchorStakeInfo.stakedXToken.formatAmount : '--'} XToken`}
+                    loading={!anchorStakeInfo}
+                  />
                 </li>
 
                 <li>
-                  <span>
-                    <Trans>Percentage</Trans>
-                  </span>
-                  <span>{anchorStakeInfo ? anchorStakeInfo.stakedRatio : '--'}</span>
+                  <Item
+                    title={t`Percentage`}
+                    content={anchorStakeInfo ? anchorStakeInfo.stakedRatio : '--'}
+                    loading={!anchorStakeInfo}
+                  />
                 </li>
 
                 <li>
-                  <span>
-                    <Trans>Estimated Daily Mined</Trans>
-                  </span>
-                  <span>{anchorStakeInfo ? anchorStakeInfo.dailyMined.toString() : '--'} COFI</span>
+                  <Item
+                    title={t`Estimated Daily Mined`}
+                    content={`${anchorStakeInfo ? anchorStakeInfo.dailyMined.toString() : '--'} COFI`}
+                    loading={!anchorStakeInfo}
+                  />
                 </li>
               </ul>
             </div>
@@ -170,11 +201,13 @@ const Mining: FC = () => {
               </Link>
             </Button>
 
-            <Button block gradient>
-              <Link to={`/mining/withdraw-xtoken/${token.symbol}`}>
-                <Trans>Withdraw XToken</Trans>
-              </Link>
-            </Button>
+            {anchorStakeInfo?.stakedXToken.value.gt(0) && (
+              <Button block gradient>
+                <Link to={`/mining/withdraw-xtoken/${token.symbol}`}>
+                  <Trans>Withdraw XToken</Trans>
+                </Link>
+              </Button>
+            )}
           </ButtonGroup>
         </div>
 
@@ -189,6 +222,7 @@ const Mining: FC = () => {
             editable={false}
             noExtra
             className={`${classPrefix}-token-input`}
+            loading={!anchorEarnedCOFI}
           />
 
           <Field
@@ -196,9 +230,13 @@ const Mining: FC = () => {
             value={`
           ${cofiUSDTAmount ? cofiUSDTAmount.formatAmount : '--'} USD
           `}
+            loading={!cofiUSDTAmount?.formatAmount}
           />
 
-          <TransactionButtonGroup onClick={handleAnchorClaimCOFI.handler}>
+          <TransactionButtonGroup
+            onClick={handleAnchorClaimCOFI.handler}
+            disabled={!anchorEarnedCOFI || anchorEarnedCOFI.value.lte(0)}
+          >
             <Trans>Claim COFI</Trans>
           </TransactionButtonGroup>
         </div>

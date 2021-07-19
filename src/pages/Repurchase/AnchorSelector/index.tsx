@@ -8,6 +8,7 @@ import Card from 'src/components/Card'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import Button from 'src/components/Button'
 import useDAOBalance from 'src/hooks/useDAOBalance'
+import Skeleton from 'react-loading-skeleton'
 
 type Props = {
   symbol: string
@@ -86,7 +87,11 @@ const AnchorSelector: FC<Props> = (props) => {
                                 <div>
                                   <Trans>Balance In DAO</Trans>
                                 </div>
-                                <div>{`${daoBalance?.[t.symbol].formatAmount || '--'} ${t.symbol}`}</div>
+                                {daoBalance ? (
+                                  <div>{`${daoBalance[t.symbol].formatAmount || '--'} ${t.symbol}`}</div>
+                                ) : (
+                                  <Skeleton width={100} />
+                                )}
                               </div>
                             </Button>
                           </li>
@@ -102,9 +107,15 @@ const AnchorSelector: FC<Props> = (props) => {
       </div>
 
       <div className={`${classPrefix}-extra`}>
-        <span className={`${classPrefix}-balance`}>{`${t`Balance in DAO:`} ${
-          daoBalance?.[symbol].formatAmount || '--'
-        } ${token?.symbol}`}</span>
+        {daoBalance && token ? (
+          <span className={`${classPrefix}-balance`}>{`${t`Balance in DAO:`} ${
+            daoBalance[symbol].formatAmount || '--'
+          } ${token?.symbol}`}</span>
+        ) : (
+          <span className="w100">
+            <Skeleton />
+          </span>
+        )}
       </div>
     </div>
   )
