@@ -105,5 +105,6 @@ export default TransactionNotification
 export const notifyTransaction = (transaction: Transaction) => {
   toast(<TransactionNotification transaction={transaction} />, {
     closeOnClick: false,
+    hideProgressBar: true,
   })
 }
