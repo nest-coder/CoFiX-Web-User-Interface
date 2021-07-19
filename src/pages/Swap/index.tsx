@@ -260,7 +260,7 @@ const Swap: FC = () => {
               <>
                 {Object.keys(swap.swapInfo.fee).map((token) => (
                   <div key={token}>
-                    {toBigNumber(swap?.swapInfo?.fee[token] || '').toFixed(18)} {token}
+                    {api?.Tokens[token].format(swap?.swapInfo?.fee[token] || '')} {token}
                   </div>
                 ))}
               </>
