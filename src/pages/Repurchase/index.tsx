@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useEffect, useMemo, useState } from 'react'
 import CollapseCard from 'src/components/CollapaseCard'
 import { t, Trans } from '@lingui/macro'
 import './styles'
@@ -16,6 +16,7 @@ import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 import AnchorSelector from './AnchorSelector'
 import { RiskAction, useRiskModal } from '../shared/RiskModal'
 import { toBigNumber } from 'src/libs/web3/util'
+import useDAOBalance from 'src/hooks/useDAOBalance'
 
 const Repurchase: FC = () => {
   const { checkRisk } = useRiskModal()
@@ -35,13 +36,28 @@ const Repurchase: FC = () => {
   const [amount, setAmount] = useState('')
   const [symbol, setSymbol] = useState('ETH')
   const { balance: ethBalance } = useTokenBalance('ETH', account || '')
+  const { balance: cofiBalance } = useTokenBalance('COFI', account || '')
   const anchorPool = api?.CoFixAnchorPools[symbol]
   const [insufficient, setInsufficient] = useState(false)
+  const daoBalance = useDAOBalance()
 
   const handleRepurchase = useRepurchase({
     amount,
     symbol,
   })
+
+  const insufficientAnchor = useMemo(() => {
+    if (!cofiBalance || !amount || !anchorPool || !daoBalance) {
+      return false
+    }
+
+    const target = anchorPool.anchorToken === 'ETH' ? handleRepurchase.ethAmount : handleRepurchase.usdtAmount
+    if (!target) {
+      return false
+    }
+
+    return target.amount.gte(daoBalance[symbol].amount)
+  }, [cofiBalance, amount, anchorPool, daoBalance, handleRepurchase.ethAmount, handleRepurchase.usdtAmount])
 
   const classPrefix = 'cofi-page-repurchase'
 
@@ -96,7 +112,7 @@ const Repurchase: FC = () => {
             onInsufficientBalance={(i) => setInsufficient(i)}
           />
 
-          <AnchorSelector symbol={symbol} onChange={(s) => setSymbol(s)} />
+          <AnchorSelector symbol={symbol} onChange={(s) => setSymbol(s)} insufficient={insufficientAnchor} />
 
           <TokenInput
             title={t`Estimated Receive:`}
@@ -153,7 +169,7 @@ const Repurchase: FC = () => {
               transactionType: TransactionType.Repurchase,
               token: ['COFI', 'COFI'],
             }}
-            disabled={insufficient || !amount || toBigNumber(amount).lte(0)}
+            disabled={insufficient || insufficientAnchor || !amount || toBigNumber(amount).lte(0)}
             onClick={handleRepurchase.handler}
           >
             <Trans>Repurchase</Trans>

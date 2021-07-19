@@ -9,10 +9,12 @@ import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import Button from 'src/components/Button'
 import useDAOBalance from 'src/hooks/useDAOBalance'
 import Skeleton from 'react-loading-skeleton'
+import classNames from 'classnames'
 
 type Props = {
   symbol: string
   onChange?: (symbol: string) => any
+  insufficient?: boolean
 }
 
 const AnchorSelector: FC<Props> = (props) => {
@@ -108,9 +110,12 @@ const AnchorSelector: FC<Props> = (props) => {
 
       <div className={`${classPrefix}-extra`}>
         {daoBalance && token ? (
-          <span className={`${classPrefix}-balance`}>{`${t`Balance in DAO:`} ${
-            daoBalance[symbol].formatAmount || '--'
-          } ${token?.symbol}`}</span>
+          <span
+            className={classNames({
+              [`${classPrefix}-balance`]: true,
+              error: props.insufficient,
+            })}
+          >{`${t`Balance in DAO:`} ${daoBalance[symbol].formatAmount || '--'} ${token?.symbol}`}</span>
         ) : (
           <span className="w100">
             <Skeleton />
