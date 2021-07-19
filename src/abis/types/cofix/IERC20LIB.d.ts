@@ -19,46 +19,31 @@ import { Listener, Provider } from "@ethersproject/providers";
 import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
 import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
-interface INTokenInterface extends ethers.utils.Interface {
+interface IERC20LIBInterface extends ethers.utils.Interface {
   functions: {
-    "increaseTotal(uint256)": FunctionFragment;
-    "checkBlockInfo()": FunctionFragment;
-    "checkBidder()": FunctionFragment;
-    "totalSupply()": FunctionFragment;
-    "balanceOf(address)": FunctionFragment;
     "allowance(address,address)": FunctionFragment;
-    "transfer(address,uint256)": FunctionFragment;
     "approve(address,uint256)": FunctionFragment;
+    "balanceOf(address)": FunctionFragment;
+    "totalSupply()": FunctionFragment;
+    "transfer(address,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
   };
 
-  encodeFunctionData(
-    functionFragment: "increaseTotal",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "checkBlockInfo",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "checkBidder",
-    values?: undefined
-  ): string;
-  encodeFunctionData(
-    functionFragment: "totalSupply",
-    values?: undefined
-  ): string;
-  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
     functionFragment: "allowance",
     values: [string, string]
   ): string;
   encodeFunctionData(
-    functionFragment: "transfer",
+    functionFragment: "approve",
     values: [string, BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "balanceOf", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "approve",
+    functionFragment: "totalSupply",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "transfer",
     values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
@@ -66,26 +51,14 @@ interface INTokenInterface extends ethers.utils.Interface {
     values: [string, string, BigNumberish]
   ): string;
 
-  decodeFunctionResult(
-    functionFragment: "increaseTotal",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "checkBlockInfo",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "checkBidder",
-    data: BytesLike
-  ): Result;
+  decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "allowance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "transfer", data: BytesLike): Result;
-  decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "transferFrom",
     data: BytesLike
@@ -100,7 +73,7 @@ interface INTokenInterface extends ethers.utils.Interface {
   getEvent(nameOrSignatureOrTopic: "Transfer"): EventFragment;
 }
 
-export class INToken extends BaseContract {
+export class IERC20LIB extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
@@ -141,74 +114,38 @@ export class INToken extends BaseContract {
     toBlock?: string | number | undefined
   ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: INTokenInterface;
+  interface: IERC20LIBInterface;
 
   functions: {
-    increaseTotal(
-      value: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>;
-
-    checkBlockInfo(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & {
-        createBlock: BigNumber;
-        recentlyUsedBlock: BigNumber;
-      }
-    >;
-
-    checkBidder(overrides?: CallOverrides): Promise<[string]>;
-
-    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
-
-    balanceOf(owner: string, overrides?: CallOverrides): Promise<[BigNumber]>;
-
     allowance(
       owner: string,
       spender: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    transfer(
-      to: string,
-      value: BigNumberish,
+    approve(
+      spender: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    approve(
-      spender: string,
-      value: BigNumberish,
+    balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
+
+    transfer(
+      recipient: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
     transferFrom(
-      from: string,
-      to: string,
-      value: BigNumberish,
+      sender: string,
+      recipient: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
   };
-
-  increaseTotal(
-    value: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>;
-
-  checkBlockInfo(
-    overrides?: CallOverrides
-  ): Promise<
-    [BigNumber, BigNumber] & {
-      createBlock: BigNumber;
-      recentlyUsedBlock: BigNumber;
-    }
-  >;
-
-  checkBidder(overrides?: CallOverrides): Promise<string>;
-
-  totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-  balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   allowance(
     owner: string,
@@ -216,68 +153,56 @@ export class INToken extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  transfer(
-    to: string,
-    value: BigNumberish,
+  approve(
+    spender: string,
+    amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  approve(
-    spender: string,
-    value: BigNumberish,
+  balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+  totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+  transfer(
+    recipient: string,
+    amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   transferFrom(
-    from: string,
-    to: string,
-    value: BigNumberish,
+    sender: string,
+    recipient: string,
+    amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
-    increaseTotal(
-      value: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    checkBlockInfo(
-      overrides?: CallOverrides
-    ): Promise<
-      [BigNumber, BigNumber] & {
-        createBlock: BigNumber;
-        recentlyUsedBlock: BigNumber;
-      }
-    >;
-
-    checkBidder(overrides?: CallOverrides): Promise<string>;
-
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
-
     allowance(
       owner: string,
       spender: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    transfer(
-      to: string,
-      value: BigNumberish,
+    approve(
+      spender: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
-    approve(
-      spender: string,
-      value: BigNumberish,
+    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+    transfer(
+      recipient: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     transferFrom(
-      from: string,
-      to: string,
-      value: BigNumberish,
+      sender: string,
+      recipient: string,
+      amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
   };
@@ -303,84 +228,66 @@ export class INToken extends BaseContract {
   };
 
   estimateGas: {
-    increaseTotal(
-      value: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    checkBlockInfo(overrides?: CallOverrides): Promise<BigNumber>;
-
-    checkBidder(overrides?: CallOverrides): Promise<BigNumber>;
-
-    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
-
-    balanceOf(owner: string, overrides?: CallOverrides): Promise<BigNumber>;
-
     allowance(
       owner: string,
       spender: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    transfer(
-      to: string,
-      value: BigNumberish,
+    approve(
+      spender: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    approve(
-      spender: string,
-      value: BigNumberish,
+    balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
+
+    transfer(
+      recipient: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     transferFrom(
-      from: string,
-      to: string,
-      value: BigNumberish,
+      sender: string,
+      recipient: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
-    increaseTotal(
-      value: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    checkBlockInfo(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    checkBidder(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
-    balanceOf(
-      owner: string,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     allowance(
       owner: string,
       spender: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    transfer(
-      to: string,
-      value: BigNumberish,
+    approve(
+      spender: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    approve(
-      spender: string,
-      value: BigNumberish,
+    balanceOf(
+      account: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    transfer(
+      recipient: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     transferFrom(
-      from: string,
-      to: string,
-      value: BigNumberish,
+      sender: string,
+      recipient: string,
+      amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };

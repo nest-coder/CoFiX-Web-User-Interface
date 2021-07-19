@@ -93,6 +93,47 @@ abstract class Token extends Contract {
     return this.api.Tokens.USDT.amount(value)
   }
 
+  async queryOracle() {
+    if (this.symbol === 'ETH') {
+      return {
+        k: toBigNumber(0),
+        tokenAmount: toBigNumber(1),
+      }
+    }
+
+    if (!this.address || !this.api.Contracts.NestPriceFacade.contract || !this.api.Contracts.CoFiXController.contract) {
+      return {
+        k: toBigNumber(0),
+        tokenAmount: this.amount(await this.getValuePerETH()),
+      }
+    }
+
+    try {
+      const priceInfo = await this.api.Contracts.NestPriceFacade.contract.lastPriceListAndTriggeredPriceInfo(
+        this.address,
+        2
+      )
+
+      const k = await this.api.Contracts.CoFiXController.contract.calcRevisedK(
+        priceInfo.triggeredSigmaSQ,
+        priceInfo.prices[3],
+        priceInfo.prices[2],
+        priceInfo.prices[1],
+        priceInfo.prices[0]
+      )
+
+      return {
+        k: toBigNumber(k).shiftedBy(-18),
+        tokenAmount: this.amount(priceInfo.prices[1]),
+      }
+    } catch (e) {
+      return {
+        k: toBigNumber(0),
+        tokenAmount: this.amount(await this.getValuePerETH()),
+      }
+    }
+  }
+
   async getSwapInfo(vol?: BigNumberish | BigNumber): Promise<SwapInfo> {
     let oracleValuePerETH = new BigNumber(0)
     let k = new BigNumber(0)
@@ -104,16 +145,21 @@ abstract class Token extends Contract {
       this.api.Contracts.NestPriceFacade.contract &&
       this.api.Contracts.CoFiXController.contract
     ) {
-      const value = await this.api.Contracts.NestPriceFacade.contract['latestPriceAndTriggeredPriceInfo(address)'](
-        this.address
+      const priceInfo = await this.api.Contracts.NestPriceFacade.contract.lastPriceListAndTriggeredPriceInfo(
+        this.address,
+        2
       )
-      oracleValuePerETH = new BigNumber(value.latestPriceValue.toString())
+
+      oracleValuePerETH = toBigNumber(priceInfo.prices[1])
       if (oracleValuePerETH.isZero()) {
         oracleValuePerETH = (await this.getValuePerETH()) || this.parse(1)
       }
-      const kinfo = await this.api.Contracts.CoFiXController.contract.calcK(
-        value.triggeredSigmaSQ,
-        value.latestPriceBlockNumber
+      const kinfo = await this.api.Contracts.CoFiXController.contract.calcRevisedK(
+        priceInfo.triggeredSigmaSQ,
+        priceInfo.prices[3],
+        priceInfo.prices[2],
+        priceInfo.prices[1],
+        priceInfo.prices[0]
       )
       k = new BigNumber(kinfo.toString()).shiftedBy(-18)
     } else {

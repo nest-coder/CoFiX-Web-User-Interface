@@ -26,7 +26,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "pair",
+          "name": "pool",
           "type": "address"
         }
       ],
@@ -111,34 +111,6 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "pair",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "tokenAddress",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "value",
-          "type": "uint256"
-        }
-      ],
-      "name": "pay",
-      "outputs": [],
-      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
@@ -275,7 +247,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "pair",
+          "name": "pool",
           "type": "address"
         },
         {
@@ -303,7 +275,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "pair",
+          "name": "pool",
           "type": "address"
         }
       ],

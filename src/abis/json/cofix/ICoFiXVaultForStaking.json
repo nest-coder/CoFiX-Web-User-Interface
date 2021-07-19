@@ -7,7 +7,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "pair",
+          "name": "xtoken",
           "type": "address"
         },
         {
@@ -49,7 +49,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "pair",
+          "name": "xtoken",
           "type": "address"
         },
         {
@@ -93,7 +93,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "pair",
+          "name": "xtoken",
           "type": "address"
         }
       ],
@@ -106,25 +106,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "pair",
-          "type": "address"
-        },
-        {
-          "internalType": "uint256",
-          "name": "cofiWeight",
-          "type": "uint256"
-        }
-      ],
-      "name": "initStakingChannel",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "address",
-          "name": "pair",
+          "name": "xtoken",
           "type": "address"
         },
         {
@@ -167,7 +149,7 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "pair",
+          "name": "xtoken",
           "type": "address"
         },
         {
@@ -185,7 +167,26 @@
       "inputs": [
         {
           "internalType": "address",
-          "name": "pair",
+          "name": "xtoken",
+          "type": "address"
+        }
+      ],
+      "name": "totalStakedOf",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "xtoken",
           "type": "address"
         },
         {

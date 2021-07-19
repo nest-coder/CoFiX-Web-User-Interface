@@ -6,7 +6,7 @@ export const ETHUSDT: CoFiXPairProps = {
   Icon: TokenUSDT,
   pair: ['ETH', 'USDT'],
   addresses: {
-    4: '0xb7719040D4357A2a58D1293a52511b57bCbd533D',
+    4: '0x7756f374E19E1528454B5291282D6C9e33eCBC69',
   },
   cofiAmountPerBlock: 3,
   cofiRewardPercentage: 0.9,
@@ -17,7 +17,7 @@ export const ETHNEST: CoFiXPairProps = {
   Icon: TokenUSDT,
   pair: ['ETH', 'NEST'],
   addresses: {
-    4: '0x91025AF7C4699473C9f9Cae7876c86e4ef715107',
+    4: '0xEC38914c82969716C5E271a63087D365B0E259b2',
   },
   cofiAmountPerBlock: 3,
   cofiRewardPercentage: 0.9,

@@ -8,7 +8,7 @@ import classNames from 'classnames'
 
 type Props = {
   name?: string
-  value?: string | boolean
+  value?: string | boolean | JSX.Element
   tooltip?: JSX.Element
   onChange?: (value: Props['value']) => void
 }

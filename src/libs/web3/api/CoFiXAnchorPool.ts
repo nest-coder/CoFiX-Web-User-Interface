@@ -67,6 +67,10 @@ class CoFiXAnchorPool extends Contract {
     [symbol: string]: ERC20Token
   }
 
+  theta = toBigNumber(20)
+  gamma = toBigNumber(1)
+  nt = toBigNumber(1000)
+
   constructor(api: API, props: CoFiXAnchorPoolProps) {
     super(api, props)
 
@@ -122,6 +126,14 @@ class CoFiXAnchorPool extends Contract {
     }
 
     await Promise.all(Object.values(this.xtokens).map((t) => t.init()))
+
+    if (!this.contract) {
+      return
+    }
+    const config = await this.contract.getConfig()
+    this.theta = toBigNumber(config.theta)
+    this.gamma = toBigNumber(config.gamma)
+    this.nt = toBigNumber(config.nt)
   }
 
   async getAnchorPoolInfo(symbol: string): Promise<AnchorPoolInfo | undefined> {
@@ -230,6 +242,22 @@ class CoFiXAnchorPool extends Contract {
       value: earenedCOFI,
       amount: this.api.Tokens.COFI.amount(earenedCOFI),
       formatAmount: this.api.Tokens.COFI.format(this.api.Tokens.COFI.amount(earenedCOFI)),
+    }
+  }
+
+  async swap(src: string, dest: string, amount: BigNumber | BigNumberish) {
+    const amountIn = toBigNumber(amount)
+    const fee = amountIn.multipliedBy(this.theta).div(10000)
+    const amountOut = amountIn.minus(fee)
+
+    return {
+      fee: {
+        symbol: dest,
+        amount: fee,
+      },
+      oracleOut: amountIn,
+      amountOut: amountOut,
+      oracleFee: toBigNumber(0),
     }
   }
 }

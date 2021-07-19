@@ -23,6 +23,7 @@
     align-items: center;
     color: $dim-color;
     font-size: $font-size-sm;
+    white-space: nowrap;
   }
 
   &-tooltip-icon {
@@ -64,6 +65,11 @@
     display: flex;
     align-items: center;
     font-size: $font-size;
+    text-align: right;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &-arrow-down {

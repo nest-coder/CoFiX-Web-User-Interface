@@ -4,7 +4,7 @@
 
 import { Contract, Signer, utils } from "ethers";
 import { Provider } from "@ethersproject/providers";
-import type { INestNToken, INestNTokenInterface } from "../INestNToken";
+import type { IERC20LIB, IERC20LIBInterface } from "../IERC20LIB";
 
 const _abi = [
   {
@@ -190,87 +190,17 @@ const _abi = [
     stateMutability: "nonpayable",
     type: "function",
   },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "voteFactory",
-        type: "address",
-      },
-    ],
-    name: "changeMapping",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "value",
-        type: "uint256",
-      },
-    ],
-    name: "increaseTotal",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "checkBlockInfo",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "createBlock",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "recentlyUsedBlock",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "checkBidder",
-    outputs: [
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "bidder",
-        type: "address",
-      },
-    ],
-    name: "changeBidder",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
 ];
 
-export class INestNToken__factory {
+export class IERC20LIB__factory {
   static readonly abi = _abi;
-  static createInterface(): INestNTokenInterface {
-    return new utils.Interface(_abi) as INestNTokenInterface;
+  static createInterface(): IERC20LIBInterface {
+    return new utils.Interface(_abi) as IERC20LIBInterface;
   }
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
-  ): INestNToken {
-    return new Contract(address, _abi, signerOrProvider) as INestNToken;
+  ): IERC20LIB {
+    return new Contract(address, _abi, signerOrProvider) as IERC20LIB;
   }
 }

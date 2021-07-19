@@ -233,6 +233,10 @@ msgid "Exchange"
 msgstr "Exchange"
 
 #: src/pages/Swap/index.tsx
+msgid "FEE(ESTIMATED)"
+msgstr "FEE(ESTIMATED)"
+
+#: src/pages/Swap/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "FROM"
 msgstr "FROM"

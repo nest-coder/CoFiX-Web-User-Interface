@@ -40,12 +40,13 @@
     line-height: none;
   }
 
-  input {
+  &-input {
     text-align: right;
     font-size: $font-size;
     color: #000000;
     border: none;
     width: 100%;
+    margin-left: $space;
 
     &:disabled {
       background: transparent;

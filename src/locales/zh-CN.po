@@ -233,6 +233,10 @@ msgid "Exchange"
 msgstr "兑换"
 
 #: src/pages/Swap/index.tsx
+msgid "FEE(ESTIMATED)"
+msgstr "手续费（预估）"
+
+#: src/pages/Swap/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "FROM"
 msgstr "支付"

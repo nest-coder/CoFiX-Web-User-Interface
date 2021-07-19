@@ -27,13 +27,13 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "amountTokenOut",
+          "name": "amountETHOut",
           "type": "uint256"
         },
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "amountETHOut",
+          "name": "amountTokenOut",
           "type": "uint256"
         }
       ],
@@ -166,12 +166,12 @@
       "outputs": [
         {
           "internalType": "uint256",
-          "name": "amountTokenOut",
+          "name": "amountETHOut",
           "type": "uint256"
         },
         {
           "internalType": "uint256",
-          "name": "amountETHOut",
+          "name": "amountTokenOut",
           "type": "uint256"
         }
       ],
@@ -261,9 +261,9 @@
           "type": "uint16"
         },
         {
-          "internalType": "uint32",
+          "internalType": "uint56",
           "name": "nt",
-          "type": "uint32"
+          "type": "uint56"
         }
       ],
       "stateMutability": "view",
@@ -425,9 +425,9 @@
           "type": "uint16"
         },
         {
-          "internalType": "uint32",
+          "internalType": "uint56",
           "name": "nt",
-          "type": "uint32"
+          "type": "uint56"
         }
       ],
       "name": "setConfig",

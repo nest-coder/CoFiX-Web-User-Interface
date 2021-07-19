@@ -6,6 +6,7 @@ import BigNumber from 'bignumber.js'
 import { TIME_TO_NEXT_BLOCK } from 'src/constants/parameter'
 import { toBigNumber } from '../util'
 import { BLOCK_DAILY } from '../constants/constant'
+import { BigNumberish } from 'ethers'
 
 export type PoolInfo = {
   totalFunds: BigNumber
@@ -62,6 +63,10 @@ class CoFiXPair extends ERC20Token {
   poolInfo?: PoolInfo
   stakeInfo?: StakeInfo
 
+  theta = toBigNumber(20)
+  gamma = toBigNumber(1)
+  nt = toBigNumber(1000)
+
   constructor(api: API, props: CoFiXPairProps) {
     super(api, {
       isXToken: true,
@@ -76,6 +81,18 @@ class CoFiXPair extends ERC20Token {
     this.cofiAmountPerBlock = props.cofiAmountPerBlock
     this.cofiRewardPercentage = props.cofiRewardPercentage
     this.api.Tokens[this.symbol] = this
+  }
+
+  async init() {
+    super.init()
+
+    if (!this.contract) {
+      return
+    }
+    const config = await this.contract.getConfig()
+    this.theta = toBigNumber(config.theta)
+    this.gamma = toBigNumber(config.gamma)
+    this.nt = toBigNumber(config.nt)
   }
 
   async getPoolInfo(): Promise<PoolInfo | undefined> {
@@ -121,8 +138,8 @@ class CoFiXPair extends ERC20Token {
     let apy = '--'
     if (!totalFunds.isZero()) {
       apy =
-        toBigNumber(this.cofiAmountPerBlock)
-          .multipliedBy(this.cofiRewardPercentage)
+        toBigNumber(this.nt)
+          .div(10000)
           .multipliedBy(cofiUSDTAmount)
           .multipliedBy(60 * 60 * 24)
           .div(TIME_TO_NEXT_BLOCK)
@@ -148,7 +165,7 @@ class CoFiXPair extends ERC20Token {
       amounts,
       formatAmounts,
       nav,
-      miningSpeed: this.cofiAmountPerBlock,
+      miningSpeed: toBigNumber(this.nt).div(10000).toNumber(),
       apy,
 
       emptyLiquidity: myPoolRatio.isZero(),
@@ -218,6 +235,59 @@ class CoFiXPair extends ERC20Token {
       value: earenedCOFI,
       amount: this.api.Tokens.COFI.amount(earenedCOFI),
       formatAmount: this.api.Tokens.COFI.format(this.api.Tokens.COFI.amount(earenedCOFI)),
+    }
+  }
+
+  async swap(src: string, dest: string, amount: BigNumber | BigNumberish) {
+    if (!this.gamma) {
+      throw new Error(`cofix pair ${this.symbol} not init`)
+    }
+
+    if (!this.contract) {
+      throw new Error(`coifx pair ${this.symbol} not found`)
+    }
+
+    const { k, tokenAmount } = await this.api.Tokens[this.pair[1].symbol].queryOracle()
+    const amountIn = toBigNumber(amount)
+
+    if (src === 'ETH' && dest === this.pair[1].symbol) {
+      const fee = amountIn.multipliedBy(this.theta).div(10000)
+      const c = toBigNumber(
+        await this.contract.impactCostForSellOutETH(this.api.Tokens.ETH.parse(amountIn).toFixed(0))
+      ).shiftedBy(-18)
+      const amountOut = amountIn.minus(fee).multipliedBy(tokenAmount).div(toBigNumber(1).plus(k).plus(c))
+
+      return {
+        fee: {
+          symbol: 'ETH',
+          amount: fee,
+        },
+        oracleOut: amountIn.multipliedBy(tokenAmount),
+        amountOut: amountOut,
+        oracleFee: toBigNumber(0.01),
+      }
+    } else if (src === this.pair[1].symbol && dest === 'ETH') {
+      let amountOut = amountIn.div(tokenAmount)
+
+      const c = toBigNumber(
+        await this.contract.impactCostForBuyInETH(this.api.Tokens.ETH.parse(amountOut).toFixed(0))
+      ).shiftedBy(-18)
+
+      amountOut = amountOut.div(toBigNumber(1).plus(k).plus(c))
+      const fee = amountOut.multipliedBy(this.theta).div(10000)
+      amountOut = amountOut.minus(fee)
+
+      return {
+        fee: {
+          symbol: 'ETH',
+          amount: fee,
+        },
+        oracleOut: amountIn.div(tokenAmount),
+        amountOut: amountOut,
+        oracleFee: toBigNumber(0.01),
+      }
+    } else {
+      throw new Error(`can not swap ${src} to ${dest}`)
     }
   }
 }

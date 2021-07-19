@@ -76,6 +76,16 @@
     background: $gray-color;
     color: #ffffff;
 
+    &.primary {
+      background: $gray-color;
+      color: #ffffff;
+    }
+
+    &.gradient {
+      background: $gray-color;
+      color: #ffffff;
+    }
+
     &:hover {
       background: $gray-color;
       color: #ffffff;

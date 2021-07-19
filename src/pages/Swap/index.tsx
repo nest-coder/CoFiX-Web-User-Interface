@@ -70,20 +70,20 @@ const Swap: FC = () => {
       if (swap?.ratio && amount) {
         setSrc({
           symbol: dest.symbol,
-          amount: toBigNumber(amount).div(swap?.ratio.final).toString(),
+          amount: toBigNumber(amount).div(swap?.ratio).toString(),
         })
       }
     }
   }
 
   useEffect(() => {
-    if (swap?.ratio?.final && src.amount) {
+    if (swap?.ratio && src.amount) {
       setDest({
         symbol: dest.symbol,
-        amount: toBigNumber(src.amount).multipliedBy(swap?.ratio.final).toString(),
+        amount: toBigNumber(src.amount).multipliedBy(swap?.ratio).toString(),
       })
     }
-  }, [swap?.ratio?.final])
+  }, [swap?.ratio])
 
   const classPrefix = 'cofi-page-swap'
   const sectionSwap = (
@@ -95,10 +95,17 @@ const Swap: FC = () => {
             symbol={src.symbol}
             value={src.amount}
             onChange={handleChangeSrc}
+            checkInsufficientBalance
             onInsufficientBalance={(b) => setInsufficient(b)}
           />
           <SwitchOutline onClick={handleSwitch} />
-          <TokenInput title={t`TO(ESTIMATED)`} symbol={dest.symbol} value={dest.amount} onChange={handleChangeDest} />
+          <TokenInput
+            title={t`TO(ESTIMATED)`}
+            symbol={dest.symbol}
+            value={dest.amount}
+            onChange={handleChangeDest}
+            loading={swap.loading}
+          />
         </div>
 
         <Field
@@ -136,7 +143,7 @@ const Swap: FC = () => {
                   <span>
                     <Trans>Price Spread</Trans>
                   </span>
-                  <span>{`${swap?.amount?.spreadFormat || '--'} USDT`}</span>
+                  <span>{`${swap?.amount?.spreadFormat || '--'} ${dest.symbol}`}</span>
                 </li>
               </ul>
 
@@ -233,6 +240,40 @@ const Swap: FC = () => {
         <Field name={t`TO(ESTIMATED)`} value={`${dest.amount} ${dest.symbol}`} />
         <Field name={t`Swap Rate`} value={`1 ${src.symbol} = ${swap?.amount?.finalFormat || '--'} ${dest.symbol}`} />
         <Field name={t`Swap Route`} value={paths} />
+        {swap?.swapInfo?.fee && (
+          <Field
+            name={t`FEE(ESTIMATED)`}
+            value={
+              <>
+                {Object.keys(swap.swapInfo.fee).map((token) => (
+                  <div key={token}>
+                    {toBigNumber(swap?.swapInfo?.fee[token] || '').toFixed(18)} {token}
+                  </div>
+                ))}
+              </>
+            }
+          />
+        )}
+        <Field
+          name={t`Oracle Call Fee`}
+          value={`+ ${swap?.oracleCallFee?.format || '--'} ETH`}
+          tooltip={
+            <>
+              <h1>
+                <Trans>Oracle Call Fee</Trans>
+              </h1>
+
+              <section>
+                <p>
+                  <Trans>
+                    Oracle Fee is what you pay to the NEST protocol for providing accurate market price data to the
+                    smart contract.
+                  </Trans>
+                </p>
+              </section>
+            </>
+          }
+        />
         <Field
           tooltip={
             <>

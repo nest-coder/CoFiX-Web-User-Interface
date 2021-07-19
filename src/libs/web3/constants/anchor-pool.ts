@@ -4,7 +4,7 @@ import { t } from '@lingui/macro'
 export const ETH: CoFiXAnchorPoolProps = {
   title: t`ETH Anchor`,
   addresses: {
-    4: '0xbbd6b432B280dea51f137F8234a5D0Ac36D17fdf',
+    4: '0xA5fF74B6BcF816AA3e13857a68c231DE6EEAF4eA',
   },
   anchorToken: 'ETH',
   tokens: ['ETH', 'PETH'],
@@ -14,10 +14,10 @@ export const ETH: CoFiXAnchorPoolProps = {
 export const USD: CoFiXAnchorPoolProps = {
   title: t`USD Anchor`,
   addresses: {
-    4: '0x08B79267ff01393925081396b328B6d6f82a4250',
+    4: '0x5Ed0d53442415BE2Ac4d1bA5e289721c4e3A8ce1',
   },
   anchorToken: 'USDT',
-  tokens: ['USDT', 'PUSD', 'USDC'],
+  tokens: ['USDT', 'PUSD', 'DAI'],
   cofiAmountPerBlock: 3,
 }
 

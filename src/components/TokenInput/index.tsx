@@ -13,6 +13,7 @@ import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import useToken from 'src/hooks/useToken'
 import { toBigNumber } from 'src/libs/web3/util'
 import classNames from 'classnames'
+import Skeleton from 'react-loading-skeleton'
 
 type Props = {
   title?: string
@@ -35,6 +36,9 @@ type Props = {
   value?: string
   onChange?: (amount: string, symbol: string) => any
   onInsufficientBalance?: (insufficient: boolean) => any
+  checkInsufficientBalance?: boolean
+
+  loading?: boolean
 }
 
 const TokenInput: FC<Props> = ({ ...props }) => {
@@ -115,7 +119,7 @@ const TokenInput: FC<Props> = ({ ...props }) => {
   }, [value, symbol])
 
   const insufficientBalance = useMemo(() => {
-    return !!balance && toBigNumber(value).gt(balance.amount)
+    return !!props.checkInsufficientBalance && !!balance && toBigNumber(value).gt(balance.amount)
   }, [value, balance, balance?.amount])
 
   useEffect(() => {
@@ -149,14 +153,20 @@ const TokenInput: FC<Props> = ({ ...props }) => {
           )}
         </div>
 
-        <input
-          type="number"
-          className={`${classPrefix}-input`}
-          value={value}
-          onChange={handleInput}
-          placeholder={props.editable === false ? '--' : '0.0'}
-          disabled={props.editable === false}
-        />
+        {props.loading ? (
+          <span className={`${classPrefix}-input`}>
+            <Skeleton />
+          </span>
+        ) : (
+          <input
+            type="number"
+            className={`${classPrefix}-input`}
+            value={value}
+            onChange={handleInput}
+            placeholder={props.editable === false ? '--' : '0.0'}
+            disabled={props.editable === false}
+          />
+        )}
       </div>
 
       {props.noExtra !== true && (
