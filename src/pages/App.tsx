@@ -3,6 +3,8 @@ import React from 'react'
 import loadable from '@loadable/component'
 
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+
 import Header from 'src/pages/shared/Header'
 import Footer from 'src/pages/shared/Footer'
 import TransactionModal from 'src/pages/shared/TransactionModal'
@@ -18,6 +20,7 @@ function App() {
     <main>
       <TransactionModal />
       <RiskModal />
+      <ToastContainer />
 
       <Router>
         <Header />

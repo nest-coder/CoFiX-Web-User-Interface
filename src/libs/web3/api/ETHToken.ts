@@ -18,7 +18,7 @@ class ETHToken extends Token {
 
   async balanceOf(address: string): Promise<BigNumber> {
     const value = await this.api.provider?.getBalance(address)
-    return toBigNumber(value || 0)
+    return toBigNumber(value || -1)
   }
 
   async totalSupply(): Promise<BigNumber> {

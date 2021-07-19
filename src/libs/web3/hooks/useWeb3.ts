@@ -13,6 +13,7 @@ const _useWeb3 = <T extends Web3Provider>() => {
   const core = useWeb3React<T>()
   const [activeConnector, setActiveConnector] = useState<Connector | null>(null)
   const [api, setAPI] = useState<API>()
+  const [inited, setInited] = useState(false)
 
   const activate = (connector: Connector, onError?: (error: Error) => void, throwErrors?: boolean) => {
     setActiveConnector(connector)
@@ -41,13 +42,11 @@ const _useWeb3 = <T extends Web3Provider>() => {
     })
     api.init().then(async () => {
       setAPI(api)
-      if (!api.provider) {
-        return
-      }
+      setInited(true)
     })
   }, [core.library, core.chainId, core.account])
 
-  return { ...core, activate, deactivate, activeConnector, api }
+  return { ...core, activate, deactivate, activeConnector, api, inited }
 }
 
 const Web3 = createContainer(_useWeb3)

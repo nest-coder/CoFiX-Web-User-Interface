@@ -49,7 +49,7 @@ const TokenInput: FC<Props> = ({ ...props }) => {
   const { api, account } = useWeb3()
   const modal = useRef<any>()
   const gasFee = useGasFee()
-  const tokenBalance = useTokenBalance(symbol, account || '')
+  const { balance: tokenBalance, loading: loadingBalance } = useTokenBalance(symbol, account || '')
   const [balance, setBalance] = useState<Props['balance']>(props.balance || tokenBalance)
 
   useEffect(() => {
@@ -113,8 +113,10 @@ const TokenInput: FC<Props> = ({ ...props }) => {
   }, [props.symbol])
 
   useEffect(() => {
-    if (props.onChange) {
-      props.onChange(value, symbol)
+    if (value !== props.value || symbol !== props.symbol) {
+      if (props.onChange) {
+        props.onChange(value, symbol)
+      }
     }
   }, [value, symbol])
 
@@ -127,6 +129,25 @@ const TokenInput: FC<Props> = ({ ...props }) => {
       props.onInsufficientBalance(insufficientBalance)
     }
   }, [insufficientBalance])
+
+  const shouldShowBalanceLoading = useMemo(() => {
+    if (props.noExtra) {
+      return false
+    }
+
+    if (!tokenBalance) {
+      return true
+    }
+    if (tokenBalance?.amount.lt(0)) {
+      return true
+    }
+
+    if (tokenBalance) {
+      return false
+    }
+
+    return loadingBalance
+  }, [props.balance, props.noExtra, loadingBalance])
 
   const classPrefix = 'cofi-token-input'
   return (
@@ -171,19 +192,29 @@ const TokenInput: FC<Props> = ({ ...props }) => {
 
       {props.noExtra !== true && (
         <div className={`${classPrefix}-extra`}>
-          <span
-            className={classNames({
-              [`${classPrefix}-balance`]: true,
-              error: insufficientBalance,
-            })}
-          >{`${props.balanceTitle || t`Balance:`} ${balance ? balance.formatAmount : '--'} ${
-            token ? (token.isXToken ? 'XToken' : token.symbol) : ''
-          }`}</span>
-
-          {props.maximize && balance && (
-            <span className={`${classPrefix}-max`} onClick={handleMax}>
-              MAX
+          {shouldShowBalanceLoading ? (
+            <span className="w100">
+              <Skeleton />
             </span>
+          ) : (
+            <>
+              <span
+                className={classNames({
+                  [`${classPrefix}-balance`]: true,
+                  error: insufficientBalance,
+                })}
+              >
+                <>
+                  {`${props.balanceTitle || t`Balance:`} ${balance ? balance.formatAmount : '--'} `}
+                  {token ? (token.isXToken ? 'XToken' : token.symbol) : ''}
+                </>
+              </span>
+              {props.maximize && balance && (
+                <span className={`${classPrefix}-max`} onClick={handleMax}>
+                  MAX
+                </span>
+              )}
+            </>
           )}
         </div>
       )}

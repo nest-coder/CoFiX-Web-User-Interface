@@ -35,7 +35,7 @@ class ERC20Token extends Token {
       return toBigNumber(value)
     }
 
-    return toBigNumber(0)
+    return toBigNumber(-1)
   }
 
   async totalSupply() {
@@ -54,11 +54,12 @@ class ERC20Token extends Token {
 
     try {
       // try to get price from nest
-      const value = await this.api.Contracts.NestPriceFacade.contract?.['latestPriceAndTriggeredPriceInfo(address)'](
-        this.address
+      const value = await this.api.Contracts.NestPriceFacade.contract?.lastPriceListAndTriggeredPriceInfo(
+        this.address,
+        1
       )
       if (value) {
-        const v = toBigNumber(value.latestPriceValue)
+        const v = toBigNumber(value.prices[1])
         if (!v.isZero()) {
           return v
         }

@@ -6,6 +6,7 @@ import Contract, { ContractProps } from './Contract'
 import ERC20Token from './ERC20Token'
 import BigNumber from 'bignumber.js'
 import { toBigNumber } from '../util'
+import { BigNumberish } from 'ethers'
 
 export type CoFiXAnchorPoolProps = ContractProps & {
   title: string

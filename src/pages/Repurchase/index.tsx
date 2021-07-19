@@ -34,7 +34,7 @@ const Repurchase: FC = () => {
 
   const [amount, setAmount] = useState('')
   const [symbol, setSymbol] = useState('ETH')
-  const ethBalance = useTokenBalance('ETH', account || '')
+  const { balance: ethBalance } = useTokenBalance('ETH', account || '')
   const anchorPool = api?.CoFixAnchorPools[symbol]
 
   const handleRepurchase = useRepurchase({

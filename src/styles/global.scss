@@ -1,5 +1,6 @@
 @import './shared.scss';
 @import './popup.scss';
+@import './toast.scss';
 
 html,
 body {
@@ -90,4 +91,8 @@ li {
       transform: rotate(360deg);
     }
   }
+}
+
+.w100 {
+  width: 100%;
 }

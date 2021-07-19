@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { createContainer } from 'unstated-next'
 import { ContractTransaction } from '@ethersproject/contracts'
 import useWeb3 from './useWeb3'
+import { notifyTransaction } from 'src/pages/shared/TransactionNotification'
 
 export enum TransactionType {
   Swap,
@@ -194,6 +195,7 @@ const _useTransaction = () => {
             : (transaction.receiptStatus = TransactionReceiptStatus.Reverted)
           transaction.receiptStatus = status
           updateCurrent(transaction)
+          notifyTransaction(transaction)
         } else {
           setTimeout(check, 1000)
         }

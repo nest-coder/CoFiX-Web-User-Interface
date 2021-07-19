@@ -8,7 +8,7 @@ import useSlippageTolerance from 'src/hooks/useSlippageTolerance'
 import { SwapInfo } from '../api'
 
 const useSwap = (content: TansactionSwapContent) => {
-  const { api } = useWeb3()
+  const { api, inited } = useWeb3()
   const { push } = useTransaction()
   const { ratio: slippageTolerance } = useSlippageTolerance()
   const [loading, setLoading] = useState(false)
@@ -53,13 +53,21 @@ const useSwap = (content: TansactionSwapContent) => {
           return
         }
 
+        if (content.src.symbol === content.dest.symbol) {
+          return
+        }
+
         const srcToken = api.Tokens[content.src.symbol]
         const destToken = api.Tokens[content.dest.symbol]
         if (!srcToken || !destToken) {
           return
         }
 
-        const amountIn = content.src.amount || 1
+        let amountIn = toBigNumber(content.src.amount)
+        if (amountIn.isNaN() || amountIn.eq(0)) {
+          amountIn = toBigNumber(1)
+        }
+
         const swapInfo = await api.getSwapInfo(content.src.symbol, content.dest.symbol, amountIn)
         if (!swapInfo) {
           return
@@ -120,7 +128,7 @@ const useSwap = (content: TansactionSwapContent) => {
         setLoading(false)
       }
     })()
-  }, [api?.init, content.src.amount, content.src.symbol, content.dest.amount, content.dest.symbol])
+  }, [api, inited, content.src.amount, content.src.symbol, content.dest.amount, content.dest.symbol])
 
   const handler = useCallback(async () => {
     if (!api || !args) {

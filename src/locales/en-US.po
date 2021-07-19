@@ -39,6 +39,8 @@ msgstr "Accumulated repurchase in DAO (COFI)"
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
+#: src/pages/shared/TransactionNotification/index.tsx
+#: src/pages/shared/TransactionNotification/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Add Liquidity"
@@ -63,6 +65,7 @@ msgid "Amount | Percentage"
 msgstr "Amount | Percentage"
 
 #: src/pages/shared/TransactionButtonGroup/index.tsx
+#: src/pages/shared/TransactionNotification/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Approve"
 msgstr "Approve"
@@ -101,6 +104,7 @@ msgstr "COFI Market Price (Coingecko)"
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
+#: src/pages/shared/TransactionNotification/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Claim COFI"
 msgstr "Claim COFI"
@@ -337,9 +341,12 @@ msgstr "Ok, I understand the risk"
 #: src/pages/Repurchase/index.tsx
 #: src/pages/Swap/index.tsx
 #: src/pages/Swap/index.tsx
+#: src/pages/Swap/index.tsx
+#: src/pages/Swap/index.tsx
 msgid "Oracle Call Fee"
 msgstr "Oracle Call Fee"
 
+#: src/pages/Swap/index.tsx
 #: src/pages/Swap/index.tsx
 msgid "Oracle Fee is what you pay to the NEST protocol for providing accurate market price data to the smart contract."
 msgstr "Oracle Fee is what you pay to the NEST protocol for providing accurate market price data to the smart contract."
@@ -397,6 +404,8 @@ msgstr "Regarding the CoFiX repurchase, you need to know the following rules and
 #: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/RemoveLiquidity/index.tsx
 #: src/pages/Pool/pages/RemoveLiquidity/index.tsx
+#: src/pages/shared/TransactionNotification/index.tsx
+#: src/pages/shared/TransactionNotification/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Remove Liquidity"
@@ -405,6 +414,7 @@ msgstr "Remove Liquidity"
 #: src/pages/Repurchase/index.tsx
 #: src/pages/Repurchase/index.tsx
 #: src/pages/shared/Header/index.tsx
+#: src/pages/shared/TransactionNotification/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Repurchase"
 msgstr "Repurchase"
@@ -451,6 +461,7 @@ msgstr "Slippage Tolerance"
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/StakeXToken/index.tsx
 #: src/pages/Mining/pages/StakeXToken/index.tsx
+#: src/pages/shared/TransactionNotification/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Stake XToken"
 msgstr "Stake XToken"
@@ -460,6 +471,7 @@ msgid "Staked Amount:"
 msgstr "Staked Amount:"
 
 #: src/pages/shared/Header/index.tsx
+#: src/pages/shared/TransactionNotification/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Swap"
 msgstr "Swap"
@@ -532,10 +544,12 @@ msgstr "Transaction Submitted"
 msgid "USD Anchor"
 msgstr "USD Anchor"
 
+#: src/pages/shared/TransactionNotification/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Unsupported Content"
 msgstr "Unsupported Content"
 
+#: src/pages/shared/TransactionNotification/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Unsupported Type"
 msgstr "Unsupported Type"
@@ -543,6 +557,10 @@ msgstr "Unsupported Type"
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "View"
 msgstr "View"
+
+#: src/pages/shared/TransactionNotification/index.tsx
+msgid "View in Browser"
+msgstr "View in Browser"
 
 #: src/pages/shared/TransactionModal/index.tsx
 msgid "View in Etherscan"
@@ -575,6 +593,7 @@ msgstr "WhitePaper"
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/WithdrawXToken/index.tsx
+#: src/pages/shared/TransactionNotification/index.tsx
 #: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Withdraw XToken"
 msgstr "Withdraw XToken"

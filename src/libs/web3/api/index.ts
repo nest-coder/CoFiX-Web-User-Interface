@@ -38,7 +38,6 @@ type APIProps = {
 }
 
 class API {
-  inited: boolean
   provider?: Web3Provider
   chainId?: number
   account?: string
@@ -72,7 +71,6 @@ class API {
     this.provider = props.provider
     this.chainId = props.chainId
     this.account = props.account
-    this.inited = false
 
     this.Tokens = {
       ETH: new ETHToken(this),
@@ -130,8 +128,6 @@ class API {
     )
     await Promise.all(Object.values(this.Contracts).map((t) => t.init()))
     await Promise.all(Object.values(this.CoFixAnchorPools).map((t) => t.init()))
-
-    this.inited = true
   }
 
   async getSwapInfo(src: string, dest: string, amount: BigNumberish | BigNumber) {

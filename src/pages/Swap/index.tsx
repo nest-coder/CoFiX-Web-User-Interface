@@ -21,70 +21,80 @@ import { RiskAction, useRiskModal } from '../shared/RiskModal'
 const Swap: FC = () => {
   const { api } = useWeb3()
   const { ratio: slippageTolerance } = useSlippageTolerance()
-  const [src, setSrc] = useState({ symbol: 'ETH', amount: '' })
-  const [dest, setDest] = useState({ symbol: 'USDT', amount: '' })
-  const swap = useSwap({ src, dest })
+  const [pair, setPair] = useState({
+    src: { symbol: 'ETH', amount: '' },
+    dest: { symbol: 'USDT', amount: '' },
+  })
+  const swap = useSwap(pair)
   const [confirm, setConfirm] = useState(false)
   const { checkRisk } = useRiskModal()
   const [insufficient, setInsufficient] = useState(false)
+  const [change, setChange] = useState<string>()
 
   const handleSwitch = () => {
-    const oldSrc = src
-    setSrc(dest)
-    setDest(oldSrc)
+    setPair({
+      src: pair.dest,
+      dest: pair.src,
+    })
   }
 
   const handleChangeSrc = (amount: string, symbol: string) => {
-    if (symbol === dest.symbol) {
+    if (symbol === pair.dest.symbol) {
       handleSwitch()
     } else {
-      if (symbol === src.symbol && amount === src.amount) {
+      if (symbol === pair.src.symbol && amount === pair.src.amount) {
         return
       }
-      setSrc({
+
+      setChange('src')
+      pair.src = {
         symbol,
         amount,
-      })
-
-      if (swap?.ratio && amount) {
-        setDest({
-          symbol: dest.symbol,
-          amount: toBigNumber(amount).multipliedBy(swap?.ratio.final).toString(),
-        })
       }
+      if (swap?.ratio && amount) {
+        pair.dest = {
+          symbol: pair.dest.symbol,
+          amount: toBigNumber(amount).multipliedBy(swap?.ratio).toFixed(),
+        }
+      }
+
+      setPair({ ...pair })
+      setChange(undefined)
     }
   }
 
   const handleChangeDest = (amount: string, symbol: string) => {
-    if (symbol === src.symbol) {
+    if (symbol === pair.src.symbol) {
       handleSwitch()
     } else {
-      if (symbol === dest.symbol && amount === dest.amount) {
+      if (symbol === pair.dest.symbol && amount === pair.dest.amount) {
         return
       }
-      setDest({
+
+      setChange('dest')
+      pair.dest = {
         symbol,
         amount,
-      })
-
-      if (swap?.ratio && amount) {
-        setSrc({
-          symbol: dest.symbol,
-          amount: toBigNumber(amount).div(swap?.ratio).toString(),
-        })
       }
+      if (swap?.ratio && amount) {
+        pair.src = {
+          symbol: pair.src.symbol,
+          amount: toBigNumber(amount).div(swap?.ratio).toFixed(),
+        }
+      }
+
+      setPair({ ...pair })
+      setChange(undefined)
     }
   }
 
   useEffect(() => {
-    if (swap?.ratio && src.amount) {
-      setDest({
-        symbol: dest.symbol,
-        amount: toBigNumber(src.amount).multipliedBy(swap?.ratio).toString(),
-      })
+    if (swap?.ratio) {
+      handleChangeSrc(pair.src.amount, pair.src.symbol)
     }
   }, [swap?.ratio])
 
+  const { src, dest } = pair
   const classPrefix = 'cofi-page-swap'
   const sectionSwap = (
     <section>
@@ -97,6 +107,7 @@ const Swap: FC = () => {
             onChange={handleChangeSrc}
             checkInsufficientBalance
             onInsufficientBalance={(b) => setInsufficient(b)}
+            loading={!swap.ratio || (swap.loading && change === 'dest')}
           />
           <SwitchOutline onClick={handleSwitch} />
           <TokenInput
@@ -104,7 +115,7 @@ const Swap: FC = () => {
             symbol={dest.symbol}
             value={dest.amount}
             onChange={handleChangeDest}
-            loading={swap.loading}
+            loading={!swap.ratio || (swap.loading && change === 'src')}
           />
         </div>
 
