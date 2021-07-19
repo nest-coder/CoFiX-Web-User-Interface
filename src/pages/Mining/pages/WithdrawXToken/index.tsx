@@ -24,6 +24,7 @@ const WithdrawXToken: FC = () => {
   const stakeInfo = useStakeInfo(symbol[0], symbol[1])
   const [amount, setAmount] = useState('')
   const xtoken = useXToken(symbol[0], symbol[1])
+  const [insufficient, setInsufficient] = useState(false)
 
   useEffect(() => {
     if (!api) {
@@ -64,9 +65,14 @@ const WithdrawXToken: FC = () => {
         balance={stakeInfo?.stakedXToken}
         value={amount}
         onChange={(v) => setAmount(v)}
+        checkInsufficientBalance
+        onInsufficientBalance={(i) => setInsufficient(i)}
       />
 
-      <TransactionButtonGroup disabled={!amount || toBigNumber(amount).lte(0)} onClick={handleWithdrawXToken.handler}>
+      <TransactionButtonGroup
+        disabled={insufficient || !amount || toBigNumber(amount).lte(0)}
+        onClick={handleWithdrawXToken.handler}
+      >
         <Trans>Withdraw XToken</Trans>
       </TransactionButtonGroup>
     </Card>

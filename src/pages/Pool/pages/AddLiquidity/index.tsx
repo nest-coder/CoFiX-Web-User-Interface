@@ -27,6 +27,9 @@ const AddLiquidity: FC = () => {
   const [amount, setAmount] = useState(['', ''])
   const ratio = usePoolRatio(symbol[0], symbol[1])
 
+  const [insufficient0, setInsufficient0] = useState(false)
+  const [insufficient1, setInsufficient1] = useState(false)
+
   useEffect(() => {
     if (!api) {
       return
@@ -86,6 +89,8 @@ const AddLiquidity: FC = () => {
         title={`${t`Input`} ${symbol[0]} ${t`Amount`}`}
         value={amount[0]}
         onChange={handleToken0AmountChange}
+        checkInsufficientBalance
+        onInsufficientBalance={(i) => setInsufficient0(i)}
       />
 
       {symbol[1] && (
@@ -96,6 +101,8 @@ const AddLiquidity: FC = () => {
           title={`${t`Input`} ${symbol[1]} ${t`Amount`}`}
           value={amount[1]}
           onChange={handleToken1AmountChange}
+          checkInsufficientBalance
+          onInsufficientBalance={(i) => setInsufficient1(i)}
         />
       )}
 
@@ -115,7 +122,9 @@ const AddLiquidity: FC = () => {
           token: [symbol[0], symbol[1] || symbol[0]],
         }}
         onClick={handleAddLiquidity.handler}
-        disabled={!amount[0] || toBigNumber(amount[0]).lte(0) || (!!symbol[1] && !ratio)}
+        disabled={
+          insufficient0 || insufficient1 || !amount[0] || toBigNumber(amount[0]).lte(0) || (!!symbol[1] && !ratio)
+        }
       >
         <Trans>Add Liquidity</Trans>
       </TransactionButtonGroup>

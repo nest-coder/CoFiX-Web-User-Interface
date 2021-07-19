@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 
 const useToken = (symbol: string) => {
-  const { api } = useWeb3()
+  const { api, inited } = useWeb3()
 
   return useMemo(() => {
     if (!api) {
@@ -10,7 +10,7 @@ const useToken = (symbol: string) => {
     }
 
     return api.Tokens[symbol]
-  }, [api, symbol])
+  }, [api, inited, symbol])
 }
 
 export default useToken

@@ -26,8 +26,9 @@ const RemoveLiquidity: FC = () => {
   const { api } = useWeb3()
   const [symbol, setSymbol] = useState(['', ''])
   const [amount, setAmount] = useState('')
-  const poolInfo = usePoolInfo(symbol[0], symbol[1]) as PoolInfo
+  const { info: poolInfo } = usePoolInfo<PoolInfo>(symbol[0], symbol[1])
   const xtoken = useXToken(symbol[0], symbol[1])
+  const [insufficient, setInsufficient] = useState(false)
 
   useEffect(() => {
     if (!api) {
@@ -55,9 +56,6 @@ const RemoveLiquidity: FC = () => {
   })
 
   const classPrefix = 'cofi-page-pool-add-liquidity'
-  if (!xtoken) {
-    return <>Loading</>
-  }
 
   return (
     <Card backward onBackwardClick={() => history.push('/pool')} title={t`Remove Liquidity`}>
@@ -66,11 +64,13 @@ const RemoveLiquidity: FC = () => {
       </div>
       <TokenInput
         selectable={false}
-        symbol={xtoken.symbol}
+        symbol={xtoken?.symbol}
         title={`${t`Input Remove Amount (XToken)`}`}
         balance={poolInfo?.xtokenBalance}
         value={amount}
         onChange={(v) => setAmount(v)}
+        checkInsufficientBalance
+        onInsufficientBalance={(i) => setInsufficient(i)}
       />
 
       {handleRemoveLiquidity.receive &&
@@ -90,7 +90,7 @@ const RemoveLiquidity: FC = () => {
           token: [symbol[0], symbol[1]],
         }}
         onClick={handleRemoveLiquidity.handler}
-        disabled={!amount || toBigNumber(amount).lte(0)}
+        disabled={insufficient || !amount || toBigNumber(amount).lte(0)}
       >
         <Trans>Remove Liquidity</Trans>
       </TransactionButtonGroup>

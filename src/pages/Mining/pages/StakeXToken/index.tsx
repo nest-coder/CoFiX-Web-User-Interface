@@ -25,10 +25,11 @@ const StakeXToken: FC = () => {
 
   const { api } = useWeb3()
   const [symbol, setSymbol] = useState(['', ''])
-  const poolInfo = usePoolInfo(symbol[0], symbol[1]) as PoolInfo
+  const { info: poolInfo } = usePoolInfo<PoolInfo>(symbol[0], symbol[1])
   const stakeInfo = useStakeInfo(symbol[0], symbol[1])
   const [amount, setAmount] = useState('')
   const xtoken = useXToken(symbol[0], symbol[1])
+  const [insufficient, setInsufficient] = useState(false)
 
   useEffect(() => {
     if (!api) {
@@ -68,6 +69,8 @@ const StakeXToken: FC = () => {
         balance={poolInfo?.xtokenBalance}
         value={amount}
         onChange={(v) => setAmount(v)}
+        checkInsufficientBalance
+        onInsufficientBalance={(i) => setInsufficient(i)}
       />
 
       <Field
@@ -81,7 +84,7 @@ const StakeXToken: FC = () => {
           transactionType: TransactionType.StakeXToken,
           token: [symbol[0], symbol[1]],
         }}
-        disabled={!amount || toBigNumber(amount).lte(0)}
+        disabled={insufficient || !amount || toBigNumber(amount).lte(0)}
         onClick={handleStakeXToken.handler}
       >
         <Trans>Stake XToken</Trans>

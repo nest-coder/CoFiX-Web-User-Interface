@@ -113,10 +113,12 @@ const useRemoveLiquidity = (content: TransactionRemoveLiquidityContent) => {
           for (let i = 0; i < sortedTotalSupply.length && remain.gt(0); i++) {
             const out = BigNumber.minimum(remain, sortedTotalSupply[i].totalSupply.amount)
             remain = remain.minus(out)
-            content.receive.push({
-              symbol: sortedTotalSupply[i].symbol,
-              amount: api.Tokens[sortedTotalSupply[i].symbol].format(out),
-            })
+            if (out.gt(0)) {
+              content.receive.push({
+                symbol: sortedTotalSupply[i].symbol,
+                amount: api.Tokens[sortedTotalSupply[i].symbol].format(out),
+              })
+            }
           }
         } else {
           content.receive = [

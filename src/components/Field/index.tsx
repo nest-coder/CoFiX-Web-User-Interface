@@ -5,12 +5,14 @@ import { QuestionOutline, ArrowDown } from 'src/components/Icon'
 import Switch from 'src/components/Switch'
 import Popup from 'reactjs-popup'
 import classNames from 'classnames'
+import Skeleton from 'react-loading-skeleton'
 
 type Props = {
   name?: string
   value?: string | boolean | JSX.Element
   tooltip?: JSX.Element
   onChange?: (value: Props['value']) => void
+  loading?: boolean
 }
 
 const Field: FC<Props> = ({ children, ...props }) => {
@@ -55,19 +57,29 @@ const Field: FC<Props> = ({ children, ...props }) => {
         </div>
 
         <div className={`${classPrefix}-value`}>
-          {typeof value === 'boolean' ? <Switch value={value} onChange={(v) => setValue(v)} /> : <span>{value}</span>}
-          {!!children && (
-            <ArrowDown
-              className={classNames({
-                [`${classPrefix}-arrow-down`]: true,
-                flip: !collapse,
-              })}
-            />
+          {props.loading ? (
+            <Skeleton width={200} />
+          ) : (
+            <>
+              {typeof value === 'boolean' ? (
+                <Switch value={value} onChange={(v) => setValue(v)} />
+              ) : (
+                <span>{value}</span>
+              )}
+              {!!children && (
+                <ArrowDown
+                  className={classNames({
+                    [`${classPrefix}-arrow-down`]: true,
+                    flip: !collapse,
+                  })}
+                />
+              )}
+            </>
           )}
         </div>
       </div>
 
-      {!collapse && <div className={`${classPrefix}-content`}>{children}</div>}
+      {!collapse && !props.loading && <div className={`${classPrefix}-content`}>{children}</div>}
     </div>
   )
 }

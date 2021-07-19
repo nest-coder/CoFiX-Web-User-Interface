@@ -121,6 +121,7 @@ const Swap: FC = () => {
 
         <Field
           name={t`Trading Price`}
+          loading={!swap?.amount?.finalFormat}
           value={`1 ${src.symbol} = ${swap?.amount?.finalFormat || '--'} ${dest.symbol}`}
           tooltip={
             <>
@@ -196,6 +197,7 @@ const Swap: FC = () => {
 
         <Field
           name={t`Oracle Call Fee`}
+          loading={!swap?.oracleCallFee?.format}
           value={`+ ${swap?.oracleCallFee?.format || '--'} ETH`}
           tooltip={
             <>

@@ -13,13 +13,32 @@ import { Empty } from 'src/components/Icon'
 import { AnchorPoolInfo } from 'src/libs/web3/api/CoFiXAnchorPool'
 import { PoolInfo } from 'src/libs/web3/api/CoFiXPair'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
+import Skeleton from 'react-loading-skeleton'
+
+const Item: FC<{
+  Icon: typeof DollarOutline
+  title: string
+  content: string
+  loading: boolean
+}> = ({ Icon, title, content, loading }) => {
+  return (
+    <>
+      <Icon />
+
+      <div>
+        <span>{title}</span>
+        {loading ? <Skeleton width={100} /> : <span>{content}</span>}
+      </div>
+    </>
+  )
+}
 
 const Pool: FC = () => {
   const { api } = useWeb3()
   const [pair, setPair] = useState(['ETH', 'USDT'])
   const [symbol, setSymbol] = useState('USDT')
-  const poolInfo = usePoolInfo(pair[0], pair[1]) as PoolInfo
-  const anchorPoolInfo = usePoolInfo(symbol) as AnchorPoolInfo
+  const { info: poolInfo } = usePoolInfo<PoolInfo>(pair[0], pair[1])
+  const { info: anchorPoolInfo } = usePoolInfo<AnchorPoolInfo>(symbol)
 
   const [token0, token1] = [useToken(pair[0]), useToken(pair[1])]
   const token = useToken(symbol)
@@ -53,54 +72,52 @@ const Pool: FC = () => {
 
               <ul className={`${classPrefix}-ul responsive`}>
                 <li>
-                  <DollarOutline />
-                  <div>
-                    <span>
-                      <Trans>TVL</Trans>
-                    </span>
-                    <span>{poolInfo ? api?.Tokens.USDT.format(poolInfo.totalFunds) : '--'}</span>
-                  </div>
+                  <Item
+                    Icon={DollarOutline}
+                    title={t`TVL`}
+                    content={api && poolInfo ? api.Tokens.USDT.format(poolInfo.totalFunds) : '--'}
+                    loading={!poolInfo}
+                  />
                 </li>
                 <li>
-                  <PercentageSignOutline />
-                  <div>
-                    <span>
-                      <Trans>Net worth</Trans>
-                    </span>
-                    <span>{poolInfo ? poolInfo.nav.toFormat(8) : '--'}</span>
-                  </div>
+                  <Item
+                    Icon={PercentageSignOutline}
+                    title={t`Net worth`}
+                    content={poolInfo ? poolInfo.nav.toFormat(8) : '--'}
+                    loading={!poolInfo}
+                  />
                 </li>
                 <li>
-                  <token0.Icon />
-                  <div>
-                    <span>{`${token0.symbol} ${t`Amount`}`}</span>
-                    <span>{poolInfo ? poolInfo.formatAmounts[0] : '--'}</span>
-                  </div>
+                  <Item
+                    Icon={token0.Icon}
+                    title={`${token0.symbol} ${t`Amount`}`}
+                    content={poolInfo ? poolInfo.formatAmounts[0] : '--'}
+                    loading={!poolInfo}
+                  />
                 </li>
                 <li>
-                  <token1.Icon />
-                  <div>
-                    <span>{`${token1.symbol} ${t`Amount`}`}</span>
-                    <span>{poolInfo ? poolInfo.formatAmounts[1] : '--'}</span>
-                  </div>
+                  <Item
+                    Icon={token1.Icon}
+                    title={`${token1.symbol} ${t`Amount`}`}
+                    content={poolInfo ? poolInfo.formatAmounts[1] : '--'}
+                    loading={!poolInfo}
+                  />
                 </li>
                 <li>
-                  <DashboardOutline />
-                  <div>
-                    <span>
-                      <Trans>Mining Speed</Trans>
-                    </span>
-                    <span>{`${poolInfo ? poolInfo.miningSpeed : '--'} COFI / ${t`Block`}`}</span>
-                  </div>
+                  <Item
+                    Icon={DashboardOutline}
+                    title={t`Mining Speed`}
+                    content={`${poolInfo ? poolInfo.miningSpeed : '--'} COFI / ${t`Block`}`}
+                    loading={!poolInfo}
+                  />
                 </li>
                 <li>
-                  <BarGraphOutline />
-                  <div>
-                    <span>
-                      <Trans>Current APY</Trans>
-                    </span>
-                    <span>{poolInfo ? poolInfo.apy : '--'}</span>
-                  </div>
+                  <Item
+                    Icon={BarGraphOutline}
+                    title={t`Current APY`}
+                    content={poolInfo ? poolInfo.apy : '--'}
+                    loading={!poolInfo}
+                  />
                 </li>
               </ul>
             </div>
@@ -115,7 +132,7 @@ const Pool: FC = () => {
 
         <div className={`${classPrefix}-info-container`}>
           <h1 className={`${classPrefix}-h1`}>{t`My Pool`}</h1>
-          {!poolInfo || poolInfo.emptyLiquidity ? (
+          {poolInfo?.emptyLiquidity ? (
             empty
           ) : (
             <Card>
@@ -136,14 +153,22 @@ const Pool: FC = () => {
                     <token0.Icon />
                     <div>
                       <span>{token0.symbol}</span>
-                      <span>{poolInfo ? `${poolInfo.myPoolAmounts[0]} | ${poolInfo.myPoolRatio}` : '--'}</span>
+                      {poolInfo ? (
+                        <span>{poolInfo ? `${poolInfo.myPoolAmounts[0]} | ${poolInfo.myPoolRatio}` : '--'}</span>
+                      ) : (
+                        <Skeleton width={200} />
+                      )}
                     </div>
                   </li>
                   <li>
                     <token1.Icon />
                     <div>
                       <span>{token1.symbol}</span>
-                      <span>{poolInfo ? `${poolInfo.myPoolAmounts[1]} | ${poolInfo.myPoolRatio}` : '--'}</span>
+                      {poolInfo ? (
+                        <span>{poolInfo ? `${poolInfo.myPoolAmounts[1]} | ${poolInfo.myPoolRatio}` : '--'}</span>
+                      ) : (
+                        <Skeleton width={200} />
+                      )}
                     </div>
                   </li>
                 </ul>
@@ -151,7 +176,7 @@ const Pool: FC = () => {
             </Card>
           )}
 
-          {poolInfo?.emptyLiquidity || (
+          {!poolInfo || poolInfo?.emptyLiquidity || (
             <Button block gradient>
               <Link to={`/pool/remove-liquidity/${token0.symbol}/${token1.symbol}`}>
                 <Trans>Remove Liquidity</Trans>
@@ -181,49 +206,48 @@ const Pool: FC = () => {
 
               <ul className={`${classPrefix}-ul responsive`}>
                 <li>
-                  <DollarOutline />
-                  <div>
-                    <span>
-                      <Trans>TVL</Trans>
-                    </span>
-                    <span>{anchorPoolInfo ? api?.Tokens.USDT.format(anchorPoolInfo.totalFunds) : '--'}</span>
-                  </div>
+                  <Item
+                    Icon={DollarOutline}
+                    title={t`TVL`}
+                    content={api && anchorPoolInfo ? api.Tokens.USDT.format(anchorPoolInfo.totalFunds) : '--'}
+                    loading={!anchorPoolInfo}
+                  />
                 </li>
 
                 <li>
-                  <token.Icon />
-                  <div>
-                    <span>{`${token.symbol} ${t`Amount`}`}</span>
-                    <span>{anchorPoolInfo ? anchorPoolInfo.formatAmount : '--'}</span>
-                  </div>
+                  <Item
+                    Icon={token.Icon}
+                    title={`${token.symbol} ${t`Amount`}`}
+                    content={anchorPoolInfo ? anchorPoolInfo.formatAmount : '--'}
+                    loading={!anchorPoolInfo}
+                  />
                 </li>
 
                 <li>
-                  <PercentageSignOutline />
-                  <div>
-                    <span>{t`Total Supply`}</span>
-                    <span>{anchorPoolInfo ? anchorPoolInfo.xtokenTotalSupply.formatAmount : '--'}</span>
-                  </div>
+                  <Item
+                    Icon={PercentageSignOutline}
+                    title={t`Total Supply`}
+                    content={anchorPoolInfo ? anchorPoolInfo.xtokenTotalSupply.formatAmount : '--'}
+                    loading={!anchorPoolInfo}
+                  />
                 </li>
 
                 <li>
-                  <DashboardOutline />
-                  <div>
-                    <span>
-                      <Trans>Mining Speed</Trans>
-                    </span>
-                    <span>{`${anchorPoolInfo ? anchorPoolInfo.miningSpeed : '--'} COFI / ${t`Block`}`}</span>
-                  </div>
+                  <Item
+                    Icon={DashboardOutline}
+                    title={t`Mining Speed`}
+                    content={`${anchorPoolInfo ? anchorPoolInfo.miningSpeed : '--'} COFI / ${t`Block`}`}
+                    loading={!anchorPoolInfo}
+                  />
                 </li>
 
                 <li>
-                  <BarGraphOutline />
-                  <div>
-                    <span>
-                      <Trans>Current APY</Trans>
-                    </span>
-                    <span>{anchorPoolInfo ? anchorPoolInfo.apy : '--'}</span>
-                  </div>
+                  <Item
+                    Icon={BarGraphOutline}
+                    title={t`Current APY`}
+                    content={anchorPoolInfo ? anchorPoolInfo.apy : '--'}
+                    loading={!anchorPoolInfo}
+                  />
                 </li>
               </ul>
             </div>
@@ -238,7 +262,7 @@ const Pool: FC = () => {
 
         <div className={`${classPrefix}-info-container`}>
           <h1 className={`${classPrefix}-h1`}>{t`My Pool`}</h1>
-          {!anchorPoolInfo || anchorPoolInfo.emptyLiquidity ? (
+          {anchorPoolInfo?.emptyLiquidity ? (
             empty
           ) : (
             <Card>
@@ -259,9 +283,15 @@ const Pool: FC = () => {
                     <token.Icon />
                     <div>
                       <span>{token.symbol}</span>
-                      <span>
-                        {anchorPoolInfo ? `${anchorPoolInfo.myPoolFormatAmount} | ${anchorPoolInfo.myPoolRatio}` : '--'}
-                      </span>
+                      {anchorPoolInfo ? (
+                        <span>
+                          {anchorPoolInfo
+                            ? `${anchorPoolInfo.myPoolFormatAmount} | ${anchorPoolInfo.myPoolRatio}`
+                            : '--'}
+                        </span>
+                      ) : (
+                        <Skeleton width={200} />
+                      )}
                     </div>
                   </li>
                 </ul>
@@ -269,7 +299,7 @@ const Pool: FC = () => {
             </Card>
           )}
 
-          {anchorPoolInfo?.emptyLiquidity || (
+          {!anchorPoolInfo || anchorPoolInfo?.emptyLiquidity || (
             <Button block gradient>
               <Link to={`/pool/remove-liquidity/${token.symbol}`}>
                 <Trans>Remove Liquidity</Trans>

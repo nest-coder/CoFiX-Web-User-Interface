@@ -122,7 +122,7 @@ const TokenInput: FC<Props> = ({ ...props }) => {
 
   const insufficientBalance = useMemo(() => {
     return !!props.checkInsufficientBalance && !!balance && toBigNumber(value).gt(balance.amount)
-  }, [value, balance, balance?.amount])
+  }, [value, balance, balance?.amount, props.balance])
 
   useEffect(() => {
     if (props.onInsufficientBalance) {
@@ -156,8 +156,8 @@ const TokenInput: FC<Props> = ({ ...props }) => {
 
       <div className={`${classPrefix}-container`}>
         <div className={`${classPrefix}-token`}>
-          {token && (token.isXToken ? <TokenXToken /> : <token.Icon />)}
-          <span>{token && (token.isXToken ? 'XToken' : token.symbol)}</span>
+          {token ? token.isXToken ? <TokenXToken /> : <token.Icon /> : <Skeleton width={44} height={44} circle />}
+          <span>{token ? token.isXToken ? 'XToken' : token.symbol : <Skeleton width={80} />}</span>
 
           {props.selectable && (
             <Popup
@@ -174,10 +174,8 @@ const TokenInput: FC<Props> = ({ ...props }) => {
           )}
         </div>
 
-        {props.loading ? (
-          <span className={`${classPrefix}-input`}>
-            <Skeleton />
-          </span>
+        {props.loading || shouldShowBalanceLoading ? (
+          <Skeleton width={100} />
         ) : (
           <input
             type="number"
@@ -225,7 +223,6 @@ const TokenInput: FC<Props> = ({ ...props }) => {
 TokenInput.defaultProps = {
   selectable: true,
   maximize: true,
-  symbol: 'ETH',
 }
 
 export default TokenInput

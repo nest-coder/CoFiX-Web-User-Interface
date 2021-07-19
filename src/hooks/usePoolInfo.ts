@@ -4,38 +4,45 @@ import { PoolInfo } from 'src/libs/web3/api/CoFiXPair'
 import useInterval from '@use-it/interval'
 import { AnchorPoolInfo } from 'src/libs/web3/api/CoFiXAnchorPool'
 
-const usePoolInfo = (token0: string, token1?: string) => {
+const usePoolInfo = <T extends PoolInfo | AnchorPoolInfo>(token0: string, token1?: string) => {
   const { api } = useWeb3()
-  const [info, setInfo] = useState<PoolInfo | AnchorPoolInfo>()
+  const [info, setInfo] = useState<T>()
+  const [loading, setLoading] = useState(false)
 
   const refresh = async () => {
-    if (!api || !token0) {
-      setInfo(undefined)
-      return
-    }
+    try {
+      setLoading(true)
 
-    if (token1) {
-      const pair = api.CoFiXPairs[token0][token1]
-      if (!pair) {
+      if (!api || !token0) {
         setInfo(undefined)
         return
       }
 
-      const i = await pair.getPoolInfo()
-      if (JSON.stringify(info) !== JSON.stringify(i)) {
-        setInfo(i)
-      }
-    } else {
-      const pool = api.CoFixAnchorPools[token0]
-      if (!pool) {
-        setInfo(undefined)
-        return
-      }
+      if (token1) {
+        const pair = api.CoFiXPairs[token0][token1]
+        if (!pair) {
+          setInfo(undefined)
+          return
+        }
 
-      const i = await pool.getAnchorPoolInfo(token0)
-      if (JSON.stringify(info) !== JSON.stringify(i)) {
-        setInfo(i)
+        const i = await pair.getPoolInfo()
+        if (JSON.stringify(info) !== JSON.stringify(i)) {
+          setInfo(i as T)
+        }
+      } else {
+        const pool = api.CoFixAnchorPools[token0]
+        if (!pool) {
+          setInfo(undefined)
+          return
+        }
+
+        const i = await pool.getAnchorPoolInfo(token0)
+        if (JSON.stringify(info) !== JSON.stringify(i)) {
+          setInfo(i as T)
+        }
       }
+    } finally {
+      setLoading(false)
     }
   }
   useEffect(() => {
@@ -44,7 +51,7 @@ const usePoolInfo = (token0: string, token1?: string) => {
 
   useInterval(refresh, 1000)
 
-  return info
+  return { info, loading }
 }
 
 export default usePoolInfo
