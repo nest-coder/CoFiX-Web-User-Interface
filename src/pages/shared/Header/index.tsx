@@ -1,15 +1,15 @@
-import { FC } from 'react'
 import './styles'
 
-import classNames from 'classnames'
-import { Link, useLocation } from 'react-router-dom'
-import { CoFiXLogoWithText, CoFiXLogoSmall } from 'src/components/Icon'
 import { Trans } from '@lingui/macro'
-import WalletConnect from 'src/pages/shared/WalletConnect'
-import { MenuButton } from 'src/pages/shared/Menu'
-import useWeb3 from 'src/libs/web3/hooks/useWeb3'
+import classNames from 'classnames'
+import { FC } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { CoFiXLogoSmall, CoFiXLogoWithText } from 'src/components/Icon'
 import Tag from 'src/components/Tag'
 import { Mainnet, SupportedChains } from 'src/libs/web3/constants/chains'
+import useWeb3 from 'src/libs/web3/hooks/useWeb3'
+import { MenuButton } from 'src/pages/shared/Menu'
+import WalletConnect from 'src/pages/shared/WalletConnect'
 
 const Nav: FC = () => {
   const location = useLocation()

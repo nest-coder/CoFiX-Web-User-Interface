@@ -1,16 +1,17 @@
+import './styles'
+
+import { t, Trans } from '@lingui/macro'
 import { FC, memo } from 'react'
 import Card from 'src/components/Card'
-import useWeb3 from 'src/libs/web3/hooks/useWeb3'
-import { Trans, t } from '@lingui/macro'
-import './styles'
+import { FailOutline, Loading, SuccessOutline } from 'src/components/Icon'
+import useEtherScanHost from 'src/hooks/useEtherScanHost'
 import useTransaction, {
   Transaction,
   TransactionReceiptStatus,
   TransactionStatus,
   TransactionType,
 } from 'src/libs/web3/hooks/useTransaction'
-import { Loading, SuccessOutline, FailOutline } from 'src/components/Icon'
-import useEtherScanHost from 'src/hooks/useEtherScanHost'
+import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 
 type Props = { onClose?: () => void }
 

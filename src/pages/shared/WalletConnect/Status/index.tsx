@@ -1,12 +1,14 @@
 import './styles'
+
 import { FC } from 'react'
-import useWeb3 from 'src/libs/web3/hooks/useWeb3'
-import Button from 'src/components/Button'
-import Modal from './Modal'
-import Popup from 'reactjs-popup'
 import { useState } from 'react'
-import useTransaction, { TransactionReceiptStatus, TransactionStatus } from 'src/libs/web3/hooks/useTransaction'
+import Popup from 'reactjs-popup'
+import Button from 'src/components/Button'
 import { Loading } from 'src/components/Icon'
+import useTransaction, { TransactionReceiptStatus, TransactionStatus } from 'src/libs/web3/hooks/useTransaction'
+import useWeb3 from 'src/libs/web3/hooks/useWeb3'
+
+import Modal from './Modal'
 
 const WalletConnectStatus: FC = () => {
   const { account } = useWeb3()

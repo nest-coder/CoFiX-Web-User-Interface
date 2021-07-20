@@ -1,20 +1,20 @@
-import { FC, useEffect } from 'react'
 import './styles'
-import Card from 'src/components/Card'
-import { useHistory, useParams } from 'react-router-dom'
-import { t } from '@lingui/macro'
-import TokenInput from 'src/components/TokenInput'
+
+import { t, Trans } from '@lingui/macro'
+import { FC, useEffect } from 'react'
 import { useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import Card from 'src/components/Card'
 import Field from 'src/components/Field'
-import { Trans } from '@lingui/macro'
+import TokenInput from 'src/components/TokenInput'
 import usePoolInfo from 'src/hooks/usePoolInfo'
+import { PoolInfo } from 'src/libs/web3/api/CoFiXPair'
 import useRemoveLiquidity from 'src/libs/web3/hooks/useRemoveLiquidity'
 import { TransactionType } from 'src/libs/web3/hooks/useTransaction'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import useXToken from 'src/libs/web3/hooks/useXToken'
-import { PoolInfo } from 'src/libs/web3/api/CoFiXPair'
-import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 import { toBigNumber } from 'src/libs/web3/util'
+import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 
 const RemoveLiquidity: FC = () => {
   const history = useHistory()

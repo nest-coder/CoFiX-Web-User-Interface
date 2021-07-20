@@ -1,8 +1,8 @@
-import { FC } from 'react'
 import './styles'
 
-import WalletConnect from 'src/pages/shared/WalletConnect'
+import { FC } from 'react'
 import { MenuButton } from 'src/pages/shared/Menu'
+import WalletConnect from 'src/pages/shared/WalletConnect'
 
 const Footer: FC = () => {
   const classPrefix = 'cofi-footer'

@@ -1,9 +1,8 @@
-import { FC } from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
-import CollapseCard from 'src/components/CollapaseCard'
-import { Trans, t } from '@lingui/macro'
-
+import { t, Trans } from '@lingui/macro'
 import loadable from '@loadable/component'
+import { FC } from 'react'
+import { Redirect, Route, Switch } from 'react-router-dom'
+import CollapseCard from 'src/components/CollapaseCard'
 
 const Index = loadable(() => import('./pages/Index'))
 const StakeXToken = loadable(() => import('./pages/StakeXToken'))

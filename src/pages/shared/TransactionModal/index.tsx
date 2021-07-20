@@ -1,12 +1,13 @@
-import { FC } from 'react'
 import './styles'
-import Popup from 'reactjs-popup'
-import Card from 'src/components/Card'
-import { Loading, SuccessOutline, FailOutline } from 'src/components/Icon'
-import useTransaction, { TransactionStatus } from 'src/libs/web3/hooks/useTransaction'
+
 import { Trans } from '@lingui/macro'
+import { FC } from 'react'
+import Popup from 'reactjs-popup'
 import Button from 'src/components/Button'
+import Card from 'src/components/Card'
+import { FailOutline, Loading, SuccessOutline } from 'src/components/Icon'
 import useEtherScanHost from 'src/hooks/useEtherScanHost'
+import useTransaction, { TransactionStatus } from 'src/libs/web3/hooks/useTransaction'
 
 const TransactionModal: FC = () => {
   const { showModal, closeModal, current } = useTransaction()

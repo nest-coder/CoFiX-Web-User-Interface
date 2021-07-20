@@ -1,13 +1,10 @@
-import { FC } from 'react'
 import './styles'
 
 import { Trans } from '@lingui/macro'
-
-import { Ellipsis, Whitepaper, Document, Github, Community, LangEN, LangCN } from 'src/components/Icon'
-
-import { dynamicActivate } from 'src/libs/i18n/config'
-
+import { FC } from 'react'
 import Popup from 'reactjs-popup'
+import { Community, Document, Ellipsis, Github, LangCN, LangEN, Whitepaper } from 'src/components/Icon'
+import { dynamicActivate } from 'src/libs/i18n/config'
 
 type Props = {
   onSelect?: (menu: string) => void

@@ -1,13 +1,11 @@
-import React from 'react'
-
 import loadable from '@loadable/component'
-
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
-
-import Header from 'src/pages/shared/Header'
 import Footer from 'src/pages/shared/Footer'
+import Header from 'src/pages/shared/Header'
 import TransactionModal from 'src/pages/shared/TransactionModal'
+
 import RiskModal from './shared/RiskModal'
 
 const Swap = loadable(() => import('./Swap'))

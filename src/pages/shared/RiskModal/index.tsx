@@ -1,10 +1,11 @@
-import './styles'
-import { FC, useState, useRef, useEffect } from 'react'
-import Popup from 'reactjs-popup'
-import Card from 'src/components/Card'
-import { createContainer } from 'unstated-next'
-import { t, Trans } from '@lingui/macro'
-import Button from 'src/components/Button'
+import './styles';
+
+import { t, Trans } from '@lingui/macro';
+import { FC, useEffect, useRef, useState } from 'react';
+import Popup from 'reactjs-popup';
+import Button from 'src/components/Button';
+import Card from 'src/components/Card';
+import { createContainer } from 'unstated-next';
 
 export enum RiskAction {
   Swap,
