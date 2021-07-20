@@ -54,3 +54,5 @@ jobs:
           port: ${{ secrets.PORT }}
           source: 'build/'
           target: ${{ secrets.TARGET }}
+          strip_components: 1
+
