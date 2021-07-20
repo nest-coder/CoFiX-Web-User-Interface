@@ -1,18 +1,18 @@
 import './styles'
-import { FC, useState, useEffect } from 'react'
-import Card from 'src/components/Card'
-import { useHistory, useParams } from 'react-router-dom'
-import { t } from '@lingui/macro'
-import TokenInput from 'src/components/TokenInput'
-import Field from 'src/components/Field'
-import { Trans } from '@lingui/macro'
-import usePoolRatio from 'src/hooks/usePoolRatio'
+
+import { t, Trans } from '@lingui/macro'
 import BigNumber from 'bignumber.js'
+import { FC, useEffect, useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import Card from 'src/components/Card'
+import Field from 'src/components/Field'
+import TokenInput from 'src/components/TokenInput'
+import usePoolRatio from 'src/hooks/usePoolRatio'
 import useAddLiquidity from 'src/libs/web3/hooks/useAddLiquidity'
 import { TransactionType } from 'src/libs/web3/hooks/useTransaction'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
-import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 import { toBigNumber } from 'src/libs/web3/util'
+import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 
 const AddLiquidity: FC = () => {
   const history = useHistory()

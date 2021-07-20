@@ -1,16 +1,18 @@
 import './styles'
+
+import { Trans } from '@lingui/macro'
 import { FC, useState } from 'react'
+import Button from 'src/components/Button'
+import ButtonGroup from 'src/components/Button/Group'
+import { Loading } from 'src/components/Icon'
+import useApprove from 'src/libs/web3/hooks/useApprove'
 import useTransaction, {
   Transaction,
   TransactionApproveContent,
   TransactionReceiptStatus,
 } from 'src/libs/web3/hooks/useTransaction'
-import { Trans } from '@lingui/macro'
-import { Loading } from 'src/components/Icon'
-import ButtonGroup from 'src/components/Button/Group'
-import Button from 'src/components/Button'
-import useApprove from 'src/libs/web3/hooks/useApprove'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
+
 import WalletConnectButton from '../WalletConnect/Button'
 
 type Props = {

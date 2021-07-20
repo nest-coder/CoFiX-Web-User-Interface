@@ -1,10 +1,10 @@
-import { FC } from 'react'
+import './styles'
 
+import { Trans } from '@lingui/macro'
+import { FC } from 'react'
+import Button from 'src/components/Button'
 import Card from 'src/components/Card'
 import { CoFiXLogo } from 'src/components/Icon'
-import Button from 'src/components/Button'
-import { Trans } from '@lingui/macro'
-import './styles'
 import { SupportedConnectors } from 'src/libs/web3/connectors'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 

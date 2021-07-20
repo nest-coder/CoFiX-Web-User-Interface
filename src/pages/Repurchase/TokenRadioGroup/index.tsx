@@ -1,9 +1,10 @@
-import { FC, useEffect } from 'react'
 import './styles'
+
 import { Trans } from '@lingui/macro'
+import { FC, useEffect } from 'react'
 import { useState } from 'react'
-import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import { useMemo } from 'react'
+import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 
 type Props = {
   tokens: Array<string>

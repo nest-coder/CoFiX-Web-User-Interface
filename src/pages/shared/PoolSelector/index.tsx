@@ -1,17 +1,18 @@
-import { FC, useState, memo } from 'react'
 import './styles'
-import useWeb3 from 'src/libs/web3/hooks/useWeb3'
-import Popup from 'reactjs-popup'
-import { useMemo } from 'react'
-import { ArrowDownOutline } from 'src/components/Icon'
+
 import { Trans, t } from '@lingui/macro'
-import Tag from 'src/components/Tag'
-import Card from 'src/components/Card'
-import CoFiXPair from 'src/libs/web3/api/CoFiXPair'
-import Button from 'src/components/Button'
+import { FC, memo, useState } from 'react'
+import { useMemo } from 'react'
 import { useRef } from 'react'
 import { useEffect } from 'react'
+import Popup from 'reactjs-popup'
+import Button from 'src/components/Button'
+import Card from 'src/components/Card'
+import { ArrowDownOutline } from 'src/components/Icon'
+import Tag from 'src/components/Tag'
 import useToken from 'src/hooks/useToken'
+import CoFiXPair from 'src/libs/web3/api/CoFiXPair'
+import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 
 type Props = {
   symbol: Array<string>

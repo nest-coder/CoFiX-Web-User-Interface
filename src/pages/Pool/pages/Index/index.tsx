@@ -1,19 +1,19 @@
-import { FC, useState } from 'react'
 import './styles'
-import Card from 'src/components/Card'
-import Tag from 'src/components/Tag'
+
 import { t, Trans } from '@lingui/macro'
-import { DollarOutline, PercentageSignOutline, DashboardOutline, BarGraphOutline } from 'src/components/Icon'
-import Button from 'src/components/Button'
+import { FC, useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
 import { Link } from 'react-router-dom'
+import Button from 'src/components/Button'
+import Card from 'src/components/Card'
+import { BarGraphOutline, DashboardOutline, DollarOutline, Empty, PercentageSignOutline } from 'src/components/Icon'
+import Tag from 'src/components/Tag'
 import usePoolInfo from 'src/hooks/usePoolInfo'
 import useToken from 'src/hooks/useToken'
-import PoolSelector from 'src/pages/shared/PoolSelector'
-import { Empty } from 'src/components/Icon'
 import { AnchorPoolInfo } from 'src/libs/web3/api/CoFiXAnchorPool'
 import { PoolInfo } from 'src/libs/web3/api/CoFiXPair'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
-import Skeleton from 'react-loading-skeleton'
+import PoolSelector from 'src/pages/shared/PoolSelector'
 
 const Item: FC<{
   Icon: typeof DollarOutline

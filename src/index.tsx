@@ -1,12 +1,13 @@
+import './styles/global.scss'
+import 'src/components/Icon'
+
+import BigNumber from 'bignumber.js'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './styles/global.scss'
-import App from './pages/App'
-import BigNumber from 'bignumber.js'
-
-import 'src/components/Icon'
 import I18nProvider from 'src/libs/i18n/provider'
 import Web3Provider from 'src/libs/web3/provider'
+
+import App from './pages/App'
 import { RiskModalProvider } from './pages/shared/RiskModal'
 
 BigNumber.config({ ROUNDING_MODE: BigNumber.ROUND_DOWN })

@@ -1,16 +1,16 @@
-import { FC, useState, useEffect } from 'react'
 import './styles'
-import Card from 'src/components/Card'
+
+import { t, Trans } from '@lingui/macro'
+import { FC, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { t } from '@lingui/macro'
+import Card from 'src/components/Card'
 import TokenInput from 'src/components/TokenInput'
-import { Trans } from '@lingui/macro'
 import useStakeInfo from 'src/hooks/useStakeInfo'
-import useWithdrawXToken from 'src/libs/web3/hooks/useWithdrawXToken'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
+import useWithdrawXToken from 'src/libs/web3/hooks/useWithdrawXToken'
 import useXToken from 'src/libs/web3/hooks/useXToken'
-import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 import { toBigNumber } from 'src/libs/web3/util'
+import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 
 const WithdrawXToken: FC = () => {
   const history = useHistory()

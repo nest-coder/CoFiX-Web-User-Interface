@@ -1,10 +1,11 @@
 import './styles'
+
+import { t, Trans } from '@lingui/macro'
 import { FC } from 'react'
+import { toast } from 'react-toastify'
 import { FailOutline, SuccessOutline } from 'src/components/Icon'
 import useEtherScanHost from 'src/hooks/useEtherScanHost'
 import { Transaction, TransactionReceiptStatus, TransactionType } from 'src/libs/web3/hooks/useTransaction'
-import { Trans, t } from '@lingui/macro'
-import { toast } from 'react-toastify'
 
 type Props = {
   transaction: Transaction

@@ -1,8 +1,9 @@
+import { Trans } from '@lingui/macro'
 import { FC, useRef } from 'react'
 import Popup from 'reactjs-popup'
-import { Trans } from '@lingui/macro'
-import Modal from './Modal'
 import Button, { Props as ButtonProps } from 'src/components/Button'
+
+import Modal from './Modal'
 
 type Props = ButtonProps
 const WalletConnectButton: FC<Props> = ({ children, ...buttonProps }) => {

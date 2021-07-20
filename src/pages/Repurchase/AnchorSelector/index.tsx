@@ -1,15 +1,16 @@
 import './styles'
-import { FC, useState, useRef, useEffect } from 'react'
-import useToken from 'src/hooks/useToken'
+
 import { Trans, t } from '@lingui/macro'
-import Popup from 'reactjs-popup'
-import { ArrowDownOutline } from 'src/components/Icon'
-import Card from 'src/components/Card'
-import useWeb3 from 'src/libs/web3/hooks/useWeb3'
-import Button from 'src/components/Button'
-import useDAOBalance from 'src/hooks/useDAOBalance'
-import Skeleton from 'react-loading-skeleton'
 import classNames from 'classnames'
+import { FC, useEffect, useRef, useState } from 'react'
+import Skeleton from 'react-loading-skeleton'
+import Popup from 'reactjs-popup'
+import Button from 'src/components/Button'
+import Card from 'src/components/Card'
+import { ArrowDownOutline } from 'src/components/Icon'
+import useDAOBalance from 'src/hooks/useDAOBalance'
+import useToken from 'src/hooks/useToken'
+import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 
 type Props = {
   symbol: string
