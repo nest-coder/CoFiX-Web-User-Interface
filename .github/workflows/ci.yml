@@ -29,7 +29,8 @@ jobs:
 
       - name: build
         run: yarn build
-  deploy:
+  deploy-dev:
+    environment: Dev
     needs: build
     runs-on: ubuntu-latest
     steps:
