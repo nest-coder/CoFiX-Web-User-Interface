@@ -34,6 +34,7 @@ abstract class Token extends Contract {
   decimals: number
   formatPrecision: TokenProps['formatPrecision']
   isXToken: boolean
+  cofiAmountPerBlock?: number
 
   constructor(api: API, props: TokenProps) {
     super(api, props)

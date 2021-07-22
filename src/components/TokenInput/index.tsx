@@ -1,19 +1,21 @@
-import { FC, ChangeEvent, useRef, useMemo } from 'react'
 import './styles'
+
 import { t } from '@lingui/macro'
+import BigNumber from 'bignumber.js'
+import classNames from 'classnames'
+import { ChangeEvent, FC, useMemo, useRef } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
-import Modal from './Modal'
+import Skeleton from 'react-loading-skeleton'
 import Popup from 'reactjs-popup'
 import { ArrowDownOutline, TokenXToken } from 'src/components/Icon'
 import useGasFee from 'src/hooks/useGasFee'
-import useTokenBalance from 'src/hooks/useTokenBalance'
-import BigNumber from 'bignumber.js'
-import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import useToken from 'src/hooks/useToken'
+import useTokenBalance from 'src/hooks/useTokenBalance'
+import useWeb3 from 'src/libs/web3/hooks/useWeb3'
 import { toBigNumber } from 'src/libs/web3/util'
-import classNames from 'classnames'
-import Skeleton from 'react-loading-skeleton'
+
+import Modal from './Modal'
 
 type Props = {
   title?: string
@@ -39,6 +41,8 @@ type Props = {
   checkInsufficientBalance?: boolean
 
   loading?: boolean
+
+  tokens?: Array<string>
 }
 
 const TokenInput: FC<Props> = ({ ...props }) => {
@@ -169,7 +173,7 @@ const TokenInput: FC<Props> = ({ ...props }) => {
                 </span>
               }
             >
-              <Modal onClose={() => modal.current.close()} onSelect={handleSelectToken} />
+              <Modal onClose={() => modal.current.close()} onSelect={handleSelectToken} tokens={props.tokens} />
             </Popup>
           )}
         </div>

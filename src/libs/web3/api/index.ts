@@ -67,6 +67,8 @@ class API {
     CoFiXDAO: CoFiXDAO
   }
 
+  swapMap: Record<string, Record<string, CoFiXPair | CoFiXAnchorPool>>
+
   constructor(props: APIProps) {
     this.provider = props.provider
     this.chainId = props.chainId
@@ -119,21 +121,6 @@ class API {
       CoFiXVaultForStaking: new CoFiXVaultForStaking(this, props.CoFiXVaultForStaking),
       CoFiXDAO: new CoFiXDAO(this, props.CoFiXDAO),
     }
-  }
-
-  async init() {
-    await Promise.all(Object.values(this.Tokens).map((t) => t.init()))
-    await Promise.all(
-      Object.values(this.CoFiXPairs).map(async (p) => await Promise.all(Object.values(p).map((p) => p.init())))
-    )
-    await Promise.all(Object.values(this.Contracts).map((t) => t.init()))
-    await Promise.all(Object.values(this.CoFixAnchorPools).map((t) => t.init()))
-  }
-
-  async getSwapInfo(src: string, dest: string, amount: BigNumberish | BigNumber) {
-    if (!this.provider) {
-      return
-    }
 
     const map: Record<string, Record<string, CoFiXPair | CoFiXAnchorPool>> = {}
 
@@ -172,6 +159,25 @@ class API {
         map[symbol2][symbol1] = this.CoFixAnchorPools[symbol1]
       })
     })
+
+    this.swapMap = map
+  }
+
+  async init() {
+    await Promise.all(Object.values(this.Tokens).map((t) => t.init()))
+    await Promise.all(
+      Object.values(this.CoFiXPairs).map(async (p) => await Promise.all(Object.values(p).map((p) => p.init())))
+    )
+    await Promise.all(Object.values(this.Contracts).map((t) => t.init()))
+    await Promise.all(Object.values(this.CoFixAnchorPools).map((t) => t.init()))
+  }
+
+  async getSwapInfo(src: string, dest: string, amount: BigNumberish | BigNumber) {
+    if (!this.provider) {
+      return
+    }
+
+    const map = this.swapMap
 
     // A simple BFS
     function bfs() {

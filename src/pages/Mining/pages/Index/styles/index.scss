@@ -10,13 +10,17 @@
   }
 
   &-mining {
+    padding: $space-md;
     background: #ffffff;
     box-shadow: $shadow-sm;
     border: 1px solid $light-gray-color;
     border-radius: $border-radius;
-    margin: auto;
+    margin: auto $space-md;
 
-    padding: 2 * $space-sm;
+    &:hover {
+      box-shadow: $shadow-lg;
+    }
+
     @include tablet {
       padding: 2 * $space-md;
     }
@@ -27,10 +31,6 @@
       @include tablet {
         margin-top: $space * 2;
       }
-    }
-
-    &:hover {
-      box-shadow: $shadow-lg;
     }
   }
 

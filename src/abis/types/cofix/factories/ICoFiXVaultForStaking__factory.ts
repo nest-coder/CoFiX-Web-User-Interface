@@ -77,6 +77,30 @@ const _abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "xtoken",
+        type: "address",
+      },
+    ],
+    name: "getChannelInfo",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "totalStaked",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "cofiPerBlock",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "getConfig",
     outputs: [
@@ -84,7 +108,7 @@ const _abi = [
         components: [
           {
             internalType: "uint96",
-            name: "cofiRate",
+            name: "cofiUnit",
             type: "uint96",
           },
         ],
@@ -138,7 +162,7 @@ const _abi = [
         components: [
           {
             internalType: "uint96",
-            name: "cofiRate",
+            name: "cofiUnit",
             type: "uint96",
           },
         ],
@@ -168,25 +192,6 @@ const _abi = [
     name: "stake",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "xtoken",
-        type: "address",
-      },
-    ],
-    name: "totalStakedOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
     type: "function",
   },
   {

@@ -27,6 +27,7 @@ export type { ICoFiXToken } from "./ICoFiXToken";
 export type { ICoFiXVaultForStaking } from "./ICoFiXVaultForStaking";
 export type { IERC20LIB } from "./IERC20LIB";
 export type { INestPriceFacade } from "./INestPriceFacade";
+export type { INestQuery } from "./INestQuery";
 export type { NestPriceFacade } from "./NestPriceFacade";
 export type { TestERC20 } from "./TestERC20";
 
@@ -56,5 +57,6 @@ export { ICoFiXToken__factory } from "./factories/ICoFiXToken__factory";
 export { ICoFiXVaultForStaking__factory } from "./factories/ICoFiXVaultForStaking__factory";
 export { IERC20LIB__factory } from "./factories/IERC20LIB__factory";
 export { INestPriceFacade__factory } from "./factories/INestPriceFacade__factory";
+export { INestQuery__factory } from "./factories/INestQuery__factory";
 export { NestPriceFacade__factory } from "./factories/NestPriceFacade__factory";
 export { TestERC20__factory } from "./factories/TestERC20__factory";

@@ -151,7 +151,7 @@
         },
         {
           "internalType": "uint16",
-          "name": "gamma",
+          "name": "impactCostVOL",
           "type": "uint16"
         },
         {
@@ -235,7 +235,7 @@
         },
         {
           "internalType": "uint16",
-          "name": "gamma",
+          "name": "impactCostVOL",
           "type": "uint16"
         },
         {

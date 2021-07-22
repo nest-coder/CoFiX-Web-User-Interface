@@ -27,6 +27,12 @@ class ERC20Token extends Token {
     if (this.contract) {
       this.decimals = (await this.contract.decimals()) || 18
     }
+    if (this.address && this.isXToken) {
+      const channelInfo = await this.api.Contracts.CoFiXVaultForStaking.contract?.getChannelInfo(this.address)
+      if (channelInfo) {
+        this.cofiAmountPerBlock = this.api.Tokens.COFI.amount(channelInfo.cofiPerBlock).toNumber()
+      }
+    }
   }
 
   async balanceOf(address: string) {

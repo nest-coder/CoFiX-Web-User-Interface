@@ -131,7 +131,7 @@ const _abi = [
       },
       {
         internalType: "uint16",
-        name: "gamma",
+        name: "impactCostVOL",
         type: "uint16",
       },
       {
@@ -215,7 +215,7 @@ const _abi = [
       },
       {
         internalType: "uint16",
-        name: "gamma",
+        name: "impactCostVOL",
         type: "uint16",
       },
       {

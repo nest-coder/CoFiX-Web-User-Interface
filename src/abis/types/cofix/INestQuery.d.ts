@@ -11,377 +11,828 @@ import {
   PopulatedTransaction,
   BaseContract,
   ContractTransaction,
-  Overrides,
-  PayableOverrides,
   CallOverrides,
-} from 'ethers'
-import { BytesLike } from '@ethersproject/bytes'
-import { Listener, Provider } from '@ethersproject/providers'
-import { FunctionFragment, EventFragment, Result } from '@ethersproject/abi'
-import { TypedEventFilter, TypedEvent, TypedListener } from './commons'
+} from "ethers";
+import { BytesLike } from "@ethersproject/bytes";
+import { Listener, Provider } from "@ethersproject/providers";
+import { FunctionFragment, EventFragment, Result } from "@ethersproject/abi";
+import { TypedEventFilter, TypedEvent, TypedListener } from "./commons";
 
 interface INestQueryInterface extends ethers.utils.Interface {
   functions: {
-    'activate(address)': FunctionFragment
-    'deactivate(address)': FunctionFragment
-    'query(address,address)': FunctionFragment
-    'queryPriceAvgVola(address,address)': FunctionFragment
-    'updateAndCheckPriceNow(address)': FunctionFragment
-    'queryPriceList(address,uint8,address)': FunctionFragment
-    'priceList(address,uint8)': FunctionFragment
-    'latestPrice(address)': FunctionFragment
-    'loadContracts()': FunctionFragment
-    'loadGovernance()': FunctionFragment
-  }
+    "triggeredPrice(address)": FunctionFragment;
+    "triggeredPriceInfo(address)": FunctionFragment;
+    "findPrice(address,uint256)": FunctionFragment;
+    "latestPrice(address)": FunctionFragment;
+    "lastPriceList(address,uint256)": FunctionFragment;
+    "latestPriceAndTriggeredPriceInfo(address)": FunctionFragment;
+    "lastPriceListAndTriggeredPriceInfo(address,uint256)": FunctionFragment;
+    "triggeredPrice2(address)": FunctionFragment;
+    "triggeredPriceInfo2(address)": FunctionFragment;
+    "latestPrice2(address)": FunctionFragment;
+  };
 
-  encodeFunctionData(functionFragment: 'activate', values: [string]): string
-  encodeFunctionData(functionFragment: 'deactivate', values: [string]): string
-  encodeFunctionData(functionFragment: 'query', values: [string, string]): string
-  encodeFunctionData(functionFragment: 'queryPriceAvgVola', values: [string, string]): string
-  encodeFunctionData(functionFragment: 'updateAndCheckPriceNow', values: [string]): string
-  encodeFunctionData(functionFragment: 'queryPriceList', values: [string, BigNumberish, string]): string
-  encodeFunctionData(functionFragment: 'priceList', values: [string, BigNumberish]): string
-  encodeFunctionData(functionFragment: 'latestPrice', values: [string]): string
-  encodeFunctionData(functionFragment: 'loadContracts', values?: undefined): string
-  encodeFunctionData(functionFragment: 'loadGovernance', values?: undefined): string
+  encodeFunctionData(
+    functionFragment: "triggeredPrice",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "triggeredPriceInfo",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "findPrice",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(functionFragment: "latestPrice", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "lastPriceList",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "latestPriceAndTriggeredPriceInfo",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "lastPriceListAndTriggeredPriceInfo",
+    values: [string, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "triggeredPrice2",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "triggeredPriceInfo2",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "latestPrice2",
+    values: [string]
+  ): string;
 
-  decodeFunctionResult(functionFragment: 'activate', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'deactivate', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'query', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'queryPriceAvgVola', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'updateAndCheckPriceNow', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'queryPriceList', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'priceList', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'latestPrice', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'loadContracts', data: BytesLike): Result
-  decodeFunctionResult(functionFragment: 'loadGovernance', data: BytesLike): Result
+  decodeFunctionResult(
+    functionFragment: "triggeredPrice",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "triggeredPriceInfo",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(functionFragment: "findPrice", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "latestPrice",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "lastPriceList",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "latestPriceAndTriggeredPriceInfo",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "lastPriceListAndTriggeredPriceInfo",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "triggeredPrice2",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "triggeredPriceInfo2",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "latestPrice2",
+    data: BytesLike
+  ): Result;
 
-  events: {
-    'ClientActivated(address,uint256,uint256)': EventFragment
-    'FlagSet(address,uint256)': EventFragment
-    'ParamsSetup(address,uint256,uint256)': EventFragment
-    'PriceAvgVolaQueried(address,address,uint256,uint128,int128)': EventFragment
-    'PriceListQueried(address,address,uint256,uint8)': EventFragment
-    'PriceQueried(address,address,uint256,uint256,uint256)': EventFragment
-  }
-
-  getEvent(nameOrSignatureOrTopic: 'ClientActivated'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'FlagSet'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'ParamsSetup'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'PriceAvgVolaQueried'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'PriceListQueried'): EventFragment
-  getEvent(nameOrSignatureOrTopic: 'PriceQueried'): EventFragment
+  events: {};
 }
 
 export class INestQuery extends BaseContract {
-  connect(signerOrProvider: Signer | Provider | string): this
-  attach(addressOrName: string): this
-  deployed(): Promise<this>
+  connect(signerOrProvider: Signer | Provider | string): this;
+  attach(addressOrName: string): this;
+  deployed(): Promise<this>;
 
   listeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter?: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): Array<TypedListener<EventArgsArray, EventArgsObject>>
+  ): Array<TypedListener<EventArgsArray, EventArgsObject>>;
   off<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this
+  ): this;
   on<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this
+  ): this;
   once<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this
+  ): this;
   removeListener<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>,
     listener: TypedListener<EventArgsArray, EventArgsObject>
-  ): this
+  ): this;
   removeAllListeners<EventArgsArray extends Array<any>, EventArgsObject>(
     eventFilter: TypedEventFilter<EventArgsArray, EventArgsObject>
-  ): this
+  ): this;
 
-  listeners(eventName?: string): Array<Listener>
-  off(eventName: string, listener: Listener): this
-  on(eventName: string, listener: Listener): this
-  once(eventName: string, listener: Listener): this
-  removeListener(eventName: string, listener: Listener): this
-  removeAllListeners(eventName?: string): this
+  listeners(eventName?: string): Array<Listener>;
+  off(eventName: string, listener: Listener): this;
+  on(eventName: string, listener: Listener): this;
+  once(eventName: string, listener: Listener): this;
+  removeListener(eventName: string, listener: Listener): this;
+  removeAllListeners(eventName?: string): this;
 
   queryFilter<EventArgsArray extends Array<any>, EventArgsObject>(
     event: TypedEventFilter<EventArgsArray, EventArgsObject>,
     fromBlockOrBlockhash?: string | number | undefined,
     toBlock?: string | number | undefined
-  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>
+  ): Promise<Array<TypedEvent<EventArgsArray & EventArgsObject>>>;
 
-  interface: INestQueryInterface
+  interface: INestQueryInterface;
 
   functions: {
-    activate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
-
-    deactivate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
-
-    query(
-      token: string,
-      payback: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>
-
-    queryPriceAvgVola(
-      token: string,
-      payback: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>
-
-    updateAndCheckPriceNow(
+    /**
+     * Get the latest trigger price
+     * @param tokenAddress Destination token address
+     */
+    triggeredPrice(
       tokenAddress: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>
-
-    queryPriceList(
-      token: string,
-      num: BigNumberish,
-      payback: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<ContractTransaction>
-
-    priceList(token: string, num: BigNumberish, overrides?: CallOverrides): Promise<[BigNumber[]]>
-
-    latestPrice(
-      token: string,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        ethAmount: BigNumber
-        tokenAmount: BigNumber
-        avgPrice: BigNumber
-        vola: BigNumber
-        bn: BigNumber
+      [BigNumber, BigNumber] & { blockNumber: BigNumber; price: BigNumber }
+    >;
+
+    /**
+     * Get the full information of latest trigger price
+     * @param tokenAddress Destination token address
+     */
+    triggeredPriceInfo(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        blockNumber: BigNumber;
+        price: BigNumber;
+        avgPrice: BigNumber;
+        sigmaSQ: BigNumber;
       }
-    >
+    >;
 
-    loadContracts(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
+    /**
+     * Find the price at block number
+     * @param height Destination block number
+     * @param tokenAddress Destination token address
+     */
+    findPrice(
+      tokenAddress: string,
+      height: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { blockNumber: BigNumber; price: BigNumber }
+    >;
 
-    loadGovernance(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
-  }
+    /**
+     * Get the latest effective price
+     * @param tokenAddress Destination token address
+     */
+    latestPrice(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { blockNumber: BigNumber; price: BigNumber }
+    >;
 
-  activate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
+    /**
+     * Get the last (num) effective price
+     * @param count The number of prices that want to return
+     * @param tokenAddress Destination token address
+     */
+    lastPriceList(
+      tokenAddress: string,
+      count: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber[]]>;
 
-  deactivate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
+    /**
+     * Returns the results of latestPrice() and triggeredPriceInfo()
+     * @param tokenAddress Destination token address
+     */
+    latestPriceAndTriggeredPriceInfo(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        latestPriceBlockNumber: BigNumber;
+        latestPriceValue: BigNumber;
+        triggeredPriceBlockNumber: BigNumber;
+        triggeredPriceValue: BigNumber;
+        triggeredAvgPrice: BigNumber;
+        triggeredSigmaSQ: BigNumber;
+      }
+    >;
 
-  query(
-    token: string,
-    payback: string,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>
+    /**
+     * Returns lastPriceList and triggered price info
+     * @param count The number of prices that want to return
+     * @param tokenAddress Destination token address
+     */
+    lastPriceListAndTriggeredPriceInfo(
+      tokenAddress: string,
+      count: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber[], BigNumber, BigNumber, BigNumber, BigNumber] & {
+        prices: BigNumber[];
+        triggeredPriceBlockNumber: BigNumber;
+        triggeredPriceValue: BigNumber;
+        triggeredAvgPrice: BigNumber;
+        triggeredSigmaSQ: BigNumber;
+      }
+    >;
 
-  queryPriceAvgVola(
-    token: string,
-    payback: string,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>
+    /**
+     * Get the latest trigger price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    triggeredPrice2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        blockNumber: BigNumber;
+        price: BigNumber;
+        ntokenBlockNumber: BigNumber;
+        ntokenPrice: BigNumber;
+      }
+    >;
 
-  updateAndCheckPriceNow(
+    /**
+     * Get the full information of latest trigger price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    triggeredPriceInfo2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        blockNumber: BigNumber;
+        price: BigNumber;
+        avgPrice: BigNumber;
+        sigmaSQ: BigNumber;
+        ntokenBlockNumber: BigNumber;
+        ntokenPrice: BigNumber;
+        ntokenAvgPrice: BigNumber;
+        ntokenSigmaSQ: BigNumber;
+      }
+    >;
+
+    /**
+     * Get the latest effective price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    latestPrice2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        blockNumber: BigNumber;
+        price: BigNumber;
+        ntokenBlockNumber: BigNumber;
+        ntokenPrice: BigNumber;
+      }
+    >;
+  };
+
+  /**
+   * Get the latest trigger price
+   * @param tokenAddress Destination token address
+   */
+  triggeredPrice(
     tokenAddress: string,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>
-
-  queryPriceList(
-    token: string,
-    num: BigNumberish,
-    payback: string,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
-  ): Promise<ContractTransaction>
-
-  priceList(token: string, num: BigNumberish, overrides?: CallOverrides): Promise<BigNumber[]>
-
-  latestPrice(
-    token: string,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-      ethAmount: BigNumber
-      tokenAmount: BigNumber
-      avgPrice: BigNumber
-      vola: BigNumber
-      bn: BigNumber
+    [BigNumber, BigNumber] & { blockNumber: BigNumber; price: BigNumber }
+  >;
+
+  /**
+   * Get the full information of latest trigger price
+   * @param tokenAddress Destination token address
+   */
+  triggeredPriceInfo(
+    tokenAddress: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, BigNumber] & {
+      blockNumber: BigNumber;
+      price: BigNumber;
+      avgPrice: BigNumber;
+      sigmaSQ: BigNumber;
     }
-  >
+  >;
 
-  loadContracts(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
+  /**
+   * Find the price at block number
+   * @param height Destination block number
+   * @param tokenAddress Destination token address
+   */
+  findPrice(
+    tokenAddress: string,
+    height: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { blockNumber: BigNumber; price: BigNumber }
+  >;
 
-  loadGovernance(overrides?: Overrides & { from?: string | Promise<string> }): Promise<ContractTransaction>
+  /**
+   * Get the latest effective price
+   * @param tokenAddress Destination token address
+   */
+  latestPrice(
+    tokenAddress: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { blockNumber: BigNumber; price: BigNumber }
+  >;
+
+  /**
+   * Get the last (num) effective price
+   * @param count The number of prices that want to return
+   * @param tokenAddress Destination token address
+   */
+  lastPriceList(
+    tokenAddress: string,
+    count: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<BigNumber[]>;
+
+  /**
+   * Returns the results of latestPrice() and triggeredPriceInfo()
+   * @param tokenAddress Destination token address
+   */
+  latestPriceAndTriggeredPriceInfo(
+    tokenAddress: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+      latestPriceBlockNumber: BigNumber;
+      latestPriceValue: BigNumber;
+      triggeredPriceBlockNumber: BigNumber;
+      triggeredPriceValue: BigNumber;
+      triggeredAvgPrice: BigNumber;
+      triggeredSigmaSQ: BigNumber;
+    }
+  >;
+
+  /**
+   * Returns lastPriceList and triggered price info
+   * @param count The number of prices that want to return
+   * @param tokenAddress Destination token address
+   */
+  lastPriceListAndTriggeredPriceInfo(
+    tokenAddress: string,
+    count: BigNumberish,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber[], BigNumber, BigNumber, BigNumber, BigNumber] & {
+      prices: BigNumber[];
+      triggeredPriceBlockNumber: BigNumber;
+      triggeredPriceValue: BigNumber;
+      triggeredAvgPrice: BigNumber;
+      triggeredSigmaSQ: BigNumber;
+    }
+  >;
+
+  /**
+   * Get the latest trigger price. (token and ntoken)
+   * @param tokenAddress Destination token address
+   */
+  triggeredPrice2(
+    tokenAddress: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, BigNumber] & {
+      blockNumber: BigNumber;
+      price: BigNumber;
+      ntokenBlockNumber: BigNumber;
+      ntokenPrice: BigNumber;
+    }
+  >;
+
+  /**
+   * Get the full information of latest trigger price. (token and ntoken)
+   * @param tokenAddress Destination token address
+   */
+  triggeredPriceInfo2(
+    tokenAddress: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber,
+      BigNumber
+    ] & {
+      blockNumber: BigNumber;
+      price: BigNumber;
+      avgPrice: BigNumber;
+      sigmaSQ: BigNumber;
+      ntokenBlockNumber: BigNumber;
+      ntokenPrice: BigNumber;
+      ntokenAvgPrice: BigNumber;
+      ntokenSigmaSQ: BigNumber;
+    }
+  >;
+
+  /**
+   * Get the latest effective price. (token and ntoken)
+   * @param tokenAddress Destination token address
+   */
+  latestPrice2(
+    tokenAddress: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber, BigNumber, BigNumber] & {
+      blockNumber: BigNumber;
+      price: BigNumber;
+      ntokenBlockNumber: BigNumber;
+      ntokenPrice: BigNumber;
+    }
+  >;
 
   callStatic: {
-    activate(defi: string, overrides?: CallOverrides): Promise<void>
-
-    deactivate(defi: string, overrides?: CallOverrides): Promise<void>
-
-    query(token: string, payback: string, overrides?: CallOverrides): Promise<[BigNumber, BigNumber, BigNumber]>
-
-    queryPriceAvgVola(
-      token: string,
-      payback: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber, BigNumber, BigNumber, BigNumber, BigNumber]>
-
-    updateAndCheckPriceNow(tokenAddress: string, overrides?: CallOverrides): Promise<[BigNumber, BigNumber, BigNumber]>
-
-    queryPriceList(token: string, num: BigNumberish, payback: string, overrides?: CallOverrides): Promise<BigNumber[]>
-
-    priceList(token: string, num: BigNumberish, overrides?: CallOverrides): Promise<BigNumber[]>
-
-    latestPrice(
-      token: string,
+    /**
+     * Get the latest trigger price
+     * @param tokenAddress Destination token address
+     */
+    triggeredPrice(
+      tokenAddress: string,
       overrides?: CallOverrides
     ): Promise<
-      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
-        ethAmount: BigNumber
-        tokenAmount: BigNumber
-        avgPrice: BigNumber
-        vola: BigNumber
-        bn: BigNumber
+      [BigNumber, BigNumber] & { blockNumber: BigNumber; price: BigNumber }
+    >;
+
+    /**
+     * Get the full information of latest trigger price
+     * @param tokenAddress Destination token address
+     */
+    triggeredPriceInfo(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        blockNumber: BigNumber;
+        price: BigNumber;
+        avgPrice: BigNumber;
+        sigmaSQ: BigNumber;
       }
-    >
+    >;
 
-    loadContracts(overrides?: CallOverrides): Promise<void>
+    /**
+     * Find the price at block number
+     * @param height Destination block number
+     * @param tokenAddress Destination token address
+     */
+    findPrice(
+      tokenAddress: string,
+      height: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { blockNumber: BigNumber; price: BigNumber }
+    >;
 
-    loadGovernance(overrides?: CallOverrides): Promise<void>
-  }
+    /**
+     * Get the latest effective price
+     * @param tokenAddress Destination token address
+     */
+    latestPrice(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & { blockNumber: BigNumber; price: BigNumber }
+    >;
 
-  filters: {
-    ClientActivated(
-      undefined?: null,
-      undefined?: null,
-      undefined?: null
-    ): TypedEventFilter<[string, BigNumber, BigNumber], { arg0: string; arg1: BigNumber; arg2: BigNumber }>
+    /**
+     * Get the last (num) effective price
+     * @param count The number of prices that want to return
+     * @param tokenAddress Destination token address
+     */
+    lastPriceList(
+      tokenAddress: string,
+      count: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber[]>;
 
-    FlagSet(gov?: null, flag?: null): TypedEventFilter<[string, BigNumber], { gov: string; flag: BigNumber }>
-
-    ParamsSetup(
-      gov?: null,
-      oldParams?: null,
-      newParams?: null
-    ): TypedEventFilter<[string, BigNumber, BigNumber], { gov: string; oldParams: BigNumber; newParams: BigNumber }>
-
-    PriceAvgVolaQueried(
-      client?: null,
-      token?: null,
-      bn?: null,
-      avgPrice?: null,
-      vola?: null
-    ): TypedEventFilter<
-      [string, string, BigNumber, BigNumber, BigNumber],
-      {
-        client: string
-        token: string
-        bn: BigNumber
-        avgPrice: BigNumber
-        vola: BigNumber
+    /**
+     * Returns the results of latestPrice() and triggeredPriceInfo()
+     * @param tokenAddress Destination token address
+     */
+    latestPriceAndTriggeredPriceInfo(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber, BigNumber, BigNumber] & {
+        latestPriceBlockNumber: BigNumber;
+        latestPriceValue: BigNumber;
+        triggeredPriceBlockNumber: BigNumber;
+        triggeredPriceValue: BigNumber;
+        triggeredAvgPrice: BigNumber;
+        triggeredSigmaSQ: BigNumber;
       }
-    >
+    >;
 
-    PriceListQueried(
-      client?: null,
-      token?: null,
-      bn?: null,
-      num?: null
-    ): TypedEventFilter<
-      [string, string, BigNumber, number],
-      { client: string; token: string; bn: BigNumber; num: number }
-    >
-
-    PriceQueried(
-      client?: null,
-      token?: null,
-      ethAmount?: null,
-      tokenAmount?: null,
-      bn?: null
-    ): TypedEventFilter<
-      [string, string, BigNumber, BigNumber, BigNumber],
-      {
-        client: string
-        token: string
-        ethAmount: BigNumber
-        tokenAmount: BigNumber
-        bn: BigNumber
+    /**
+     * Returns lastPriceList and triggered price info
+     * @param count The number of prices that want to return
+     * @param tokenAddress Destination token address
+     */
+    lastPriceListAndTriggeredPriceInfo(
+      tokenAddress: string,
+      count: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber[], BigNumber, BigNumber, BigNumber, BigNumber] & {
+        prices: BigNumber[];
+        triggeredPriceBlockNumber: BigNumber;
+        triggeredPriceValue: BigNumber;
+        triggeredAvgPrice: BigNumber;
+        triggeredSigmaSQ: BigNumber;
       }
-    >
-  }
+    >;
+
+    /**
+     * Get the latest trigger price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    triggeredPrice2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        blockNumber: BigNumber;
+        price: BigNumber;
+        ntokenBlockNumber: BigNumber;
+        ntokenPrice: BigNumber;
+      }
+    >;
+
+    /**
+     * Get the full information of latest trigger price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    triggeredPriceInfo2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber,
+        BigNumber
+      ] & {
+        blockNumber: BigNumber;
+        price: BigNumber;
+        avgPrice: BigNumber;
+        sigmaSQ: BigNumber;
+        ntokenBlockNumber: BigNumber;
+        ntokenPrice: BigNumber;
+        ntokenAvgPrice: BigNumber;
+        ntokenSigmaSQ: BigNumber;
+      }
+    >;
+
+    /**
+     * Get the latest effective price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    latestPrice2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber, BigNumber, BigNumber] & {
+        blockNumber: BigNumber;
+        price: BigNumber;
+        ntokenBlockNumber: BigNumber;
+        ntokenPrice: BigNumber;
+      }
+    >;
+  };
+
+  filters: {};
 
   estimateGas: {
-    activate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
-
-    deactivate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
-
-    query(
-      token: string,
-      payback: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>
-
-    queryPriceAvgVola(
-      token: string,
-      payback: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>
-
-    updateAndCheckPriceNow(
+    /**
+     * Get the latest trigger price
+     * @param tokenAddress Destination token address
+     */
+    triggeredPrice(
       tokenAddress: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    queryPriceList(
-      token: string,
-      num: BigNumberish,
-      payback: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>
+    /**
+     * Get the full information of latest trigger price
+     * @param tokenAddress Destination token address
+     */
+    triggeredPriceInfo(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    priceList(token: string, num: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>
+    /**
+     * Find the price at block number
+     * @param height Destination block number
+     * @param tokenAddress Destination token address
+     */
+    findPrice(
+      tokenAddress: string,
+      height: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    latestPrice(token: string, overrides?: CallOverrides): Promise<BigNumber>
+    /**
+     * Get the latest effective price
+     * @param tokenAddress Destination token address
+     */
+    latestPrice(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    loadContracts(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
+    /**
+     * Get the last (num) effective price
+     * @param count The number of prices that want to return
+     * @param tokenAddress Destination token address
+     */
+    lastPriceList(
+      tokenAddress: string,
+      count: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    loadGovernance(overrides?: Overrides & { from?: string | Promise<string> }): Promise<BigNumber>
-  }
+    /**
+     * Returns the results of latestPrice() and triggeredPriceInfo()
+     * @param tokenAddress Destination token address
+     */
+    latestPriceAndTriggeredPriceInfo(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Returns lastPriceList and triggered price info
+     * @param count The number of prices that want to return
+     * @param tokenAddress Destination token address
+     */
+    lastPriceListAndTriggeredPriceInfo(
+      tokenAddress: string,
+      count: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the latest trigger price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    triggeredPrice2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the full information of latest trigger price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    triggeredPriceInfo2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
+    /**
+     * Get the latest effective price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    latestPrice2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+  };
 
   populateTransaction: {
-    activate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
-
-    deactivate(defi: string, overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
-
-    query(
-      token: string,
-      payback: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>
-
-    queryPriceAvgVola(
-      token: string,
-      payback: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>
-
-    updateAndCheckPriceNow(
+    /**
+     * Get the latest trigger price
+     * @param tokenAddress Destination token address
+     */
+    triggeredPrice(
       tokenAddress: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    queryPriceList(
-      token: string,
-      num: BigNumberish,
-      payback: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>
+    /**
+     * Get the full information of latest trigger price
+     * @param tokenAddress Destination token address
+     */
+    triggeredPriceInfo(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    priceList(token: string, num: BigNumberish, overrides?: CallOverrides): Promise<PopulatedTransaction>
+    /**
+     * Find the price at block number
+     * @param height Destination block number
+     * @param tokenAddress Destination token address
+     */
+    findPrice(
+      tokenAddress: string,
+      height: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    latestPrice(token: string, overrides?: CallOverrides): Promise<PopulatedTransaction>
+    /**
+     * Get the latest effective price
+     * @param tokenAddress Destination token address
+     */
+    latestPrice(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    loadContracts(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
+    /**
+     * Get the last (num) effective price
+     * @param count The number of prices that want to return
+     * @param tokenAddress Destination token address
+     */
+    lastPriceList(
+      tokenAddress: string,
+      count: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
-    loadGovernance(overrides?: Overrides & { from?: string | Promise<string> }): Promise<PopulatedTransaction>
-  }
+    /**
+     * Returns the results of latestPrice() and triggeredPriceInfo()
+     * @param tokenAddress Destination token address
+     */
+    latestPriceAndTriggeredPriceInfo(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    /**
+     * Returns lastPriceList and triggered price info
+     * @param count The number of prices that want to return
+     * @param tokenAddress Destination token address
+     */
+    lastPriceListAndTriggeredPriceInfo(
+      tokenAddress: string,
+      count: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    /**
+     * Get the latest trigger price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    triggeredPrice2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    /**
+     * Get the full information of latest trigger price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    triggeredPriceInfo2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
+    /**
+     * Get the latest effective price. (token and ntoken)
+     * @param tokenAddress Destination token address
+     */
+    latestPrice2(
+      tokenAddress: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+  };
 }

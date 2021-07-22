@@ -44,7 +44,7 @@ const Mining: FC = () => {
             <p>
               <Trans>CoFiX DAO contract address:</Trans>
               <a
-                href="https://github.com/Computable-Finance/Doc#4-market-maker-mechanism"
+                href="https://github.com/Computable-Finance/Doc#7-token-mining-incentive-system"
                 target="_blank"
                 rel="noreferrer"
                 className="link"

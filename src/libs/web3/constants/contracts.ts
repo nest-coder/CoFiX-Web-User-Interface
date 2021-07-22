@@ -30,7 +30,7 @@ export const CoFiXRouter: CoFiXRouterProps = {
 
 export const CoFiXVaultForStaking: CoFiXVaultForStakingProps = {
   addresses: {
-    4: '0x974E819Fa74683c3dAc7C4bc4041d6B2E042e1D7',
+    4: '0xf952Cb518BD7F72F600c6aEA0A8CcFBeabe7c9C0',
   },
 }
 

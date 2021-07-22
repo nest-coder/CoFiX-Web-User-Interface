@@ -22,6 +22,7 @@ import TransactionButtonGroup from '../shared/TransactionButtonGroup'
 const Swap: FC = () => {
   const { api } = useWeb3()
   const { ratio: slippageTolerance } = useSlippageTolerance()
+
   const [pair, setPair] = useState({
     src: { symbol: 'ETH', amount: '' },
     dest: { symbol: 'USDT', amount: '' },

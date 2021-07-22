@@ -1,5 +1,6 @@
-import { TokenCOFI, TokenDAI, TokenNEST, TokenPETH, TokenPUSD, TokenUSDT } from 'src/components/Icon'
-import { TokenProps } from '../api/Token'
+import { TokenCOFI, TokenDAI, TokenHBTC, TokenNEST, TokenPETH, TokenPUSD, TokenUSDT } from 'src/components/Icon';
+
+import { TokenProps } from '../api/Token';
 
 export const USDT: TokenProps = {
   symbol: 'USDT',
@@ -11,24 +12,11 @@ export const USDT: TokenProps = {
   },
 }
 
-export const NEST: TokenProps = {
-  symbol: 'NEST',
-  Icon: TokenNEST,
+export const HBTC: TokenProps = {
+  symbol: 'HBTC',
+  Icon: TokenHBTC,
   addresses: {
-    1: '0x04abEdA201850aC0124161F037Efd70c74ddC74C',
-    3: '0x2CFa7278ecf2DB7f6f97C07EefaC4aAD19b81d80',
-    4: '0x20125a7256EFafd0d4Eec24048E08C5045BC5900',
-  },
-  formatPrecision: 2,
-}
-
-export const COFI: TokenProps = {
-  symbol: 'COFI',
-  Icon: TokenCOFI,
-  addresses: {
-    1: '0x1a23a6bfbadb59fa563008c0fb7cf96dfcf34ea1',
-    3: '0x7E03E60925D27D6DeF4F05E725f5fD2f03BDbfD5',
-    4: '0xBd98Ec485d7f54979FC0Ef19365ABFFC63099755',
+    4: '0xaE73d363Cb4aC97734E07e48B01D0a1FF5D1190B',
   },
 }
 
@@ -56,4 +44,25 @@ export const DAI: TokenProps = {
   },
 }
 
-export const ERC20TokenWhitelist = [USDT, NEST, COFI, PETH, PUSD, DAI]
+export const NEST: TokenProps = {
+  symbol: 'NEST',
+  Icon: TokenNEST,
+  addresses: {
+    1: '0x04abEdA201850aC0124161F037Efd70c74ddC74C',
+    3: '0x2CFa7278ecf2DB7f6f97C07EefaC4aAD19b81d80',
+    4: '0xE313F3f49B647fBEDDC5F2389Edb5c93CBf4EE25',
+  },
+  formatPrecision: 2,
+}
+
+export const COFI: TokenProps = {
+  symbol: 'COFI',
+  Icon: TokenCOFI,
+  addresses: {
+    1: '0x1a23a6bfbadb59fa563008c0fb7cf96dfcf34ea1',
+    3: '0x7E03E60925D27D6DeF4F05E725f5fD2f03BDbfD5',
+    4: '0x6b3077dcEe0975017BDd1a7eA9E12d3D9F398695',
+  },
+}
+
+export const ERC20TokenWhitelist = [USDT, HBTC, PETH, PUSD, DAI, NEST, COFI]

@@ -69,7 +69,7 @@ class CoFiXAnchorPool extends Contract {
   }
 
   theta = toBigNumber(20)
-  gamma = toBigNumber(1)
+  impactCostVOL = toBigNumber(1)
   nt = toBigNumber(1000)
 
   constructor(api: API, props: CoFiXAnchorPoolProps) {
@@ -133,7 +133,7 @@ class CoFiXAnchorPool extends Contract {
     }
     const config = await this.contract.getConfig()
     this.theta = toBigNumber(config.theta)
-    this.gamma = toBigNumber(config.gamma)
+    this.impactCostVOL = toBigNumber(config.impactCostVOL)
     this.nt = toBigNumber(config.nt)
   }
 
@@ -170,14 +170,13 @@ class CoFiXAnchorPool extends Contract {
     info.amount = token.amount(balance)
     info.formatAmount = token.format(info.amount)
     info.totalFunds = info.amount.multipliedBy(usdtAmount)
-    info.miningSpeed = this.nt.div(10000).toNumber()
+    info.miningSpeed = xtoken.cofiAmountPerBlock
     info.xtokenTotalSupplys = xtokenTotalSupplys
     info.xtokenTotalSupply = xtokenTotalSupplys.find((x) => x.symbol === xtoken.symbol)?.totalSupply
     info.apy = '--'
     if (!info.totalFunds.isZero()) {
       info.apy =
-        toBigNumber(this.nt)
-          .div(10000)
+        toBigNumber(xtoken.cofiAmountPerBlock || 0)
           .multipliedBy(cofiUSDTAmount)
           .multipliedBy(60 * 60 * 24)
           .div(TIME_TO_NEXT_BLOCK)

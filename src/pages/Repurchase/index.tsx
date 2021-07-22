@@ -19,6 +19,7 @@ import TransactionButtonGroup from 'src/pages/shared/TransactionButtonGroup'
 import { RiskAction, useRiskModal } from '../shared/RiskModal'
 import AnchorSelector from './AnchorSelector'
 import RepurchaseCard from './Card'
+import useEtherScanHost from 'src/hooks/useEtherScanHost'
 
 const Repurchase: FC = () => {
   const { checkRisk } = useRiskModal()
@@ -42,6 +43,7 @@ const Repurchase: FC = () => {
   const anchorPool = api?.CoFixAnchorPools[symbol]
   const [insufficient, setInsufficient] = useState(false)
   const daoBalance = useDAOBalance()
+  const etherScanHost = useEtherScanHost()
 
   const handleRepurchase = useRepurchase({
     amount,
@@ -201,12 +203,12 @@ const Repurchase: FC = () => {
             </p>
             <p>
               <a
-                href="https://github.com/Computable-Finance/Doc#4-market-maker-mechanism"
+                href={etherScanHost + '/address/' + api?.Contracts.CoFiXDAO?.address}
                 target="_blank"
                 rel="noreferrer"
                 className="link"
               >
-                <Trans>Read More</Trans>
+                {api?.Contracts.CoFiXDAO?.address}
               </a>
             </p>
           </section>

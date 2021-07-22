@@ -11,6 +11,8 @@ import { useMemo } from 'react'
 type Props = {
   onClose?: () => any
   onSelect?: (symbol: string) => any
+
+  tokens?: Array<string>
 }
 
 const Modal: FC<Props> = (props) => {
@@ -30,8 +32,13 @@ const Modal: FC<Props> = (props) => {
     if (!api) {
       return []
     }
+
+    if (props.tokens) {
+      return props.tokens.map((t) => api.Tokens[t])
+    }
+
     return Object.values(api.Tokens).filter((t) => !t.isXToken)
-  }, [api?.Tokens])
+  }, [api?.Tokens, props.tokens])
 
   return (
     <Card title={t`Select Token`} closable onClose={props.onClose} className={`${classPrefix}`}>

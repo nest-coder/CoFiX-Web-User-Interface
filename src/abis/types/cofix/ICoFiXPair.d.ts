@@ -193,7 +193,7 @@ export class ICoFiXPair extends BaseContract {
     ): Promise<
       [number, number, BigNumber] & {
         theta: number;
-        gamma: number;
+        impactCostVOL: number;
         nt: BigNumber;
       }
     >;
@@ -236,7 +236,7 @@ export class ICoFiXPair extends BaseContract {
 
     setConfig(
       theta: BigNumberish,
-      gamma: BigNumberish,
+      impactCostVOL: BigNumberish,
       nt: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -280,7 +280,7 @@ export class ICoFiXPair extends BaseContract {
   ): Promise<
     [number, number, BigNumber] & {
       theta: number;
-      gamma: number;
+      impactCostVOL: number;
       nt: BigNumber;
     }
   >;
@@ -323,7 +323,7 @@ export class ICoFiXPair extends BaseContract {
 
   setConfig(
     theta: BigNumberish,
-    gamma: BigNumberish,
+    impactCostVOL: BigNumberish,
     nt: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -372,7 +372,7 @@ export class ICoFiXPair extends BaseContract {
     ): Promise<
       [number, number, BigNumber] & {
         theta: number;
-        gamma: number;
+        impactCostVOL: number;
         nt: BigNumber;
       }
     >;
@@ -415,7 +415,7 @@ export class ICoFiXPair extends BaseContract {
 
     setConfig(
       theta: BigNumberish,
-      gamma: BigNumberish,
+      impactCostVOL: BigNumberish,
       nt: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -556,7 +556,7 @@ export class ICoFiXPair extends BaseContract {
 
     setConfig(
       theta: BigNumberish,
-      gamma: BigNumberish,
+      impactCostVOL: BigNumberish,
       nt: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -634,7 +634,7 @@ export class ICoFiXPair extends BaseContract {
 
     setConfig(
       theta: BigNumberish,
-      gamma: BigNumberish,
+      impactCostVOL: BigNumberish,
       nt: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;

@@ -26,6 +26,7 @@ interface CoFiXVaultForStakingInterface extends ethers.utils.Interface {
     "batchSetPoolWeight(address[],uint256[])": FunctionFragment;
     "calcReward(address)": FunctionFragment;
     "earned(address,address)": FunctionFragment;
+    "getChannelInfo(address)": FunctionFragment;
     "getConfig()": FunctionFragment;
     "getReward(address)": FunctionFragment;
     "initialize(address)": FunctionFragment;
@@ -33,7 +34,6 @@ interface CoFiXVaultForStakingInterface extends ethers.utils.Interface {
     "routerStake(address,address,uint256)": FunctionFragment;
     "setConfig(tuple)": FunctionFragment;
     "stake(address,uint256)": FunctionFragment;
-    "totalStakedOf(address)": FunctionFragment;
     "update(address)": FunctionFragment;
     "withdraw(address,uint256)": FunctionFragment;
   };
@@ -55,6 +55,10 @@ interface CoFiXVaultForStakingInterface extends ethers.utils.Interface {
     functionFragment: "earned",
     values: [string, string]
   ): string;
+  encodeFunctionData(
+    functionFragment: "getChannelInfo",
+    values: [string]
+  ): string;
   encodeFunctionData(functionFragment: "getConfig", values?: undefined): string;
   encodeFunctionData(functionFragment: "getReward", values: [string]): string;
   encodeFunctionData(functionFragment: "initialize", values: [string]): string;
@@ -68,15 +72,11 @@ interface CoFiXVaultForStakingInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setConfig",
-    values: [{ cofiRate: BigNumberish }]
+    values: [{ cofiUnit: BigNumberish }]
   ): string;
   encodeFunctionData(
     functionFragment: "stake",
     values: [string, BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "totalStakedOf",
-    values: [string]
   ): string;
   encodeFunctionData(functionFragment: "update", values: [string]): string;
   encodeFunctionData(
@@ -95,6 +95,10 @@ interface CoFiXVaultForStakingInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "calcReward", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "earned", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "getChannelInfo",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "getConfig", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getReward", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "initialize", data: BytesLike): Result;
@@ -105,10 +109,6 @@ interface CoFiXVaultForStakingInterface extends ethers.utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "setConfig", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "stake", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "totalStakedOf",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "update", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "withdraw", data: BytesLike): Result;
 
@@ -189,9 +189,19 @@ export class CoFiXVaultForStaking extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    getChannelInfo(
+      xtoken: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        totalStaked: BigNumber;
+        cofiPerBlock: BigNumber;
+      }
+    >;
+
     getConfig(
       overrides?: CallOverrides
-    ): Promise<[[BigNumber] & { cofiRate: BigNumber }]>;
+    ): Promise<[[BigNumber] & { cofiUnit: BigNumber }]>;
 
     getReward(
       xtoken: string,
@@ -217,7 +227,7 @@ export class CoFiXVaultForStaking extends BaseContract {
     ): Promise<ContractTransaction>;
 
     setConfig(
-      config: { cofiRate: BigNumberish },
+      config: { cofiUnit: BigNumberish },
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -226,11 +236,6 @@ export class CoFiXVaultForStaking extends BaseContract {
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    totalStakedOf(
-      xtoken: string,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
 
     update(
       newGovernance: string,
@@ -271,9 +276,16 @@ export class CoFiXVaultForStaking extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  getChannelInfo(
+    xtoken: string,
+    overrides?: CallOverrides
+  ): Promise<
+    [BigNumber, BigNumber] & { totalStaked: BigNumber; cofiPerBlock: BigNumber }
+  >;
+
   getConfig(
     overrides?: CallOverrides
-  ): Promise<[BigNumber] & { cofiRate: BigNumber }>;
+  ): Promise<[BigNumber] & { cofiUnit: BigNumber }>;
 
   getReward(
     xtoken: string,
@@ -299,7 +311,7 @@ export class CoFiXVaultForStaking extends BaseContract {
   ): Promise<ContractTransaction>;
 
   setConfig(
-    config: { cofiRate: BigNumberish },
+    config: { cofiUnit: BigNumberish },
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -308,8 +320,6 @@ export class CoFiXVaultForStaking extends BaseContract {
     amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  totalStakedOf(xtoken: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   update(
     newGovernance: string,
@@ -353,9 +363,19 @@ export class CoFiXVaultForStaking extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getChannelInfo(
+      xtoken: string,
+      overrides?: CallOverrides
+    ): Promise<
+      [BigNumber, BigNumber] & {
+        totalStaked: BigNumber;
+        cofiPerBlock: BigNumber;
+      }
+    >;
+
     getConfig(
       overrides?: CallOverrides
-    ): Promise<[BigNumber] & { cofiRate: BigNumber }>;
+    ): Promise<[BigNumber] & { cofiUnit: BigNumber }>;
 
     getReward(xtoken: string, overrides?: CallOverrides): Promise<void>;
 
@@ -375,7 +395,7 @@ export class CoFiXVaultForStaking extends BaseContract {
     ): Promise<void>;
 
     setConfig(
-      config: { cofiRate: BigNumberish },
+      config: { cofiUnit: BigNumberish },
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -384,11 +404,6 @@ export class CoFiXVaultForStaking extends BaseContract {
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
-
-    totalStakedOf(
-      xtoken: string,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
 
     update(newGovernance: string, overrides?: CallOverrides): Promise<void>;
 
@@ -424,6 +439,11 @@ export class CoFiXVaultForStaking extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    getChannelInfo(
+      xtoken: string,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
+
     getConfig(overrides?: CallOverrides): Promise<BigNumber>;
 
     getReward(
@@ -450,7 +470,7 @@ export class CoFiXVaultForStaking extends BaseContract {
     ): Promise<BigNumber>;
 
     setConfig(
-      config: { cofiRate: BigNumberish },
+      config: { cofiUnit: BigNumberish },
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -458,11 +478,6 @@ export class CoFiXVaultForStaking extends BaseContract {
       xtoken: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    totalStakedOf(
-      xtoken: string,
-      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     update(
@@ -503,6 +518,11 @@ export class CoFiXVaultForStaking extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getChannelInfo(
+      xtoken: string,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getConfig(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getReward(
@@ -529,7 +549,7 @@ export class CoFiXVaultForStaking extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setConfig(
-      config: { cofiRate: BigNumberish },
+      config: { cofiUnit: BigNumberish },
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -537,11 +557,6 @@ export class CoFiXVaultForStaking extends BaseContract {
       xtoken: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    totalStakedOf(
-      xtoken: string,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     update(

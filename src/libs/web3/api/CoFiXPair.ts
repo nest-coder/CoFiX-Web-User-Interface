@@ -1,12 +1,13 @@
-import { CoFiXPair__factory, CoFiXPair as TypeCoFiXPair } from 'src/abis/types/cofix'
+import BigNumber from 'bignumber.js'
+import { BigNumberish } from 'ethers'
+import { CoFiXPair as TypeCoFiXPair, CoFiXPair__factory } from 'src/abis/types/cofix'
+import { TIME_TO_NEXT_BLOCK } from 'src/constants/parameter'
+
 import API from '.'
+import { BLOCK_DAILY } from '../constants/constant'
+import { toBigNumber } from '../util'
 import ERC20Token, { ERC20TokenProps } from './ERC20Token'
 import Token from './Token'
-import BigNumber from 'bignumber.js'
-import { TIME_TO_NEXT_BLOCK } from 'src/constants/parameter'
-import { toBigNumber } from '../util'
-import { BLOCK_DAILY } from '../constants/constant'
-import { BigNumberish } from 'ethers'
 
 export type PoolInfo = {
   totalFunds: BigNumber
@@ -64,7 +65,7 @@ class CoFiXPair extends ERC20Token {
   stakeInfo?: StakeInfo
 
   theta = toBigNumber(20)
-  gamma = toBigNumber(1)
+  impactCostVOL = toBigNumber(1)
   nt = toBigNumber(1000)
 
   constructor(api: API, props: CoFiXPairProps) {
@@ -89,10 +90,18 @@ class CoFiXPair extends ERC20Token {
     if (!this.contract) {
       return
     }
-    const config = await this.contract.getConfig()
+
+    const [config, channelInfo] = await Promise.all([
+      this.contract.getConfig(),
+      this.api.Contracts.CoFiXVaultForStaking.contract?.getChannelInfo(this.address || ''),
+    ])
     this.theta = toBigNumber(config.theta)
-    this.gamma = toBigNumber(config.gamma)
+    this.impactCostVOL = toBigNumber(config.impactCostVOL)
     this.nt = toBigNumber(config.nt)
+
+    if (channelInfo?.cofiPerBlock) {
+      this.cofiAmountPerBlock = this.api.Tokens.COFI.amount(channelInfo?.cofiPerBlock).toNumber()
+    }
   }
 
   async getPoolInfo(): Promise<PoolInfo | undefined> {
@@ -138,8 +147,7 @@ class CoFiXPair extends ERC20Token {
     let apy = '--'
     if (!totalFunds.isZero()) {
       apy =
-        toBigNumber(this.nt)
-          .div(10000)
+        toBigNumber(this.cofiAmountPerBlock)
           .multipliedBy(cofiUSDTAmount)
           .multipliedBy(60 * 60 * 24)
           .div(TIME_TO_NEXT_BLOCK)
@@ -165,7 +173,7 @@ class CoFiXPair extends ERC20Token {
       amounts,
       formatAmounts,
       nav,
-      miningSpeed: toBigNumber(this.nt).div(10000).toNumber(),
+      miningSpeed: toBigNumber(this.cofiAmountPerBlock).toNumber(),
       apy,
 
       emptyLiquidity: myPoolRatio.isZero(),
@@ -239,7 +247,7 @@ class CoFiXPair extends ERC20Token {
   }
 
   async swap(src: string, dest: string, amount: BigNumber | BigNumberish) {
-    if (!this.gamma) {
+    if (!this.impactCostVOL) {
       throw new Error(`cofix pair ${this.symbol} not init`)
     }
 

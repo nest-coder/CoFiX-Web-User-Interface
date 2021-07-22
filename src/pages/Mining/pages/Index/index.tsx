@@ -25,7 +25,7 @@ const Item: FC<{
   return (
     <>
       <span>{props.title}</span>
-      {props.loading ? <Skeleton width={200} /> : <span>{props.content}</span>}
+      {props.loading ? <Skeleton width={50} /> : <span>{props.content}</span>}
     </>
   )
 }
