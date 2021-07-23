@@ -46,7 +46,7 @@ type Props = {
 }
 
 const TokenInput: FC<Props> = ({ ...props }) => {
-  const [value, setValue] = useState(props.value as string)
+  const [value, setValue] = useState(props.value && !isNaN(+props.value) ? props.value : undefined)
   const [symbol, setSymbol] = useState(props.symbol as string)
   const token = useToken(symbol)
 
@@ -105,7 +105,9 @@ const TokenInput: FC<Props> = ({ ...props }) => {
       return
     }
 
-    setValue(props.value)
+    if (!isNaN(+props.value)) {
+      setValue(props.value)
+    }
   }, [props.value])
 
   useEffect(() => {
@@ -118,14 +120,14 @@ const TokenInput: FC<Props> = ({ ...props }) => {
 
   useEffect(() => {
     if (value !== props.value || symbol !== props.symbol) {
-      if (props.onChange) {
+      if (props.onChange && value) {
         props.onChange(value, symbol)
       }
     }
   }, [value, symbol])
 
   const insufficientBalance = useMemo(() => {
-    return !!props.checkInsufficientBalance && !!balance && toBigNumber(value).gt(balance.amount)
+    return !!value && !!props.checkInsufficientBalance && !!balance && toBigNumber(value).gt(balance.amount)
   }, [value, balance, balance?.amount, props.balance])
 
   useEffect(() => {

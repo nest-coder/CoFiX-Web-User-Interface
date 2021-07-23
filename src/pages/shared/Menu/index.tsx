@@ -3,7 +3,7 @@ import './styles'
 import { Trans } from '@lingui/macro'
 import { FC } from 'react'
 import Popup from 'reactjs-popup'
-import { Community, Document, Ellipsis, Github, LangCN, LangEN, Whitepaper } from 'src/components/Icon'
+import { Community, Document, Ellipsis, Github, LangCN, LangEN, Switch, Whitepaper } from 'src/components/Icon'
 import { dynamicActivate } from 'src/libs/i18n/config'
 
 type Props = {
@@ -35,6 +35,12 @@ const Menu: FC<Props> = (props) => {
       link: 'https://t.me/CofiXProtocol',
       icon: <Community />,
       content: <Trans>Community</Trans>,
+    },
+    {
+      id: 'switch-to-v2.0',
+      link: 'https://cofix.tech',
+      icon: <Switch />,
+      content: <Trans>Switch to v2.0</Trans>,
     },
   ]
 

@@ -246,7 +246,7 @@ const Mining: FC = () => {
   )
 
   return (
-    <div className="cofi-page">
+    <div className="cofi-page cofi-page-mining-index">
       {sectionPairPool}
       {sectionAnchorPool}
     </div>

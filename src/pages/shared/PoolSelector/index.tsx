@@ -83,13 +83,13 @@ const PoolSelector: FC<Props> = ({ ...props }) => {
         ref={ref}
         trigger={
           <div className={`${classPrefix}-card`}>
-            <div>
-              <div>
+            <div className={`${classPrefix}-token-pair`}>
+              <div className={`${classPrefix}-token-pair-icon`}>
                 <token0.Icon />
                 <token1.Icon />
               </div>
 
-              <div>{`${token0.symbol}-${token1.symbol}`}</div>
+              <div className={`${classPrefix}-token-pair-name`}>{`${token0.symbol}-${token1.symbol}`}</div>
 
               <ArrowDownOutline />
             </div>

@@ -4,7 +4,7 @@ import { Trans } from '@lingui/macro'
 import classNames from 'classnames'
 import { FC } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { CoFiXLogoSmall, CoFiXLogoWithText } from 'src/components/Icon'
+import { CoFiXLogoSmall, CoFiXLogoWithText, CoFiXVersion } from 'src/components/Icon'
 import Tag from 'src/components/Tag'
 import { Mainnet, SupportedChains } from 'src/libs/web3/constants/chains'
 import useWeb3 from 'src/libs/web3/hooks/useWeb3'
@@ -54,6 +54,7 @@ const Header: FC = () => {
         <div className={`${classPrefix}-prefix`}>
           <Link to="/">
             <CoFiXLogoWithText />
+            <CoFiXVersion />
           </Link>
           {chain && <Tag primary>{chain.network[0].toUpperCase() + chain.network.slice(1)}</Tag>}
         </div>

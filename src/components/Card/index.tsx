@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import './styles'
 import { ArrowLeft, CloseOutline } from 'src/components/Icon'
+import classNames from 'classnames'
 
 type Props = {
   title?: string
@@ -17,7 +18,12 @@ type Props = {
 const Card: FC<Props> = ({ children, ...props }) => {
   const classPrefix = 'cofi-card'
   return (
-    <div className={`${classPrefix} ${props.className || ''}`}>
+    <div
+      className={classNames({
+        [classPrefix]: true,
+        [props.className || '']: true,
+      })}
+    >
       {(props.backward || props.title || props.closable) && (
         <div className={`${classPrefix}-header`}>
           {props.backward && <ArrowLeft className={`${classPrefix}-backward`} onClick={props.onBackwardClick} />}

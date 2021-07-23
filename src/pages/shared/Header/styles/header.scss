@@ -25,6 +25,15 @@
       & > * + * {
         margin-left: $space;
       }
+
+      a {
+        display: flex;
+        align-items: center;
+
+        & > * + * {
+          margin-left: $space-sm;
+        }
+      }
     }
   }
 

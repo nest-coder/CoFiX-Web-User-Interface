@@ -2,6 +2,11 @@
 @import 'src/styles/shared.scss';
 
 .cofi-page-mining-index {
+  padding: 0 $space-md $space;
+  @include tablet {
+    padding: 0 $space * 2 $space-md * 2;
+  }
+
   &-token-input {
     height: 100%;
     display: flex;
@@ -15,14 +20,14 @@
     box-shadow: $shadow-sm;
     border: 1px solid $light-gray-color;
     border-radius: $border-radius;
-    margin: auto $space-md;
+
+    @include tablet {
+      padding: 0;
+      padding-top: $space;
+    }
 
     &:hover {
       box-shadow: $shadow-lg;
-    }
-
-    @include tablet {
-      padding: 2 * $space-md;
     }
 
     & > * + * {

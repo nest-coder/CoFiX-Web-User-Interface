@@ -1,7 +1,8 @@
-import { FC, useState } from 'react'
 import './styles'
-import { ArrowDownOutline } from 'src/components/Icon'
+
 import classNames from 'classnames'
+import { FC, useState } from 'react'
+import { ArrowDownOutline } from 'src/components/Icon'
 
 type Props = {
   title?: string

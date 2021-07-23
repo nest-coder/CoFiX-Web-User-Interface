@@ -21,22 +21,30 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
 
-    & > div:first-child {
-      display: flex;
-      align-items: center;
-
-      & > * + * {
-        margin-left: $space-md;
-      }
-
-      & > div:first-child {
-        & > * + * {
-          margin-left: -$space-sm;
-          float: right;
-        }
-      }
+  &-token-pair {
+    display: flex;
+    align-items: center;
+    & > * + * {
+      margin-left: $space-sm;
     }
+  }
+
+  &-token-pair-icon {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    & > * + * {
+      margin-left: -$space-sm;
+      float: right;
+    }
+  }
+
+  &-token-pair-name {
+    display: flex;
+    white-space: nowrap;
   }
 
   &-modal {
