@@ -90,7 +90,6 @@
 
     &-container {
       margin: 0 auto;
-      padding: $space;
       width: 100%;
       flex: 1 1 auto;
 
@@ -98,6 +97,17 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
+
+      @include tablet {
+        padding: $space;
+      }
+
+      & + & {
+        margin-top: $space;
+        @include tablet {
+          margin-top: 0;
+        }
+      }
 
       .cofi-card {
         width: 100%;

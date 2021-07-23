@@ -42,7 +42,6 @@ const Mining: FC = () => {
 
           <section>
             <p>
-              <Trans>CoFiX DAO contract address:</Trans>
               <a
                 href="https://github.com/Computable-Finance/Doc#7-token-mining-incentive-system"
                 target="_blank"
