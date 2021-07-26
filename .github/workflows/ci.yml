@@ -36,7 +36,7 @@ jobs:
     environment: Dev
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref != 'ref/heads/main'
+    if: github.ref != 'refs/heads/main'
     steps:
       - name: download artifact
         uses: actions/download-artifact@v2
@@ -57,7 +57,7 @@ jobs:
     environment: Stage
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'ref/heads/stage'
+    if: github.ref == 'refs/heads/stage'
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
