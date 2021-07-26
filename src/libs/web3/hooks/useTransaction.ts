@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react'
-import { createContainer } from 'unstated-next'
 import { ContractTransaction } from '@ethersproject/contracts'
-import useWeb3 from './useWeb3'
+import { t } from '@lingui/macro'
+import { useEffect, useState } from 'react'
 import { notifyTransaction } from 'src/pages/shared/TransactionNotification'
+import { createContainer } from 'unstated-next'
+
+import useWeb3 from './useWeb3'
 
 export enum TransactionType {
   Swap,
@@ -268,3 +270,61 @@ const useTransaction = () => {
 export default useTransaction
 
 export const Provider = transaction.Provider
+
+export const getTransactionTitle = (transaction: Transaction) => {
+  switch (transaction.type) {
+    case TransactionType.Swap:
+      return t`Swap`
+    case TransactionType.AddLiquidity:
+      return t`Add Liquidity`
+    case TransactionType.RemoveLiquidity:
+      return t`Remove Liquidity`
+    case TransactionType.StakeXToken:
+      return t`Stake XToken`
+    case TransactionType.WithdrawXToken:
+      return t`Withdraw XToken`
+    case TransactionType.ClaimCOFI:
+      return t`Claim COFI`
+    case TransactionType.Repurchase:
+      return t`Repurchase`
+    case TransactionType.Approve:
+      return t`Approve`
+    default:
+      return t`Unsupported Type`
+  }
+}
+
+export const getTransactionContent = (transaction: Transaction) => {
+  switch (transaction.type) {
+    case TransactionType.Swap:
+      return `${transaction.content.src.amount} ${transaction.content.src.symbol} → ${transaction.content.dest.amount} ${transaction.content.dest.symbol}`
+    case TransactionType.AddLiquidity:
+      return (
+        `${transaction.content.token0.amount} ${transaction.content.token0.symbol}` +
+        (transaction.content.token1
+          ? ` + ${transaction.content.token1.amount} ${transaction.content.token1.symbol}`
+          : '')
+      )
+    case TransactionType.StakeXToken:
+      return `${transaction.content.amount} XToken`
+    case TransactionType.WithdrawXToken:
+      return `${transaction.content.amount} XToken`
+    case TransactionType.RemoveLiquidity:
+      return `${transaction.content.liquidity} XToken`
+    case TransactionType.ClaimCOFI:
+      return `${transaction.content.amount} COFI`
+    case TransactionType.Repurchase:
+      return `${transaction.content.amount} COFI`
+    case TransactionType.Approve:
+      switch (transaction.content.transactionType) {
+        case TransactionType.AddLiquidity:
+          return `${t`Add Liquidity`} ${transaction.content.token.filter(Boolean).join(' + ')}`
+        case TransactionType.RemoveLiquidity:
+          return `${t`Remove Liquidity`} ${transaction.content.token.filter(Boolean).join(' + ')}`
+        default:
+          return ''
+      }
+    default:
+      return t`Unsupported Content`
+  }
+}

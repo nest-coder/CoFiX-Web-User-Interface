@@ -1,11 +1,16 @@
 import './styles'
 
-import { t, Trans } from '@lingui/macro'
+import { Trans } from '@lingui/macro'
 import { FC } from 'react'
 import { toast } from 'react-toastify'
 import { FailOutline, SuccessOutline } from 'src/components/Icon'
 import useEtherScanHost from 'src/hooks/useEtherScanHost'
-import { Transaction, TransactionReceiptStatus, TransactionType } from 'src/libs/web3/hooks/useTransaction'
+import {
+  getTransactionContent,
+  getTransactionTitle,
+  Transaction,
+  TransactionReceiptStatus,
+} from 'src/libs/web3/hooks/useTransaction'
 
 type Props = {
   transaction: Transaction
@@ -24,59 +29,9 @@ const TransactionNotification: FC<Props> = ({ transaction }) => {
     }
   })()
 
-  const title = (() => {
-    switch (transaction.type) {
-      case TransactionType.Swap:
-        return t`Swap`
-      case TransactionType.AddLiquidity:
-        return t`Add Liquidity`
-      case TransactionType.RemoveLiquidity:
-        return t`Remove Liquidity`
-      case TransactionType.StakeXToken:
-        return t`Stake XToken`
-      case TransactionType.WithdrawXToken:
-        return t`Withdraw XToken`
-      case TransactionType.ClaimCOFI:
-        return t`Claim COFI`
-      case TransactionType.Repurchase:
-        return t`Repurchase`
-      case TransactionType.Approve:
-        return t`Approve`
-      default:
-        return t`Unsupported Type`
-    }
-  })()
+  const title = getTransactionTitle(transaction)
+  const content = getTransactionContent(transaction)
 
-  const content = (() => {
-    switch (transaction.type) {
-      case TransactionType.Swap:
-        return `${transaction.content.src.amount} ${transaction.content.src.symbol} → ${transaction.content.dest.amount} ${transaction.content.dest.symbol}`
-      case TransactionType.AddLiquidity:
-        return (
-          `${transaction.content.token0.amount} ${transaction.content.token0.symbol}` +
-          (transaction.content.token1
-            ? ` + ${transaction.content.token1.amount} ${transaction.content.token1.symbol}`
-            : '')
-        )
-      case TransactionType.RemoveLiquidity:
-        return `${transaction.content.liquidity} XToken`
-      case TransactionType.ClaimCOFI:
-        return `${transaction.content.amount} COFI`
-      case TransactionType.Repurchase:
-        return `${transaction.content.amount} COFI`
-      case TransactionType.Approve:
-        switch (transaction.content.transactionType) {
-          case TransactionType.AddLiquidity:
-            return `${t`Add Liquidity`} ${transaction.content.token.filter(Boolean).join(' + ')}`
-          case TransactionType.RemoveLiquidity:
-            return `${t`Remove Liquidity`} ${transaction.content.token.filter(Boolean).join(' + ')}`
-          default:
-            return ''
-        }
-      default:
-        return t`Unsupported Content`
-    }
-  })()
   const classPrefix = 'cofi-transaction-notification'
 
   return (
