@@ -134,9 +134,7 @@ class CoFiXPair extends ERC20Token {
 
     let nav = new BigNumber(1)
     if (!totalFunds.isZero()) {
-      const navPerShare = await this.contract.calcNAVPerShare(
-        balances[0].toFixed(0),
-        balances[1].toFixed(0),
+      const navPerShare = await this.contract.getNAVPerShare(
         ethAmounts[0].toFixed(0),
         ethAmounts[1].toFixed(0)
       )
