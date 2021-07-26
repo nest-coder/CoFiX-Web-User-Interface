@@ -42,6 +42,30 @@
     }
   }
 
+  &-token-anchor {
+    display: flex;
+    align-items: center;
+    & > * + * {
+      margin-left: $space-sm;
+    }
+  }
+
+  &-token-anchor-icon {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+
+    & > * + * {
+      margin-left: -$space-sm;
+      float: right;
+    }
+  }
+
+  &-token-anchor-name {
+    display: flex;
+    white-space: nowrap;
+  }
+
   &-token-pair-name {
     display: flex;
     white-space: nowrap;
