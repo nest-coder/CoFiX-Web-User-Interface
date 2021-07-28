@@ -27,9 +27,9 @@ interface CoFiXPairInterface extends ethers.utils.Interface {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
     "burn(address,address,uint256,address)": FunctionFragment;
-    "calcNAVPerShare(uint256,uint256,uint256,uint256)": FunctionFragment;
     "decimals()": FunctionFragment;
     "estimate(uint256,uint256,uint256,uint256)": FunctionFragment;
+    "ethBalance()": FunctionFragment;
     "getConfig()": FunctionFragment;
     "getInitialAssetRatio()": FunctionFragment;
     "getNAVPerShare(uint256,uint256)": FunctionFragment;
@@ -41,9 +41,11 @@ interface CoFiXPairInterface extends ethers.utils.Interface {
     "migrate(address,uint256)": FunctionFragment;
     "mint(address,address,uint256,uint256,address)": FunctionFragment;
     "name()": FunctionFragment;
-    "setConfig(uint16,uint16,uint56)": FunctionFragment;
+    "setConfig(uint16,uint96,uint96)": FunctionFragment;
+    "settle()": FunctionFragment;
     "swap(address,address,uint256,address,address)": FunctionFragment;
     "symbol()": FunctionFragment;
+    "totalFee()": FunctionFragment;
     "totalSupply()": FunctionFragment;
     "transfer(address,uint256)": FunctionFragment;
     "transferFrom(address,address,uint256)": FunctionFragment;
@@ -67,14 +69,14 @@ interface CoFiXPairInterface extends ethers.utils.Interface {
     functionFragment: "burn",
     values: [string, string, BigNumberish, string]
   ): string;
-  encodeFunctionData(
-    functionFragment: "calcNAVPerShare",
-    values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish]
-  ): string;
   encodeFunctionData(functionFragment: "decimals", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "estimate",
     values: [BigNumberish, BigNumberish, BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "ethBalance",
+    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "getConfig", values?: undefined): string;
   encodeFunctionData(
@@ -112,11 +114,13 @@ interface CoFiXPairInterface extends ethers.utils.Interface {
     functionFragment: "setConfig",
     values: [BigNumberish, BigNumberish, BigNumberish]
   ): string;
+  encodeFunctionData(functionFragment: "settle", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "swap",
     values: [string, string, BigNumberish, string, string]
   ): string;
   encodeFunctionData(functionFragment: "symbol", values?: undefined): string;
+  encodeFunctionData(functionFragment: "totalFee", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "totalSupply",
     values?: undefined
@@ -139,12 +143,9 @@ interface CoFiXPairInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "burn", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "calcNAVPerShare",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "decimals", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "estimate", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "ethBalance", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "getConfig", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getInitialAssetRatio",
@@ -169,8 +170,10 @@ interface CoFiXPairInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "mint", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "name", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setConfig", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "settle", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "swap", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "symbol", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "totalFee", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "totalSupply",
     data: BytesLike
@@ -267,14 +270,6 @@ export class CoFiXPair extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
-    calcNAVPerShare(
-      balance0: BigNumberish,
-      balance1: BigNumberish,
-      ethAmount: BigNumberish,
-      tokenAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber] & { navps: BigNumber }>;
-
     decimals(overrides?: CallOverrides): Promise<[number]>;
 
     estimate(
@@ -285,12 +280,14 @@ export class CoFiXPair extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { mined: BigNumber }>;
 
+    ethBalance(overrides?: CallOverrides): Promise<[BigNumber]>;
+
     getConfig(
       overrides?: CallOverrides
     ): Promise<
-      [number, number, BigNumber] & {
+      [number, BigNumber, BigNumber] & {
         theta: number;
-        impactCostVOL: number;
+        impactCostVOL: BigNumber;
         nt: BigNumber;
       }
     >;
@@ -361,6 +358,10 @@ export class CoFiXPair extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
+    settle(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
+
     swap(
       src: string,
       dest: string,
@@ -371,6 +372,8 @@ export class CoFiXPair extends BaseContract {
     ): Promise<ContractTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<[string]>;
+
+    totalFee(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
@@ -417,14 +420,6 @@ export class CoFiXPair extends BaseContract {
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
-  calcNAVPerShare(
-    balance0: BigNumberish,
-    balance1: BigNumberish,
-    ethAmount: BigNumberish,
-    tokenAmount: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
-
   decimals(overrides?: CallOverrides): Promise<number>;
 
   estimate(
@@ -435,12 +430,14 @@ export class CoFiXPair extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  ethBalance(overrides?: CallOverrides): Promise<BigNumber>;
+
   getConfig(
     overrides?: CallOverrides
   ): Promise<
-    [number, number, BigNumber] & {
+    [number, BigNumber, BigNumber] & {
       theta: number;
-      impactCostVOL: number;
+      impactCostVOL: BigNumber;
       nt: BigNumber;
     }
   >;
@@ -511,6 +508,10 @@ export class CoFiXPair extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  settle(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   swap(
     src: string,
     dest: string,
@@ -521,6 +522,8 @@ export class CoFiXPair extends BaseContract {
   ): Promise<ContractTransaction>;
 
   symbol(overrides?: CallOverrides): Promise<string>;
+
+  totalFee(overrides?: CallOverrides): Promise<BigNumber>;
 
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -572,14 +575,6 @@ export class CoFiXPair extends BaseContract {
       }
     >;
 
-    calcNAVPerShare(
-      balance0: BigNumberish,
-      balance1: BigNumberish,
-      ethAmount: BigNumberish,
-      tokenAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     decimals(overrides?: CallOverrides): Promise<number>;
 
     estimate(
@@ -590,12 +585,14 @@ export class CoFiXPair extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    ethBalance(overrides?: CallOverrides): Promise<BigNumber>;
+
     getConfig(
       overrides?: CallOverrides
     ): Promise<
-      [number, number, BigNumber] & {
+      [number, BigNumber, BigNumber] & {
         theta: number;
-        impactCostVOL: number;
+        impactCostVOL: BigNumber;
         nt: BigNumber;
       }
     >;
@@ -663,6 +660,8 @@ export class CoFiXPair extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
+    settle(overrides?: CallOverrides): Promise<void>;
+
     swap(
       src: string,
       dest: string,
@@ -675,6 +674,8 @@ export class CoFiXPair extends BaseContract {
     >;
 
     symbol(overrides?: CallOverrides): Promise<string>;
+
+    totalFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -803,14 +804,6 @@ export class CoFiXPair extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
-    calcNAVPerShare(
-      balance0: BigNumberish,
-      balance1: BigNumberish,
-      ethAmount: BigNumberish,
-      tokenAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
-
     decimals(overrides?: CallOverrides): Promise<BigNumber>;
 
     estimate(
@@ -820,6 +813,8 @@ export class CoFiXPair extends BaseContract {
       tokenAmount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
+
+    ethBalance(overrides?: CallOverrides): Promise<BigNumber>;
 
     getConfig(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -882,6 +877,10 @@ export class CoFiXPair extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
+    settle(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
     swap(
       src: string,
       dest: string,
@@ -892,6 +891,8 @@ export class CoFiXPair extends BaseContract {
     ): Promise<BigNumber>;
 
     symbol(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalFee(overrides?: CallOverrides): Promise<BigNumber>;
 
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -942,14 +943,6 @@ export class CoFiXPair extends BaseContract {
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
-    calcNAVPerShare(
-      balance0: BigNumberish,
-      balance1: BigNumberish,
-      ethAmount: BigNumberish,
-      tokenAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<PopulatedTransaction>;
-
     decimals(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     estimate(
@@ -959,6 +952,8 @@ export class CoFiXPair extends BaseContract {
       tokenAmount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    ethBalance(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getConfig(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1026,6 +1021,10 @@ export class CoFiXPair extends BaseContract {
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
+    settle(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
     swap(
       src: string,
       dest: string,
@@ -1036,6 +1035,8 @@ export class CoFiXPair extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     symbol(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalFee(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

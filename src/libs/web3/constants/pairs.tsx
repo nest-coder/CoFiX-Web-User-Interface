@@ -7,7 +7,7 @@ export const ETHUSDT: CoFiXPairProps = {
   Icon: TokenUSDT,
   pair: ['ETH', 'USDT'],
   addresses: {
-    4: '0x5930c58d71b83bc4586D13f5767aa921ca8B4143',
+    4: '0xf749fA2B6E75F9EfBa8427eA86036f38A7173F9C',
   },
   cofiAmountPerBlock: 3,
   cofiRewardPercentage: 0.9,
@@ -18,7 +18,7 @@ export const ETHHBTC: CoFiXPairProps = {
   Icon: TokenHBTC,
   pair: ['ETH', 'HBTC'],
   addresses: {
-    4: '0xF91809d869082DaEc8ed4fa36cB9423C2132726B',
+    4: '0xB042c57997a561FB93C510BA1811927B78452EAF',
   },
   cofiAmountPerBlock: 3,
   cofiRewardPercentage: 0.9,
@@ -29,7 +29,7 @@ export const ETHNEST: CoFiXPairProps = {
   Icon: TokenNEST,
   pair: ['ETH', 'NEST'],
   addresses: {
-    4: '0x9eD5c27a4527927a4eF8cAa36547CAb502631A69',
+    4: '0x6FAc11eE801713460B2b9Fe089f473c48756D45d',
   },
   cofiAmountPerBlock: 3,
   cofiRewardPercentage: 0.9,
@@ -40,7 +40,7 @@ export const ETHCOFI: CoFiXPairProps = {
   Icon: TokenCOFI,
   pair: ['ETH', 'COFI'],
   addresses: {
-    4: '0xF3Ef9e8Cbdd0424E0B152709358749155697C2d6',
+    4: '0x45579827334583680c33ae9110C6a65806DB6EC7',
   },
   cofiAmountPerBlock: 3,
   cofiRewardPercentage: 0.9,
