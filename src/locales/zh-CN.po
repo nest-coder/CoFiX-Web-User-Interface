@@ -13,11 +13,11 @@ msgstr ""
 
 #: src/pages/shared/RiskModal/index.tsx
 msgid "1. The price of COFI comes from the NEST oracle machine, which will generate oracle call fees. In addition, due to the characteristics of the blockchain itself. The actual settlement price may be different from the price displayed on this page, because when the repurchase code is executed, it uses the effective price of the oracle at the time of the repurchase;"
-msgstr "1. COFI价格来源于NEST 预言机，会产生预言机调用费，另外由于区块链本身的特性，实际结算价格可能与此页面显示的价格不同，因为回售代码在执行时，使用的是回售时刻预言机的生效价格；"
+msgstr "1. COFI价格来源于 NEST 预言机，会产生预言机调用费，另外由于区块链本身的特性，实际结算价格可能与此页面显示的价格不同，因为回售代码在执行时，使用的是回售时刻预言机的生效价格；"
 
 #: src/pages/shared/RiskModal/index.tsx
 msgid "2. CoFiX DAO repurchase quota is released according to blocks, each block releases 50 COFI, and the amount of repurchase has an upper limit. If the current upper limit has been reached, you may have to wait a few blocks before continuing to participate;"
-msgstr "2. CoFiX DAO的回售额度按照区块释放，每个区块释放50 COFI ，回售额度有上限，如果已达到当前额度上限，则可能要等待几个区块后才能继续参与；"
+msgstr "2. CoFiX DAO的回售额度按照区块释放，每个区块释放 50 COFI ，回售额度有上限，如果已达到当前额度上限，则可能要等待几个区块后才能继续参与；"
 
 #: src/pages/shared/RiskModal/index.tsx
 msgid "3. In order to ensure the security of the system, when the COFI price fluctuates sharply, the repurchase may fail, and the failure will result in the loss of the mining fee and the oracle call fee;"
@@ -91,8 +91,8 @@ msgstr "区块"
 
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
-msgid "COFI Market Price (Coingecko)"
-msgstr "COFI 市场价格（Coingecko）"
+msgid "COFI Market Price (Nest Oracle)"
+msgstr "COFI 市场价格（Nest 预言机）"
 
 #: src/libs/web3/hooks/useTransaction.ts
 #: src/pages/Mining/pages/Index/index.tsx
@@ -268,7 +268,7 @@ msgstr "如果您实际兑换的汇率于高出当前页面 {0} %，交易将被
 
 #: src/pages/Swap/index.tsx
 msgid "Includes Risk Compensation,Trading Fee and Price Impact"
-msgstr "兑换价格基于去中心化预言机 NEST Oracle提供价格，结合精确量化的风险补偿系数和额外的交易手续费计算得出。"
+msgstr "兑换价格基于去中心化预言机 NEST Oracle 提供价格，结合精确量化的风险补偿系数和额外的交易手续费计算得出。"
 
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 #: src/pages/Pool/pages/AddLiquidity/index.tsx

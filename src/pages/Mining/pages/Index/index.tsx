@@ -131,7 +131,7 @@ const Mining: FC = () => {
           />
 
           <Field
-            name={t`COFI Market Price (Coingecko)`}
+            name={t`COFI Market Price (Nest Oracle)`}
             value={`
           ${cofiUSDTAmount ? cofiUSDTAmount.formatAmount : '--'} USD
           `}
@@ -227,7 +227,7 @@ const Mining: FC = () => {
           />
 
           <Field
-            name={t`COFI Market Price (Coingecko)`}
+            name={t`COFI Market Price (Nest Oracle)`}
             value={`
           ${cofiUSDTAmount ? cofiUSDTAmount.formatAmount : '--'} USD
           `}
