@@ -24,6 +24,12 @@ const _useWeb3 = <T extends Web3Provider>() => {
     core.deactivate()
   }
 
+  const refresh = () => {
+    if (activeConnector) {
+      core.activate(activeConnector.connector, () => null, false)
+    }
+  }
+
   useEffect(() => {
     const api = new API({
       provider: core.library as any,
@@ -46,7 +52,7 @@ const _useWeb3 = <T extends Web3Provider>() => {
     })
   }, [core.library, core.chainId, core.account])
 
-  return { ...core, activate, deactivate, activeConnector, api, inited }
+  return { ...core, activate, deactivate, activeConnector, api, inited, refresh }
 }
 
 const Web3 = createContainer(_useWeb3)

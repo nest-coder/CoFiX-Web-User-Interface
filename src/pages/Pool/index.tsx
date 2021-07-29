@@ -1,7 +1,10 @@
+import './styles'
+
 import { FC, useEffect } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import CollapseCard from 'src/components/CollapaseCard'
 import { Trans, t } from '@lingui/macro'
+import Card from 'src/components/Card'
 
 import loadable from '@loadable/component'
 import { RiskAction, useRiskModal } from '../shared/RiskModal'
@@ -26,6 +29,25 @@ const Pool: FC = () => {
 
   return (
     <div className={`cofi-page ${classPrefix}`}>
+      <section className={`${classPrefix}-notice`}>
+        <Card>
+          <section>
+            <p>
+              <Trans>
+                CoFiX 2.1 brand new upgrade fund pool contract, CoFiX 2.0 pool needs to be manually migrated to CoFiX
+                2.1 version, V2.0 version of the pool certificate XToken is abandoned, staking will not generate COFI
+                rewards, please Take out the staking XToken from V2.0 as soon as possible, and withdraw Token from the
+                pool, re-add liquidity in CoFiX 2.1, generate new XToken for mining.
+              </Trans>
+
+              <a href="https://v2.cofix.io" className="link" target="_blank" rel="noreferrer">
+                <Trans>Jump to v2.0</Trans>
+              </a>
+            </p>
+          </section>
+        </Card>
+      </section>
+
       <Switch>
         <Route path="/pool" exact>
           <Index />

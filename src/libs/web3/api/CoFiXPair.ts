@@ -112,7 +112,7 @@ class CoFiXPair extends ERC20Token {
     const tokens = [this.api.Tokens[this.pair[0].symbol], this.api.Tokens[this.pair[1].symbol]]
 
     const [balances, ethAmounts, usdtAmounts, cofiUSDTAmount, pairBalance, pairTotalSupply] = await Promise.all([
-      Promise.all([tokens[0].balanceOf(this.address), tokens[1].balanceOf(this.address)]),
+      Promise.all([this.contract.ethBalance(), tokens[1].balanceOf(this.address)]),
       Promise.all([tokens[0].getValuePerETH(), tokens[1].getValuePerETH()]),
       Promise.all([tokens[0].getUSDTAmount(), tokens[1].getUSDTAmount()]),
       this.api.Tokens.COFI.getUSDTAmount(),
@@ -134,10 +134,7 @@ class CoFiXPair extends ERC20Token {
 
     let nav = new BigNumber(1)
     if (!totalFunds.isZero()) {
-      const navPerShare = await this.contract.getNAVPerShare(
-        ethAmounts[0].toFixed(0),
-        ethAmounts[1].toFixed(0)
-      )
+      const navPerShare = await this.contract.getNAVPerShare(ethAmounts[0].toFixed(0), ethAmounts[1].toFixed(0))
 
       nav = new BigNumber(navPerShare.toString()).div(new BigNumber(10).pow(18))
     }

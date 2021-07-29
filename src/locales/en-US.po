@@ -35,14 +35,12 @@ msgstr "About Repurchase"
 msgid "Accumulated repurchase in DAO (COFI)"
 msgstr "Accumulated repurchase in DAO (COFI)"
 
+#: src/libs/web3/hooks/useTransaction.ts
+#: src/libs/web3/hooks/useTransaction.ts
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 #: src/pages/Pool/pages/AddLiquidity/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Add Liquidity"
 msgstr "Add Liquidity"
 
@@ -64,13 +62,11 @@ msgstr "Amount"
 msgid "Amount | Percentage"
 msgstr "Amount | Percentage"
 
+#: src/libs/web3/hooks/useTransaction.ts
 #: src/pages/shared/TransactionButtonGroup/index.tsx
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Approve"
 msgstr "Approve"
 
-#: src/pages/ClaimCOFI/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
 msgid "Available COFI Amount to Claim"
@@ -93,23 +89,19 @@ msgstr "Balance:"
 msgid "Block"
 msgstr "Block"
 
-#: src/pages/ClaimCOFI/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
-msgid "COFI Market Price (Coingecko)"
-msgstr "COFI Market Price (Coingecko)"
+msgid "COFI Market Price (Nest Oracle)"
+msgstr "COFI Market Price (Nest Oracle)"
 
-#: src/pages/ClaimCOFI/index.tsx
+#: src/libs/web3/hooks/useTransaction.ts
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Claim COFI"
 msgstr "Claim COFI"
 
-#: src/pages/ClaimCOFI/index.tsx
 #: src/pages/Mining/pages/WithdrawXToken/index.tsx
 msgid "Claim XToken"
 msgstr "Claim XToken"
@@ -123,8 +115,11 @@ msgstr "Click the button below to connect to CoFiX DApp"
 msgid "Close"
 msgstr "Close"
 
-#: src/pages/ClaimCOFI/index.tsx
 #: src/pages/Mining/index.tsx
+#: src/pages/Pool/index.tsx
+msgid "CoFiX 2.1 brand new upgrade fund pool contract, CoFiX 2.0 pool needs to be manually migrated to CoFiX 2.1 version, V2.0 version of the pool certificate XToken is abandoned, staking will not generate COFI rewards, please Take out the staking XToken from V2.0 as soon as possible, and withdraw Token from the pool, re-add liquidity in CoFiX 2.1, generate new XToken for mining."
+msgstr "CoFiX 2.1 brand new upgrade fund pool contract, CoFiX 2.0 pool needs to be manually migrated to CoFiX 2.1 version, V2.0 version of the pool certificate XToken is abandoned, staking will not generate COFI rewards, please Take out the staking XToken from V2.0 as soon as possible, and withdraw Token from the pool, re-add liquidity in CoFiX 2.1, generate new XToken for mining."
+
 #: src/pages/Repurchase/index.tsx
 msgid "CoFiX DAO contract address:"
 msgstr "CoFiX DAO contract address:"
@@ -249,7 +244,6 @@ msgstr "FROM"
 msgid "Github"
 msgstr "Github"
 
-#: src/pages/ClaimCOFI/index.tsx
 #: src/pages/Mining/index.tsx
 msgid "Helpful Tips"
 msgstr "Helpful Tips"
@@ -294,6 +288,11 @@ msgstr "Input Repurchase Amount"
 #: src/pages/Mining/pages/StakeXToken/index.tsx
 msgid "Input Stake Amount (XToken)"
 msgstr "Input Stake Amount (XToken)"
+
+#: src/pages/Mining/index.tsx
+#: src/pages/Pool/index.tsx
+msgid "Jump to v2.0"
+msgstr "Jump to v2.0"
 
 #: src/pages/shared/RiskModal/index.tsx
 msgid "Market making has the risk of losing money in case of big directional changes in the underlying price of your assets, and changes in the liquidity pool ratio or balance. Please understand how it affects your assets before you add liquidity and hedge appropriately."
@@ -372,10 +371,8 @@ msgstr "Pool"
 msgid "Price Spread"
 msgstr "Price Spread"
 
-#: src/pages/ClaimCOFI/index.tsx
 #: src/pages/Mining/index.tsx
 #: src/pages/Pool/index.tsx
-#: src/pages/Repurchase/index.tsx
 #: src/pages/shared/RiskModal/index.tsx
 msgid "Read More"
 msgstr "Read More"
@@ -400,22 +397,19 @@ msgstr "Recent Transactions"
 msgid "Regarding the CoFiX repurchase, you need to know the following rules and risks. Please read carefully before participating in the CoFiX repurchase"
 msgstr "Regarding the CoFiX repurchase, you need to know the following rules and risks. Please read carefully before participating in the CoFiX repurchase"
 
+#: src/libs/web3/hooks/useTransaction.ts
+#: src/libs/web3/hooks/useTransaction.ts
 #: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/Index/index.tsx
 #: src/pages/Pool/pages/RemoveLiquidity/index.tsx
 #: src/pages/Pool/pages/RemoveLiquidity/index.tsx
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Remove Liquidity"
 msgstr "Remove Liquidity"
 
+#: src/libs/web3/hooks/useTransaction.ts
 #: src/pages/Repurchase/index.tsx
 #: src/pages/Repurchase/index.tsx
 #: src/pages/shared/Header/index.tsx
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Repurchase"
 msgstr "Repurchase"
 
@@ -457,12 +451,11 @@ msgstr "Single-Sided Pool"
 msgid "Slippage Tolerance"
 msgstr "Slippage Tolerance"
 
+#: src/libs/web3/hooks/useTransaction.ts
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/StakeXToken/index.tsx
 #: src/pages/Mining/pages/StakeXToken/index.tsx
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Stake XToken"
 msgstr "Stake XToken"
 
@@ -470,9 +463,8 @@ msgstr "Stake XToken"
 msgid "Staked Amount:"
 msgstr "Staked Amount:"
 
+#: src/libs/web3/hooks/useTransaction.ts
 #: src/pages/shared/Header/index.tsx
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Swap"
 msgstr "Swap"
 
@@ -483,6 +475,10 @@ msgstr "Swap Rate"
 #: src/pages/Swap/index.tsx
 msgid "Swap Route"
 msgstr "Swap Route"
+
+#: src/pages/shared/Menu/index.tsx
+msgid "Switch to v2.0"
+msgstr "Switch to v2.0"
 
 #: src/pages/Swap/index.tsx
 #: src/pages/Swap/index.tsx
@@ -502,7 +498,6 @@ msgstr "The Trade Price is calculated based on the Decentralised NEST Oracle Pri
 msgid "The Trade Price is calculated based on the Decentralized NEST Oracle Price, the Computable Risk Compensation Coefficient, the Price Impact, and a Trading Fee. Trading Fee goes to all the COFI holders."
 msgstr "The Trade Price is calculated based on the Decentralized NEST Oracle Price, the Computable Risk Compensation Coefficient, the Price Impact, and a Trading Fee. Trading Fee goes to all the COFI holders."
 
-#: src/pages/ClaimCOFI/index.tsx
 #: src/pages/Mining/index.tsx
 msgid "The amount of XToken you deposited to the mining Pool impacts the number of COFI mined."
 msgstr "The amount of XToken you deposited to the mining Pool impacts the number of COFI mined."
@@ -544,13 +539,11 @@ msgstr "Transaction Submitted"
 msgid "USD Anchor"
 msgstr "USD Anchor"
 
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
+#: src/libs/web3/hooks/useTransaction.ts
 msgid "Unsupported Content"
 msgstr "Unsupported Content"
 
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
+#: src/libs/web3/hooks/useTransaction.ts
 msgid "Unsupported Type"
 msgstr "Unsupported Type"
 
@@ -590,11 +583,10 @@ msgstr "When the user uses the CoFiX protocol, a certain transaction fee will be
 msgid "WhitePaper"
 msgstr "WhitePaper"
 
+#: src/libs/web3/hooks/useTransaction.ts
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/Index/index.tsx
 #: src/pages/Mining/pages/WithdrawXToken/index.tsx
-#: src/pages/shared/TransactionNotification/index.tsx
-#: src/pages/shared/WalletConnect/Status/Modal/index.tsx
 msgid "Withdraw XToken"
 msgstr "Withdraw XToken"
 
@@ -609,7 +601,6 @@ msgstr "XToken In Mining Pool"
 msgid "XToken Staked"
 msgstr "XToken Staked"
 
-#: src/pages/ClaimCOFI/index.tsx
 #: src/pages/Mining/index.tsx
 msgid "You can claim new mined COFI Tokens any time."
 msgstr "You can claim new mined COFI Tokens any time."

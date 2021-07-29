@@ -6,6 +6,8 @@ import Card from 'src/components/Card'
 import { FailOutline, Loading, SuccessOutline } from 'src/components/Icon'
 import useEtherScanHost from 'src/hooks/useEtherScanHost'
 import useTransaction, {
+  getTransactionContent,
+  getTransactionTitle,
   Transaction,
   TransactionReceiptStatus,
   TransactionStatus,
@@ -40,59 +42,8 @@ const TransactionItem: FC<{ transaction: Transaction }> = ({ transaction }) => {
     }
   })()
 
-  const title = (() => {
-    switch (transaction.type) {
-      case TransactionType.Swap:
-        return t`Swap`
-      case TransactionType.AddLiquidity:
-        return t`Add Liquidity`
-      case TransactionType.RemoveLiquidity:
-        return t`Remove Liquidity`
-      case TransactionType.StakeXToken:
-        return t`Stake XToken`
-      case TransactionType.WithdrawXToken:
-        return t`Withdraw XToken`
-      case TransactionType.ClaimCOFI:
-        return t`Claim COFI`
-      case TransactionType.Repurchase:
-        return t`Repurchase`
-      case TransactionType.Approve:
-        return t`Approve`
-      default:
-        return t`Unsupported Type`
-    }
-  })()
-
-  const content = (() => {
-    switch (transaction.type) {
-      case TransactionType.Swap:
-        return `${transaction.content.src.amount} ${transaction.content.src.symbol} → ${transaction.content.dest.amount} ${transaction.content.dest.symbol}`
-      case TransactionType.AddLiquidity:
-        return (
-          `${transaction.content.token0.amount} ${transaction.content.token0.symbol}` +
-          (transaction.content.token1
-            ? ` + ${transaction.content.token1.amount} ${transaction.content.token1.symbol}`
-            : '')
-        )
-      case TransactionType.RemoveLiquidity:
-        return `${transaction.content.liquidity} XToken`
-      case TransactionType.ClaimCOFI:
-        return `${transaction.content.amount} COFI`
-      case TransactionType.Repurchase:
-        return `${transaction.content.amount} COFI`
-      case TransactionType.Approve:
-        switch (transaction.content.transactionType) {
-          case TransactionType.AddLiquidity:
-            return `${t`Add Liquidity`} ${transaction.content.token.filter(Boolean).join(' + ')}`
-          case TransactionType.RemoveLiquidity:
-            return `${t`Remove Liquidity`} ${transaction.content.token.filter(Boolean).join(' + ')}`
-          default:
-            return ''
-        }
-      default:
-        return t`Unsupported Content`
-    }
-  })()
+  const title = getTransactionTitle(transaction)
+  const content = getTransactionContent(transaction)
 
   const classPrefix = 'cofi-wallet-transaction'
   return (
@@ -154,7 +105,7 @@ const WalletConnectModal: FC<Props> = memo((props) => {
 
         <ul>
           {[...transactions]
-            .filter((t) => t.type !== TransactionType.Swap)
+            .filter((t) => t.type !== TransactionType.Approve)
             .reverse()
             .slice(0, 5)
             .map((t: any) => {

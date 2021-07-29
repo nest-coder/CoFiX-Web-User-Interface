@@ -38,7 +38,7 @@ const Menu: FC<Props> = (props) => {
     },
     {
       id: 'switch-to-v2.0',
-      link: 'https://cofix.tech',
+      link: 'https://v2.cofix.io',
       icon: <Switch />,
       content: <Trans>Switch to v2.0</Trans>,
     },

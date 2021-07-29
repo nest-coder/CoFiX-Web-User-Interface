@@ -1,6 +1,6 @@
 import loadable from '@loadable/component'
 import React from 'react'
-import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
+import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import Footer from 'src/pages/shared/Footer'
 import Header from 'src/pages/shared/Header'
