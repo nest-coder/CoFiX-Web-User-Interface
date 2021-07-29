@@ -88,7 +88,7 @@ const Repurchase: FC = () => {
           <li>
             <RepurchaseCard
               title={t`Accumulated repurchase in DAO (COFI)`}
-              value={daoInfo ? api?.Tokens.COFI.format(daoInfo.cofiAmount) : '--'}
+              value={daoInfo ? toBigNumber(daoInfo.cofiAmount).toFormat(0) : '--'}
               icon={<GrayTokenCOFI />}
               loading={!daoInfo}
             />

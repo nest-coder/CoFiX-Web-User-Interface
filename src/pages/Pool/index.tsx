@@ -40,7 +40,7 @@ const Pool: FC = () => {
                 pool, re-add liquidity in CoFiX 2.1, generate new XToken for mining.
               </Trans>
 
-              <a href="https://v2.cofix.io" className="link" target="_blank" rel="noreferrer">
+              <a href="https://v2.cofix.tech" className="link" target="_blank" rel="noreferrer">
                 <Trans>Jump to v2.0</Trans>
               </a>
             </p>

@@ -33,7 +33,7 @@ msgstr "关于回售"
 
 #: src/pages/Repurchase/index.tsx
 msgid "Accumulated repurchase in DAO (COFI)"
-msgstr "DAO 累计回售量"
+msgstr "DAO 累计回售量（COFI）"
 
 #: src/libs/web3/hooks/useTransaction.ts
 #: src/libs/web3/hooks/useTransaction.ts

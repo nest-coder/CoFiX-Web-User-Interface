@@ -14,13 +14,13 @@ const Menu: FC<Props> = (props) => {
   const menus = [
     {
       id: 'white-paper',
-      link: 'https://cofix.io/doc/CoFiX_White_Paper.pdf',
+      link: 'https://cofix.tech/doc/CoFiX_White_Paper.pdf',
       icon: <Whitepaper />,
       content: <Trans>WhitePaper</Trans>,
     },
     {
       id: 'document',
-      link: 'https://docs.cofix.io/',
+      link: 'https://docs.cofix.tech/',
       icon: <Document />,
       content: <Trans>Document</Trans>,
     },
@@ -38,7 +38,7 @@ const Menu: FC<Props> = (props) => {
     },
     {
       id: 'switch-to-v2.0',
-      link: 'https://v2.cofix.io',
+      link: 'https://v2.cofix.tech',
       icon: <Switch />,
       content: <Trans>Switch to v2.0</Trans>,
     },
