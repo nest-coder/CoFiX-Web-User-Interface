@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import useSlippageTolerance from 'src/hooks/useSlippageTolerance'
-import { toBigNumber, deadline } from '../util'
+
+import { deadline, toBigNumber } from '../util'
 import useTransaction, { TransactionAddLiquidityContent, TransactionType } from './useTransaction'
 import useWeb3 from './useWeb3'
 
@@ -84,6 +85,7 @@ const useAddLiquidity = (content: TransactionAddLiquidityContent) => {
             .shiftedBy(18)
             .toFixed(0),
           to: api.account || '',
+          sendETHValue: api.Tokens.ETH.parse(toBigNumber(0).plus(content.token0.amount)).toFixed(0),
         }
         if (JSON.stringify(args) !== JSON.stringify(newArgs)) {
           setArgs(newArgs)
