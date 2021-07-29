@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
+
 import useWeb3 from './useWeb3'
-import injected from '../connectors/injected'
 
 const useInactiveListener = (suppress = false) => {
-  const { active, error, activate } = useWeb3()
+  const { active, error, activate, refresh } = useWeb3()
 
   useEffect(() => {
     const { ethereum } = window
@@ -16,23 +16,13 @@ const useInactiveListener = (suppress = false) => {
       return
     }
 
-    const reload = () => {
-      activate(
-        injected,
-        (err) => {
-          console.error(err)
-        },
-        false
-      )
-    }
-
-    ethereum.on('chainChanged', reload)
-    ethereum.on('accountsChanged', reload)
+    ethereum.on('chainChanged', refresh)
+    ethereum.on('accountsChanged', refresh)
 
     return () => {
       if (ethereum.removeListener) {
-        ethereum.removeListener('chainChanged', reload)
-        ethereum.removeListener('accountsChanged', reload)
+        ethereum.removeListener('chainChanged', refresh)
+        ethereum.removeListener('accountsChanged', refresh)
       }
     }
   }, [active, error, suppress, activate])
